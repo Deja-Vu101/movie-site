@@ -1,16 +1,21 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { logout } from "../store/slices/userSlice";
-import { useTypedDispatch } from "../hooks/useTypedDispatch";
+import Header from "../components/Header/Header";
+import TrendingSlider from "../components/TrendingSlider/TrendingSlider";
+import MainSection from "../components/MainSection/MainSection";
 
 const HomePage = () => {
-	const dispatch = useTypedDispatch()
-  const { isAuth, email } = useAuth();
+  const { isAuth } = useAuth();
+
   return (
     <>
-      HomePage
-      {isAuth ? <h1>Welcome, {email}! </h1> : <Navigate to={"/login"} />}
-		<button onClick={() => dispatch(logout())}>Logout from {email}</button>
+      {isAuth ? null : <Navigate to={"/login"} />}
+      <Header />
+
+      <TrendingSlider />
+      <MainSection>
+        <h2>123</h2>
+      </MainSection>
     </>
   );
 };
