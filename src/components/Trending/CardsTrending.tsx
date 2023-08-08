@@ -57,7 +57,7 @@ const CardsTrending = () => {
         {results.map((i) => (
           <CardsItem
             key={i.id}
-            url={imgBaseUrl + "/original" + i.backdrop_path}
+            url={imgBaseUrl  + i.backdrop_path}
             title = {i.title ? i.title : i.original_name}
             overview={i.overview}
             genres={i.genre_ids}

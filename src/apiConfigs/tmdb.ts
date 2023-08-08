@@ -8,4 +8,4 @@ export const options = {
 };
 
 export const imgBaseUrl =
-  "https://image.tmdb.org/t/p";
+  "https://image.tmdb.org/t/p/original";

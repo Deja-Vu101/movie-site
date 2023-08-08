@@ -1,11 +1,11 @@
 import Slider from "react-slick";
-import { IItemPopularMovie, IItemPopularSeries } from "../MainSection/types";
+import { IMovie, ISeries } from "../MainSection/types";
 import "./sliderMovies.scss";
 import SliderItem from "./SliderItem";
 
 interface IOwnProps {
   title: string;
-  items: IItemPopularMovie[] | IItemPopularSeries[];
+  items: IMovie[] | ISeries[];
 }
 
 const SliderMovies: React.FC<IOwnProps> = ({ title, items }) => {

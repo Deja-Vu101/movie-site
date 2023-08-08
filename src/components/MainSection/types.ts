@@ -1,11 +1,11 @@
-export interface IPopularMovie {
+export interface IMovieResponse {
 	page: number
-	results: IItemPopularMovie[]
+	results: IMovie[]
 	total_pages: number
 	total_results: number
  }
  
- export interface IItemPopularMovie {
+ export interface IMovie {
 	adult: boolean
 	backdrop_path: string
 	genre_ids: number[]
@@ -22,14 +22,14 @@ export interface IPopularMovie {
 	vote_count: number
  }
 
- export interface IPopularSeries {
+ export interface ISeriesResponse {
 	page: number
-	results: IItemPopularSeries[]
+	results: ISeries[]
 	total_pages: number
 	total_results: number
  }
  
- export interface IItemPopularSeries {
+ export interface ISeries {
 	backdrop_path?: string
 	first_air_date: string
 	genre_ids: number[]

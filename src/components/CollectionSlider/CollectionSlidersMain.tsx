@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
-import { fetchPopularMovie } from "../../store/slices/popularMovies";
+import { fetchPopularMovie } from "../../store/slices/popularMoviesSlice";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import SliderMovies from "../SliderMovies/SliderMovies";
-import { fetchPopularSeries } from "../../store/slices/popularSeries";
+import { fetchPopularSeries } from "../../store/slices/popularSeriesSlice";
 import "./collectionSlider.scss";
 
 interface IOwnProps {}

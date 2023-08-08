@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IPopularMovie } from "../../components/MainSection/types";
+import { IMovieResponse } from "../../components/MainSection/types";
 import axios from "axios";
 import { options } from "../../apiConfigs/tmdb";
 
 const baseUrlMoviePopular = "https://api.themoviedb.org/3/movie/popular";
 
-export const fetchPopularMovie = createAsyncThunk<IPopularMovie, number, {}>(
+export const fetchPopularMovie = createAsyncThunk<IMovieResponse, number, {}>(
   "popular/movie",
   async function (page) {
     try {
@@ -20,7 +20,7 @@ export const fetchPopularMovie = createAsyncThunk<IPopularMovie, number, {}>(
   }
 );
 
-interface IPopularMovieState extends IPopularMovie {
+interface IPopularMovieState extends IMovieResponse {
   loading: boolean;
   error: null | string;
 }

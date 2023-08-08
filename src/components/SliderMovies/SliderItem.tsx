@@ -10,7 +10,7 @@ const SliderItem: React.FC<IOwnProps> = ({ id, poster }) => {
     <div className="SliderItem">
       <img
         className="SliderItem_Image"
-        src={imgBaseUrl + "/original" + poster}
+        src={imgBaseUrl + poster}
         alt="Movie Poster"
       />
     </div>

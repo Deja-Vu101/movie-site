@@ -1,0 +1,58 @@
+.SearchBar {
+  display: flex;
+  margin-top: 80px;
+  width: 100%;
+}
+.SearchBar_Container {
+  margin: 0 auto;
+  width: 1366px;
+  padding: 16px;
+}
+.SearchFilterButton {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 30px;
+
+  .FilterButton {
+    padding: 8px 22px;
+    font-size: 15px;
+    line-height: 1.75;
+    border-radius: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  .FilterButton:hover {
+    cursor: pointer;
+    background-color: rgb(122, 0, 0);
+  }
+  .active {
+    background-color: #ff0000 !important;
+  }
+}
+
+.SearchInput {
+  width: 100%;
+  background-color: orange;
+}
+.SearchInput input {
+  width: 100%;
+  padding: 16px 14px;
+  font-size: 16px;
+  border: 1px solid gray;
+  background-color: black;
+  color: white;
+  font-weight: 500;
+}
+.SearchInput input:hover{
+  border: 1px solid white;
+}
+.SearchInput input:focus:valid {
+  border: 1px solid green;
+}
+
+.SearchList {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}

@@ -23,6 +23,33 @@ const Header = () => {
     });
   }, [location]);
 
+  //const header = document.querySelector(".header");
+
+  //window.addEventListener("scroll", () => {
+  //  if (window.scrollY > 100) {
+  //    header?.classList.add("scrolled_header");
+  //  } else {
+  //    header?.classList.remove("scrolled_header");
+  //  }
+  //});
+  useEffect(() => {
+    const header = document.querySelector(".header");
+
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        header?.classList.add("scrolled_header");
+      } else {
+        header?.classList.remove("scrolled_header");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <header className="header">
       <div className="header_wrapper">
@@ -50,7 +77,10 @@ const Header = () => {
         </div>
 
         <div>
-          <button className="header_btn" onClick={() => dispatch(logout())}>
+          <button
+            className="header_btn_profile"
+            onClick={() => dispatch(logout())}
+          >
             Logout from {email}
           </button>
         </div>

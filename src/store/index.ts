@@ -1,7 +1,8 @@
 import trendingReducer from "./slices/trendingSlice";
 import userReducer from "./slices/userSlice";
-import popularMoviesReducer from "./slices/popularMovies";
-import popularSeriesReducer from "./slices/popularSeries";
+import popularMoviesReducer from "./slices/popularMoviesSlice";
+import popularSeriesReducer from "./slices/popularSeriesSlice";
+import searchReducer from "./slices/searchSlice";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
@@ -10,6 +11,7 @@ export const store = configureStore({
     trending: trendingReducer,
     popularMovies: popularMoviesReducer,
     popularSeries: popularSeriesReducer,
+    search: searchReducer,
   },
 });
 
