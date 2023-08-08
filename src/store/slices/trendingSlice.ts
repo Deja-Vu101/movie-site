@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ITrending } from "../../components/TrendingSlider/types";
+import { ITrending } from "../../components/Trending/types";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { options } from "../../apiConfigs/tmdb";
 

@@ -36,8 +36,15 @@
       text-transform: uppercase;
       .header_btn {
         padding: 6px 16px;
-        background-color: rgb(255, 0, 0);
+        color: white;
         border-radius: 4px;
+      }
+      .header_btn:hover {
+        cursor: pointer;
+        background-color: rgb(122, 0, 0);
+      }
+      .active {
+        background-color: rgb(255, 0, 0) !important;
       }
     }
   }
