@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IPopularSeries } from "../../components/MainSection/types";
+import { ISeriesResponse } from "../../components/MainSection/types";
 import axios from "axios";
 import { options } from "../../apiConfigs/tmdb";
 
 const baseUrlMoviePopular = "https://api.themoviedb.org/3/tv/popular";
 
-export const fetchPopularSeries = createAsyncThunk<IPopularSeries, number, {}>(
+export const fetchPopularSeries = createAsyncThunk<ISeriesResponse, number, {}>(
   "popular/series",
   async function (page) {
     try {
@@ -20,7 +20,7 @@ export const fetchPopularSeries = createAsyncThunk<IPopularSeries, number, {}>(
   }
 );
 
-interface IPopularSeriesState extends IPopularSeries {
+interface IPopularSeriesState extends ISeriesResponse {
   error: null | string;
   loading: boolean;
 }
@@ -47,7 +47,7 @@ export const popularSeries = createSlice({
         state.loading = false;
         state.results = action.payload.results;
       })
-      .addCase(fetchPopularSeries.rejected, (state, action) => {
+      .addCase(fetchPopularSeries.rejected, (state) => {
         state.loading = false;
       });
   },

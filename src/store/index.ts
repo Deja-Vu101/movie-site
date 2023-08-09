@@ -3,6 +3,7 @@ import userReducer from "./slices/userSlice";
 import popularMoviesReducer from "./slices/popularMoviesSlice";
 import popularSeriesReducer from "./slices/popularSeriesSlice";
 import searchReducer from "./slices/searchSlice";
+import genresReducer from './slices/genresSlice'
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
     popularMovies: popularMoviesReducer,
     popularSeries: popularSeriesReducer,
     search: searchReducer,
+    genres: genresReducer
   },
 });
 

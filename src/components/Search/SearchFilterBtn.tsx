@@ -1,7 +1,11 @@
-import { useState } from "react";
+import React from "react";
 
-const SearchFilterButton = () => {
-  const [filter, setFilter] = useState("movie");
+interface IOwnProps {
+  filter: string
+  setFilter: (filter: string) => void
+}
+
+const SearchFilterButton: React.FC<IOwnProps> = ({ filter, setFilter }) => {
 
   return (
     <div className="SearchFilterButton">
