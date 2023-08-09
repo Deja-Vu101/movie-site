@@ -44,3 +44,22 @@ export interface IMovieResponse {
 	vote_average: number
 	vote_count: number
  }
+
+ export interface IPerson {
+	page: number
+	results: IPersonItem[]
+	total_pages: number
+	total_results: number
+  }
+  
+  export interface IPersonItem {
+	adult: boolean
+	gender: number
+	id: number
+	known_for_department: string
+	name: string
+	original_name: string
+	popularity: number
+	profile_path: any
+	known_for: IMovie[] | ISeries[]
+  }

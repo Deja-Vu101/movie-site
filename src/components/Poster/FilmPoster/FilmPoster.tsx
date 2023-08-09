@@ -1,13 +1,13 @@
-import { imgBaseUrl } from "../../apiConfigs/tmdb";
-import "./poster.style.scss";
-import PosterNotFound from "../../assets/img/posterNotFound.png";
+import { imgBaseUrl } from "../../../apiConfigs/tmdb";
+import "../poster.style.scss";
+import PosterNotFound from "../../../assets/img/posterNotFound.png";
 
 interface IOwnProps {
   id: number;
   poster: string | null;
 }
 
-const Poster: React.FC<IOwnProps> = ({ id, poster }) => {
+const FilmPoster: React.FC<IOwnProps> = ({ id, poster }) => {
   return (
     <div className="Poster">
       {poster !== null ? (
@@ -27,4 +27,4 @@ const Poster: React.FC<IOwnProps> = ({ id, poster }) => {
   );
 };
 
-export default Poster;
+export default FilmPoster;

@@ -1,29 +1,29 @@
 import React from "react";
 
 interface IOwnProps {
-  filter: string
-  setFilter: (filter: string) => void
+  filterBtn: string
+  onChangeFilter: (filterBtn: string) => void
 }
 
-const SearchFilterButton: React.FC<IOwnProps> = ({ filter, setFilter }) => {
+const SearchFilterButton: React.FC<IOwnProps> = ({ filterBtn, onChangeFilter }) => {
 
   return (
     <div className="SearchFilterButton">
       <div
-        className={`FilterButton ${filter === "movie" ? "active" : ""}`}
-        onClick={() => setFilter("movie")}
+        className={`FilterButton ${filterBtn === "movie" ? "active" : ""}`}
+        onClick={() => onChangeFilter("movie")}
       >
         Movie
       </div>
       <div
-        className={`FilterButton ${filter === "tv" ? "active" : ""}`}
-        onClick={() => setFilter("tv")}
+        className={`FilterButton ${filterBtn === "tv" ? "active" : ""}`}
+        onClick={() => onChangeFilter("tv")}
       >
         Tv
       </div>
       <div
-        className={`FilterButton ${filter === "people" ? "active" : ""}`}
-        onClick={() => setFilter("people")}
+        className={`FilterButton ${filterBtn === "person" ? "active" : ""}`}
+        onClick={() => onChangeFilter("person")}
       >
         People
       </div>
