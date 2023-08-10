@@ -4,6 +4,7 @@ import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { logout } from "../../store/slices/userSlice";
 import "./style.header.scss";
 import { NavLink, useLocation } from "react-router-dom";
+import TitleSite from "./TitleSite";
 
 const Header = () => {
   const dispatch = useTypedDispatch();
@@ -45,10 +46,7 @@ const Header = () => {
     <header className="header">
       <div className="header_wrapper">
         <div className="header_content">
-          <div className="header_title">
-            Movie<span className="header_title_word">React</span>
-          </div>
-
+          <TitleSite />
           <nav>
             <ul className="header_list">
               <NavLink className="header_btn" to={"/"}>

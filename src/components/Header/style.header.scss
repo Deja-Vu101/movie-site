@@ -17,14 +17,6 @@
     .header_content {
       display: flex;
       align-items: center;
-      .header_title {
-        font-weight: 600;
-        font-size: 27px;
-        .header_title_word {
-          margin-right: 24px;
-          color: #ff0000;
-        }
-      }
     }
 
     .header_list {
@@ -55,8 +47,15 @@
       font-size: 14px;
     }
   }
-  
 }
 .scrolled_header {
-    background-color: RGB(19, 19, 19) ;
+  background-color: RGB(19, 19, 19);
+}
+.header_title {
+  font-weight: 600;
+  font-size: 27px;
+  .header_title_word {
+    margin-right: 24px;
+    color: #ff0000;
   }
+}

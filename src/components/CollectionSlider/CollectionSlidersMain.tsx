@@ -5,6 +5,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import SliderMovies from "../SliderMovies/SliderMovies";
 import { fetchPopularSeries } from "../../store/slices/popularSeriesSlice";
 import "./collectionSlider.scss";
+import GlobalLoader from "../Loaders/GlobalLoader/GlobalLoader";
 
 interface IOwnProps {}
 
@@ -25,17 +26,21 @@ const CollectionSlidersMain: React.FC<IOwnProps> = ({}) => {
     dispatch(fetchPopularMovie(pageMovies));
     dispatch(fetchPopularSeries(pageSeries));
   }, []);
-
+  
   return (
     <div className="CollectionSlider">
-      <div className="CollectionSlider_Wrapper">
-        <div>
-          <SliderMovies title="popular movies" items={resultsMovies} />
+      {loadingMovies || loadingSeries ? (
+        <GlobalLoader />
+      ) : (
+        <div className="CollectionSlider_Wrapper">
+          <div>
+            <SliderMovies title="popular movies" items={resultsMovies} />
+          </div>
+          <div>
+            <SliderMovies title="popular series" items={resultsSeries} />
+          </div>
         </div>
-        <div>
-          <SliderMovies title="popular series" items={resultsSeries} />
-        </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -62,7 +62,7 @@ const CardsTrending = () => {
             overview={i.overview}
             genres={i.genre_ids}
             voteAverage={i.vote_average}
-            mediaType = {i.media_type}
+            mediaType={i.media_type}
           />
         ))}
       </Slider>

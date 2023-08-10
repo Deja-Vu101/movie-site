@@ -44,11 +44,15 @@ const trendingSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchTrending.fulfilled, (state, action) => {
+        state.loading = false;
         const data = action.payload;
 
         state.results = data.results;
-        state.loading = false;
+
         state.page = data.page;
+      })
+      .addCase(fetchTrending.rejected, (state) => {
+        state.loading = false;
       });
   },
 });
