@@ -1,5 +1,5 @@
 import React from "react";
-import GenresList from "./GenresList";
+import GenresList from "../Genres/GenresList";
 import { HiMiniPlay } from "react-icons/hi2";
 import VoteAverage from "./VoteAverage";
 
@@ -9,6 +9,7 @@ interface IOwnProps {
   overview: string;
   genres: number[];
   voteAverage: number;
+  mediaType: string;
 }
 const CardsItem: React.FC<IOwnProps> = ({
   url,
@@ -16,6 +17,7 @@ const CardsItem: React.FC<IOwnProps> = ({
   overview,
   genres,
   voteAverage,
+  mediaType,
 }) => {
   return (
     <div className="CardsItem">
@@ -25,7 +27,7 @@ const CardsItem: React.FC<IOwnProps> = ({
             <div className="CardsItem_MovieName">{title}</div>
             <div className="CardsItem_Description">
               <VoteAverage voteAverage={voteAverage} />
-              <GenresList genres={genres} />
+              <GenresList genres={genres} mediaType={mediaType} />
             </div>
             <div className="Overview">{overview}</div>
             <div className="btn_WatchNow">

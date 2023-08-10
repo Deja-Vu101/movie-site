@@ -4,6 +4,7 @@ export interface IUserState {
   email: string | null;
   token: string | null;
   id: string | null;
+  name: string | null
 }
 
 const storedUserState = localStorage.getItem("userState");
@@ -13,6 +14,7 @@ const initialState: IUserState = storedUserState
       email: null,
       token: null,
       id: null,
+      name: null
     };
 
 const userSlice = createSlice({
@@ -23,6 +25,7 @@ const userSlice = createSlice({
       state.email = action.payload.email;
       state.token = action.payload.token;
       state.id = action.payload.id;
+      state.name = action.payload.name
 
       localStorage.setItem("userState", JSON.stringify(state));
     },

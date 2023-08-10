@@ -17,11 +17,7 @@ const FilmPoster: React.FC<IOwnProps> = ({ id, poster }) => {
           alt="Movie Poster"
         />
       ) : (
-        <img
-          className="Poster_Image"
-          src={PosterNotFound}
-          alt="Movie Poster"
-        />
+        <img className="Poster_Image" src={PosterNotFound} alt="Movie Poster" />
       )}
     </div>
   );

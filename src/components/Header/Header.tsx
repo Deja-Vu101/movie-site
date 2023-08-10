@@ -7,7 +7,7 @@ import { NavLink, useLocation } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useTypedDispatch();
-  const { email } = useAuth();
+  const { email, name } = useAuth();
   const location = useLocation();
 
   useEffect(() => {
@@ -23,15 +23,6 @@ const Header = () => {
     });
   }, [location]);
 
-  //const header = document.querySelector(".header");
-
-  //window.addEventListener("scroll", () => {
-  //  if (window.scrollY > 100) {
-  //    header?.classList.add("scrolled_header");
-  //  } else {
-  //    header?.classList.remove("scrolled_header");
-  //  }
-  //});
   useEffect(() => {
     const header = document.querySelector(".header");
 
@@ -81,7 +72,7 @@ const Header = () => {
             className="header_btn_profile"
             onClick={() => dispatch(logout())}
           >
-            Logout from {email}
+            Logout from {name}
           </button>
         </div>
       </div>

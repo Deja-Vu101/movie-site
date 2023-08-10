@@ -11,7 +11,7 @@ const CardsTrending = () => {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 600,
+    speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     responsive: [
@@ -57,11 +57,12 @@ const CardsTrending = () => {
         {results.map((i) => (
           <CardsItem
             key={i.id}
-            url={imgBaseUrl  + i.backdrop_path}
-            title = {i.title ? i.title : i.original_name}
+            url={imgBaseUrl + i.backdrop_path}
+            title={i.title ? i.title : i.original_name}
             overview={i.overview}
             genres={i.genre_ids}
             voteAverage={i.vote_average}
+            mediaType = {i.media_type}
           />
         ))}
       </Slider>
