@@ -3,26 +3,13 @@ import { useAuth } from "../../hooks/useAuth";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { logout } from "../../store/slices/userSlice";
 import "./style.header.scss";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import TitleSite from "./TitleSite";
+import BurgerMenu from "./BurgerMenu/BurgerMenu";
 
 const Header = () => {
   const dispatch = useTypedDispatch();
-  const { email, name } = useAuth();
-  const location = useLocation();
-
-  useEffect(() => {
-    const buttons = document.querySelectorAll(".header_btn");
-
-    buttons.forEach((button) => {
-      const href = button.getAttribute("href");
-      if (href && href === location.pathname) {
-        button.classList.add("active");
-      } else {
-        button.classList.remove("active");
-      }
-    });
-  }, [location]);
+  const { name } = useAuth();
 
   useEffect(() => {
     const header = document.querySelector(".header");
@@ -46,9 +33,10 @@ const Header = () => {
     <header className="header">
       <div className="header_wrapper">
         <div className="header_content">
+          <BurgerMenu />
           <TitleSite />
           <nav>
-            <ul className="header_list">
+            <div className="header_list" id="navBar">
               <NavLink className="header_btn" to={"/"}>
                 Home
               </NavLink>
@@ -61,7 +49,7 @@ const Header = () => {
               <NavLink className="header_btn" to={"/search"}>
                 Search
               </NavLink>
-            </ul>
+            </div>
           </nav>
         </div>
 

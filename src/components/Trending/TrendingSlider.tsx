@@ -5,10 +5,13 @@ import { fetchTrending } from "../../store/slices/trendingSlice";
 import CardsTrending from "./CardsTrending";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import GlobalLoader from "../Loaders/GlobalLoader/GlobalLoader";
+import { useLocation } from "react-router-dom";
 import { fetchGenres } from "../../store/slices/genresSlice";
 
 const TrendingSlider = () => {
   const dispatch = useTypedDispatch();
+  const { pathname } = useLocation();
+
   const { loading } = useTypedSelector((state) => state.trending);
   const [showLoader, setShowLoader] = useState(true);
 
@@ -29,7 +32,7 @@ const TrendingSlider = () => {
   }, [loading]);
 
   useEffect(() => {
-    dispatch(fetchTrending());
+    dispatch(fetchTrending(pathname));
     dispatch(fetchGenres())
   }, []);
 

@@ -11,7 +11,7 @@ const HomePage = () => {
   return (
     <>
       {isAuth ? null : <Navigate to={"/login"} />}
-      
+
       <Header />
       <TrendingSlider />
       <MainSection>

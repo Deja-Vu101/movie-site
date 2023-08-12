@@ -3,12 +3,24 @@ import { ITrending } from "../../components/Trending/types";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { options } from "../../apiConfigs/tmdb";
 
-export const fetchTrending = createAsyncThunk<ITrending, undefined, {}>(
+export const fetchTrending = createAsyncThunk<ITrending, string, {}>(
   "trending/fetchTrending",
-  async function (_) {
+  async function (path) {
+    let pageTrend;
+    switch (path) {
+      case "/movie":
+        pageTrend = "movie";
+        break;
+      case "/tv":
+        pageTrend = "tv";
+        break;
+      default:
+        pageTrend = "all";
+    }
+
     try {
       const res = await axios.get(
-        "https://api.themoviedb.org/3/trending/all/day?language=en-US",
+        `https://api.themoviedb.org/3/trending/${pageTrend}/day?language=en-US`,
         options
       );
 

@@ -40,7 +40,7 @@ const SliderMovies: React.FC<IOwnProps> = ({ title, items }) => {
       {
         breakpoint: 1020,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 2,
           slidesToScroll: 1,
           initialSlide: 2,
           arrows: false,

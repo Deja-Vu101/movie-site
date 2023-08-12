@@ -1,0 +1,23 @@
+.BurgerMenu {
+    font-size: 25px;
+    margin-right: 25px;
+    display: none;
+
+    @media (max-width: 850px) {
+        display: block;
+    }
+}
+.BurgerMenu svg{
+    cursor: pointer;
+}
+
+.DropMenu{
+    background-color: orange;
+    width: 100vh;
+    height: 100vh;
+    position: fixed;
+    top: -1px;
+    left: -1px;
+    width: 240px;
+    background-color: gray;
+}

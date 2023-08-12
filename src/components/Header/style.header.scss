@@ -26,6 +26,10 @@
       line-height: 1.75;
       font-weight: 600;
       text-transform: uppercase;
+
+      @media (max-width: 850px) {
+        display: none;
+      }
       .header_btn {
         padding: 6px 16px;
         color: white;
@@ -59,3 +63,7 @@
     color: #ff0000;
   }
 }
+
+// #navBar a.active{
+//   color: green
+// }

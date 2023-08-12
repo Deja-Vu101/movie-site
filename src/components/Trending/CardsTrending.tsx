@@ -51,6 +51,7 @@ const CardsTrending = () => {
       },
     ],
   };
+  
   return (
     <div className="CardsTrending">
       <Slider {...settings}>

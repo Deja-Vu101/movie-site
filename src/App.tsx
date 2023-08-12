@@ -16,6 +16,7 @@ function App() {
       <Route path="/movie" element={<MoviesPage />} />
       <Route path="/tv" element={<TvSeriesPage />} />
       <Route path="/search" element={<SearchPage />} />
+      {/* <Routes path="/:id" element={<Movie />} /> */}
     </Routes>
   );
 }
