@@ -40,7 +40,11 @@ const initialState: ITopRatedMoviesState = {
 const topRatedMoviesSlice = createSlice({
   name: "topRatedMovies",
   initialState,
-  reducers: {},
+  reducers: {
+	setPageRatedMovies(state){
+		state.page += 1
+	}
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchTopRatedMovies.pending, (state) => {
@@ -63,5 +67,5 @@ const topRatedMoviesSlice = createSlice({
   },
 });
 
-export const {} = topRatedMoviesSlice.actions;
+export const {setPageRatedMovies} = topRatedMoviesSlice.actions;
 export default topRatedMoviesSlice.reducer;

@@ -6,9 +6,7 @@ import SliderMovies from "../SliderMovies/SliderMovies";
 import { fetchPopularSeries } from "../../store/slices/popularSeriesSlice";
 import "./collectionSlider.scss";
 
-interface IOwnProps {}
-
-const CollectionSlidersMain: React.FC<IOwnProps> = ({}) => {
+const CollectionSlidersMain: React.FC = () => {
   const dispatch = useTypedDispatch();
   const {
     loading: loadingMovies,
@@ -27,16 +25,22 @@ const CollectionSlidersMain: React.FC<IOwnProps> = ({}) => {
   }, []);
 
   return (
-    <div className="CollectionSlider">
-      <div className="CollectionSlider_Wrapper">
-        <div>
-          <SliderMovies title="popular movies" items={resultsMovies} />
+    <>
+      {loadingMovies || loadingSeries ? (
+        <h2>Loading...</h2>
+      ) : (
+        <div className="CollectionSlider">
+          <div className="CollectionSlider_Wrapper">
+            <div>
+              <SliderMovies title="popular movies" items={resultsMovies} />
+            </div>
+            <div>
+              <SliderMovies title="popular series" items={resultsSeries} />
+            </div>
+          </div>
         </div>
-        <div>
-          <SliderMovies title="popular series" items={resultsSeries} />
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

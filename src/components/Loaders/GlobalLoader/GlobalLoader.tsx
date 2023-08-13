@@ -3,7 +3,7 @@ import Header from "../../Header/Header";
 import TitleSite from "../../Header/TitleSite";
 import "./globalLoader.scss";
 
-const GlobalLoader = () => {
+const GlobalLoader: React.FC = () => {
   return (
     <div
       className="GlobalLoader"

@@ -15,6 +15,8 @@ import {
   setPageRatedSeries,
 } from "../store/slices/topRatedSeriesSlice";
 import FilterPageButton from "../components/MoviesSeriesPage/FilterPageButton";
+import { useInitialLoad } from "../hooks/useInitialLoad";
+import GlobalLoader from "../components/Loaders/GlobalLoader/GlobalLoader";
 
 export enum PageBtnEnum {
   "popular",
@@ -23,11 +25,17 @@ export enum PageBtnEnum {
 
 const TvSeriesPage = () => {
   const dispatch = useTypedDispatch();
-  const { page: pagePopularSeries, results: resultsPopularSeries } =
-    useTypedSelector((state) => state.popularSeries);
-  const { page: pageTopSeries, results: resultsTopSeries } = useTypedSelector(
-    (state) => state.topRatedSeries
-  );
+  const {
+    page: pagePopularSeries,
+    results: resultsPopularSeries,
+    loading: loadingPopular,
+  } = useTypedSelector((state) => state.popularSeries);
+  const {
+    page: pageTopSeries,
+    results: resultsTopSeries,
+    loading: loadingRated,
+  } = useTypedSelector((state) => state.topRatedSeries);
+  const initialLoad = useInitialLoad(1000);
 
   const [selectedBtn, setSelectedBtn] = useState(PageBtnEnum[0]);
 
@@ -51,35 +59,41 @@ const TvSeriesPage = () => {
   };
   return (
     <>
-      <Header />
-      <TrendingSlider />
+      {initialLoad ?? (loadingPopular || loadingRated) ? (
+        <GlobalLoader />
+      ) : (
+        <>
+          <Header />
+          <TrendingSlider />
 
-      <MainSection>
-        {/* OUTLET needs to be added */}
-        <div className="Header_MainSection">
-          <div className="Title">Series</div>
-          <FilterPageButton
-            selectedBtn={selectedBtn}
-            onClickPageBtn={onClickPageBtn}
-            PageBtnEnum={PageBtnEnum}
-          />
-        </div>
-        <div className="PosterList">
-          {results.map((movie) => (
-            <FilmPoster
-              key={movie.id}
-              id={movie.id}
-              poster={movie.poster_path}
+          <MainSection>
+            {/* OUTLET needs to be added */}
+            <div className="Header_MainSection">
+              <div className="Title">Series</div>
+              <FilterPageButton
+                selectedBtn={selectedBtn}
+                onClickPageBtn={onClickPageBtn}
+                PageBtnEnum={PageBtnEnum}
+              />
+            </div>
+            <div className="PosterList">
+              {results.map((movie) => (
+                <FilmPoster
+                  key={movie.id}
+                  id={movie.id}
+                  poster={movie.poster_path}
+                />
+              ))}
+            </div>
+            <PaginationButton
+              items={results}
+              setPage={
+                selectedBtn === PageBtnEnum[0] ? setPage : setPageRatedSeries
+              }
             />
-          ))}
-        </div>
-        <PaginationButton
-          items={results}
-          setPage={
-            selectedBtn === PageBtnEnum[0] ? setPage : setPageRatedSeries
-          }
-        />
-      </MainSection>
+          </MainSection>
+        </>
+      )}
     </>
   );
 };
