@@ -4,7 +4,7 @@ import MoviesPage from "./pages/MoviesPage";
 import RegisterPage from "./pages/RegisterPage";
 import SearchPage from "./pages/SearchPage";
 import TvSeriesPage from "./pages/TvSeriesPage";
-import "./styles/App.css";
+import "./styles/App.scss";
 import { Routes, Route } from "react-router-dom";
 
 function App() {

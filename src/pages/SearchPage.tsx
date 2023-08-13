@@ -5,9 +5,11 @@ import SearchBar from "../components/Search/SearchBar";
 import "../components/Search/search.style.scss";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { IMovie, IPersonItem } from "../components/MainSection/types";
+import PaginationButton from "../components/PaginationButton";
+import { setPage } from "../store/slices/searchSlice";
 
 const SearchPage = () => {
-  const { found, filter, loading } = useTypedSelector((state) => state.search);
+  const { founded } = useTypedSelector((state) => state.search);
 
   return (
     <div className="SearchPage" style={{ display: "flex" }}>
@@ -16,7 +18,7 @@ const SearchPage = () => {
         <div className="SearchBar_Container">
           <SearchBar />
           <div className="SearchList">
-            {found?.map((i) => {
+            {founded?.map((i) => {
               if ("poster_path" in i) {
                 const movie = i as IMovie;
                 return (
@@ -38,6 +40,7 @@ const SearchPage = () => {
               }
               return null;
             })}
+            <PaginationButton items={founded} setPage={setPage} />
           </div>
         </div>
       </div>

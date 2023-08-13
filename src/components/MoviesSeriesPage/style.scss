@@ -1,0 +1,34 @@
+.Header_MainSection {
+  display: flex; 
+  justify-content: space-between;
+}
+.FilterPageButton{
+  display: flex;
+  gap: 15px;
+}
+.PageButton {
+  padding: 8px 22px;
+  font-size: 15px;
+  line-height: 1.75;
+  border-radius: 4px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.PageButton:hover {
+  cursor: pointer;
+  background-color: rgb(122, 0, 0);
+}
+.active {
+  background-color: #ff0000 !important;
+}
+
+.PosterList {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+.Title {
+  font-size: 24px;
+  line-height: 1.334;
+  font-weight: 700;
+}

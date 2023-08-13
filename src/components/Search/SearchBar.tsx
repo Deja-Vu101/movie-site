@@ -9,26 +9,28 @@ import { useDebounce } from "../../hooks/useDebouce";
 
 const SearchBar = () => {
   const dispatch = useTypedDispatch();
-  const { filter, found } = useTypedSelector((state) => state.search);
+  const { filter, page } = useTypedSelector((state) => state.search);
   const [filterBtn, setFilterBtn] = useState(filter);
   const [inputValue, setInputValue] = useState("");
-  const debounce = useDebounce(inputValue, 800);
 
-  const onChangeFilter = (filter: string) =>{
-    dispatch(setFilter(filter))
-    setFilterBtn(filter)
-  }
+  const debounce = useDebounce(inputValue, 800);
 
   useEffect(() => {
     if (inputValue.length !== 0) {
-      dispatch(fetchSearch({ page: 1, filter: filter, query: inputValue }))
+      dispatch(fetchSearch({ page: page, filter: filter, query: inputValue }));
     }
+  }, [debounce, filterBtn, page]);
 
-  }, [debounce, filterBtn])
-
+  const onChangeFilter = (filter: string) => {
+    dispatch(setFilter(filter));
+    setFilterBtn(filter);
+  };
   return (
     <div>
-      <SearchFilterButton filterBtn={filterBtn} onChangeFilter={onChangeFilter} />
+      <SearchFilterButton
+        filterBtn={filterBtn}
+        onChangeFilter={onChangeFilter}
+      />
       <SearchInput inputValue={inputValue} setInputValue={setInputValue} />
     </div>
   );

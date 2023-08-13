@@ -3,14 +3,14 @@ import { ISeriesResponse } from "../../components/MainSection/types";
 import axios from "axios";
 import { options } from "../../apiConfigs/tmdb";
 
-const baseUrlMoviePopular = "https://api.themoviedb.org/3/tv/popular";
+const baseUrlSeriesPopular = "https://api.themoviedb.org/3/tv/popular";
 
 export const fetchPopularSeries = createAsyncThunk<ISeriesResponse, number, {}>(
   "popular/series",
   async function (page) {
     try {
       const res = await axios.get(
-        baseUrlMoviePopular + `?language=en-US&page=${page}`,
+        baseUrlSeriesPopular + `?language=en-US&page=${page}`,
         options
       );
       return res.data;
@@ -37,15 +37,21 @@ const initialState: IPopularSeriesState = {
 export const popularSeries = createSlice({
   name: "popularSeries",
   initialState,
-  reducers: {},
+  reducers: {
+    setPage(state) {
+      state.page += 1;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchPopularSeries.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchPopularSeries.fulfilled, (state, action) => {
+        const data = action.payload;
         state.loading = false;
-        state.results = action.payload.results;
+        const newResults = data.results.filter(newItem => !state.results.some(existingItem => existingItem.id === newItem.id ))
+        state.results = [...state.results, ...newResults];
       })
       .addCase(fetchPopularSeries.rejected, (state) => {
         state.loading = false;
@@ -53,5 +59,5 @@ export const popularSeries = createSlice({
   },
 });
 
-export const {} = popularSeries.actions;
+export const { setPage } = popularSeries.actions;
 export default popularSeries.reducer;

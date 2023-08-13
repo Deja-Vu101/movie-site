@@ -4,7 +4,7 @@ import { fetchPopularMovie } from "../../store/slices/popularMoviesSlice";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import SliderMovies from "../SliderMovies/SliderMovies";
 import { fetchPopularSeries } from "../../store/slices/popularSeriesSlice";
-import './collectionSlider.scss'
+import "./collectionSlider.scss";
 
 interface IOwnProps {}
 

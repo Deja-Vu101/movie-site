@@ -13,6 +13,7 @@ export const fetchPopularMovie = createAsyncThunk<IMovieResponse, number, {}>(
         baseUrlMoviePopular + `?language=en-US&page=${page}`,
         options
       );
+
       return res.data;
     } catch (error) {
       console.error(error);
@@ -32,10 +33,15 @@ const initialState: IPopularMovieState = {
   error: null,
   loading: false,
 };
+
 export const popularMovieSlice = createSlice({
   name: "popularMovies",
   initialState,
-  reducers: {},
+  reducers: {
+    setPage: (state) => {
+      state.page += 1;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchPopularMovie.pending, (state) => {
@@ -45,15 +51,22 @@ export const popularMovieSlice = createSlice({
       .addCase(fetchPopularMovie.fulfilled, (state, action) => {
         const data = action.payload;
         state.loading = false;
-		  
-		  state.results = data.results
-		  state.page = data.page
+
+        const newResults = data.results.filter(
+          (newItem) =>
+            !state.results.some(
+              (existingItem) => existingItem.id === newItem.id
+            )
+        );
+        state.results = [...state.results, ...newResults];
+        state.total_pages = data.total_pages;
+        state.total_results = data.total_results;
       })
-		.addCase(fetchPopularMovie.rejected, (state) => {
-			state.loading = false;
-		 })
+      .addCase(fetchPopularMovie.rejected, (state) => {
+        state.loading = false;
+      });
   },
 });
 
-export const {} = popularMovieSlice.actions
-export default popularMovieSlice.reducer
+export const { setPage } = popularMovieSlice.actions;
+export default popularMovieSlice.reducer;

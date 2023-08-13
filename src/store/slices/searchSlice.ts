@@ -1,47 +1,58 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IMovie, IMovieResponse, IPerson, IPersonItem, ISeriesResponse } from "../../components/MainSection/types";
+import {
+  IMovie,
+  IMovieResponse,
+  IPerson,
+  IPersonItem,
+} from "../../components/MainSection/types";
 import axios from "axios";
 import { options } from "../../apiConfigs/tmdb";
 
-export type Response = IMovieResponse | IPerson
+export type Response = IMovieResponse | IPerson;
+export type ResponseItem = IMovie | IPersonItem;
 
-export const fetchSearch = createAsyncThunk<Response, {page: number, filter: string, query: string}, {}>(
-  "fetchSearch",
-  async function ({page, filter, query}) {
-    try {
-      const res = await axios.get(
-        `https://api.themoviedb.org/3/search/${filter}?query=${query}&language=en-US&${page}=1`,
-		  options
-      );
-      return res.data;
-    } catch (error) {
-      console.error(error);
-    }
+export const fetchSearch = createAsyncThunk<
+  Response,
+  { page: number; filter: string; query: string },
+  {}
+>("fetchSearch", async function ({ page, filter, query }) {
+  try {
+    const res = await axios.get(
+      `https://api.themoviedb.org/3/search/${filter}?query=${query}&language=en-US&page=${page}`,
+      options
+    );
+    return res.data;
+  } catch (error) {
+    console.error(error);
   }
-);
+});
 
 interface ISearchState {
-  found: IMovie[] | IPersonItem[];
+  founded: ResponseItem[];
   loading: boolean;
   error: null | string;
-  filter: string
+  filter: string;
+  page: number;
 }
 const initialState: ISearchState = {
-  found: [
-
-  ] as IMovie[] | IPersonItem[],
+  founded: [],
   loading: false,
   error: null,
-  filter: 'movie'
+  filter: "movie",
+  page: 1,
 };
 
 export const searchSlice = createSlice({
   name: "searchSlice",
   initialState,
   reducers: {
-    setFilter(state, action){
-      state.filter = action.payload
-    }
+    setFilter(state, action) {
+      state.founded = [];
+      state.filter = action.payload;
+    },
+    setPage(state) {
+      state.page += 1;
+    },
   },
   extraReducers(builder) {
     builder
@@ -50,8 +61,10 @@ export const searchSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchSearch.fulfilled, (state, action) => {
+        const data = action.payload;
+
         state.loading = false;
-        state.found = action.payload.results;
+        state.founded = [...state.founded, ...data.results];
       })
       .addCase(fetchSearch.rejected, (state) => {
         state.loading = false;
@@ -60,5 +73,5 @@ export const searchSlice = createSlice({
   },
 });
 
-export const {setFilter} = searchSlice.actions;
+export const { setFilter, setPage } = searchSlice.actions;
 export default searchSlice.reducer;

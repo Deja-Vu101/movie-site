@@ -56,51 +56,6 @@ const SliderMovies: React.FC<IOwnProps> = ({ title, items }) => {
     ],
   };
   
-//const settings = {
-//	dots: false,
-//	infinite: true,
-//	speed: 600,
-//	slidesToShow: 5,
-//	slidesToScroll: 3,
-//	responsive: [
-//	  {
-//		 breakpoint: 1400,
-//		 settings: {
-//			slidesToShow: 5,
-//			slidesToScroll: 3,
-//			infinite: true,
-//			dots: false,
-//			display: "none",
-//			arrows: false
-//		 },
-//	  },
-//	  {
-//		 breakpoint: 1250,
-//		 settings: {
-//			slidesToShow: 5,
-//			slidesToScroll: 1,
-//			infinite: true,
-//			dots: true,
-//			arrows: false
-//		 },
-//	  },
-//	  {
-//		 breakpoint: 1000,
-//		 settings: {
-//			slidesToShow: 3,
-//			slidesToScroll: 1,
-//			//initialSlide: 2,
-//		 },
-//	  },
-//	  {
-//		 breakpoint: 500,
-//		 settings: {
-//			slidesToShow: 2,
-//			slidesToScroll: 1,
-//		 },
-//	  },
-//	],
-// };
 return (
     <>
       <div className="Collection_Title">{title}</div>

@@ -1,0 +1,17 @@
+.Pagination_Button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 60px 15px;
+
+  padding: 6px 8px;
+  line-height: 1.75;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: red;
+}
+
+.Pagination_Button:hover {
+  cursor: pointer;
+  background-color: rgba(255, 0, 0, 0.1);
+}
