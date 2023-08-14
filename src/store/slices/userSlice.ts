@@ -1,10 +1,56 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+//export interface IUserState {
+//  email: string | null;
+//  token: string | null;
+//  id: string | null;
+//  name: string | null
+//}
+
+//const storedUserState = localStorage.getItem("userState");
+//const initialState: IUserState = storedUserState
+//  ? JSON.parse(storedUserState)
+//  : {
+//      email: null,
+//      token: null,
+//      id: null,
+//      name: null
+//    };
+
+//const userSlice = createSlice({
+//  name: "user",
+//  initialState,
+//  reducers: {
+//    setUser(state, action) {
+//      state.email = action.payload.email;
+//      state.token = action.payload.token;
+//      state.id = action.payload.id;
+//      state.name = action.payload.name
+
+//      localStorage.setItem("userState", JSON.stringify(state));
+//    },
+//    logout(state) {
+//      state.email = null;
+//      state.token = null;
+//      state.id = null;
+
+//      localStorage.setItem("userState", JSON.stringify(state));
+//    },
+//  },
+//});
+
+//export const { logout, setUser } = userSlice.actions;
+
+//export default userSlice.reducer;
+
 export interface IUserState {
   email: string | null;
   token: string | null;
   id: string | null;
-  name: string | null
+  name: string | null;
+  success: boolean;
+  expires_at: string;
+  request_token: string;
 }
 
 const storedUserState = localStorage.getItem("userState");
@@ -14,7 +60,10 @@ const initialState: IUserState = storedUserState
       email: null,
       token: null,
       id: null,
-      name: null
+      name: null,
+      //expires_at: null,
+      //request_token: null,
+      //success: null,
     };
 
 const userSlice = createSlice({
@@ -25,20 +74,30 @@ const userSlice = createSlice({
       state.email = action.payload.email;
       state.token = action.payload.token;
       state.id = action.payload.id;
-      state.name = action.payload.name
+      state.name = action.payload.name;
 
       localStorage.setItem("userState", JSON.stringify(state));
     },
+    //setUserRequestTokenTMDB(state, action) {
+    //  state.request_token = action.payload.request_token;
+    //  state.expires_at = action.payload.expires_at;
+    //  state.success = action.payload.action;
+
+    //  localStorage.setItem("userState", JSON.stringify(state));
+    //},
     logout(state) {
       state.email = null;
       state.token = null;
       state.id = null;
+      state.name = null
 
       localStorage.setItem("userState", JSON.stringify(state));
     },
   },
 });
 
-export const { logout, setUser } = userSlice.actions;
+export const { logout, setUser,
+  // setUserRequestTokenTMDB 
+  } = userSlice.actions;
 
 export default userSlice.reducer;

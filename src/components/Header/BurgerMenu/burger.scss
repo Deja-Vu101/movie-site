@@ -1,23 +1,80 @@
 .BurgerMenu {
-    font-size: 25px;
-    margin-right: 25px;
-    display: none;
+  font-size: 25px;
+  margin-right: 25px;
+  display: none;
 
-    @media (max-width: 850px) {
-        display: block;
-    }
+  @media (max-width: 850px) {
+    display: block;
+  }
 }
-.BurgerMenu svg{
-    cursor: pointer;
+.BurgerMenu svg {
+  cursor: pointer;
 }
 
-.DropMenu{
-    background-color: orange;
-    width: 100vh;
-    height: 100vh;
-    position: fixed;
-    top: -1px;
-    left: -1px;
-    width: 240px;
-    background-color: gray;
+.DropMenu {
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  width: 240px;
+  left: -240px;
+  background-color: RGB(54, 54, 54);
+  transition: left 0.3s ease;
+}
+.DropMenu.activeMenu {
+  left: 0;
+  z-index: 20;
+}
+.Backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 9;
+}
+.Backdrop.activeBackDrop {
+  display: block;
+}
+.DropMenu_Container {
+  margin: 0 auto;
+  width: 180px;
+  margin-top: 30px;
+  height: 100%;
+}
+.DropMenu_Container .NavTitle {
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.TitleSite {
+  width: 150px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+}
+.DropMenu_NavBar {
+  font-size: 20px;
+
+  margin-top: 30px;
+
+  .NavButton span {
+    margin-left: 30px;
+  }
+
+  .NavButton:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .NavButton {
+    color: white;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 8px 16px;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
 }

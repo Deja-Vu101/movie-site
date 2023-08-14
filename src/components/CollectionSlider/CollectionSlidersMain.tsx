@@ -25,22 +25,16 @@ const CollectionSlidersMain: React.FC = () => {
   }, []);
 
   return (
-    <>
-      {loadingMovies || loadingSeries ? (
-        <h2>Loading...</h2>
-      ) : (
-        <div className="CollectionSlider">
-          <div className="CollectionSlider_Wrapper">
-            <div>
-              <SliderMovies title="popular movies" items={resultsMovies} />
-            </div>
-            <div>
-              <SliderMovies title="popular series" items={resultsSeries} />
-            </div>
-          </div>
+    <div className="CollectionSlider">
+      <div className="CollectionSlider_Wrapper">
+        <div>
+          <SliderMovies title="popular movies" items={resultsMovies} />
         </div>
-      )}
-    </>
+        <div>
+          <SliderMovies title="popular series" items={resultsSeries} />
+        </div>
+      </div>
+    </div>
   );
 };
 

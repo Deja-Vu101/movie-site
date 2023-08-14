@@ -3,9 +3,9 @@ import { useAuth } from "../../hooks/useAuth";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { logout } from "../../store/slices/userSlice";
 import "./style.header.scss";
-import { NavLink } from "react-router-dom";
 import TitleSite from "./TitleSite";
 import BurgerMenu from "./BurgerMenu/BurgerMenu";
+import NavBar from "./NavBar";
 
 const Header = () => {
   const dispatch = useTypedDispatch();
@@ -35,22 +35,7 @@ const Header = () => {
         <div className="header_content">
           <BurgerMenu />
           <TitleSite />
-          <nav>
-            <div className="header_list" id="navBar">
-              <NavLink className="header_btn" to={"/"}>
-                Home
-              </NavLink>
-              <NavLink className="header_btn" to={"/movie"}>
-                Movies
-              </NavLink>
-              <NavLink className="header_btn" to={"/tv"}>
-                Tv series
-              </NavLink>
-              <NavLink className="header_btn" to={"/search"}>
-                Search
-              </NavLink>
-            </div>
-          </nav>
+          <NavBar />
         </div>
 
         <div>

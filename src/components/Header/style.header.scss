@@ -19,30 +19,7 @@
       align-items: center;
     }
 
-    .header_list {
-      display: flex;
-      gap: 16px;
-      color: white;
-      line-height: 1.75;
-      font-weight: 600;
-      text-transform: uppercase;
-
-      @media (max-width: 850px) {
-        display: none;
-      }
-      .header_btn {
-        padding: 6px 16px;
-        color: white;
-        border-radius: 4px;
-      }
-      .header_btn:hover {
-        cursor: pointer;
-        background-color: rgb(122, 0, 0);
-      }
-      .active {
-        background-color: rgb(255, 0, 0) !important;
-      }
-    }
+    
 
     .header_btn_profile {
       color: white;
@@ -64,6 +41,27 @@
   }
 }
 
-// #navBar a.active{
-//   color: green
-// }
+.header_list {
+  display: flex;
+  gap: 16px;
+  color: white;
+  line-height: 1.75;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  @media (max-width: 850px) {
+    display: none;
+  }
+  .header_btn {
+    padding: 6px 16px;
+    color: white;
+    border-radius: 4px;
+  }
+  .header_btn:hover {
+    cursor: pointer;
+    background-color: rgb(122, 0, 0);
+  }
+  .active {
+    background-color: rgb(255, 0, 0) !important;
+  }
+}
