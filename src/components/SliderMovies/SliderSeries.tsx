@@ -1,14 +1,17 @@
 import Slider from "react-slick";
-import { IMovie } from "../MainSection/types";
+import { ISeries } from "../MainSection/types";
 import "./sliderMovies.scss";
 import SliderItem from "./SliderItem";
+import { useTypedDispatch } from "../../hooks/useTypedDispatch";
+import { addToWatchlist } from "../../store/slices/watchListSlice";
 
 interface IOwnProps {
   title: string;
-  items: IMovie[];
+  items: ISeries[];
 }
 
-const SliderMovies: React.FC<IOwnProps> = ({ title, items }) => {
+const SliderSeries: React.FC<IOwnProps> = ({ title, items }) => {
+  
   const settings = {
     dots: false,
     infinite: true,
@@ -56,6 +59,7 @@ const SliderMovies: React.FC<IOwnProps> = ({ title, items }) => {
     ],
   };
 
+  
   return (
     <>
       <div className="Collection_Title">{title}</div>
@@ -67,9 +71,9 @@ const SliderMovies: React.FC<IOwnProps> = ({ title, items }) => {
             id={i.id}
             poster={i.poster_path}
             voteAverage={i.vote_average}
-            year = {i.release_date}
-            ItemName={i.title}
-            mediaType="movie"
+            year={i.first_air_date}
+            ItemName={i.original_name}
+            mediaType="tv"
           />
         ))}
       </Slider>
@@ -77,4 +81,4 @@ const SliderMovies: React.FC<IOwnProps> = ({ title, items }) => {
   );
 };
 
-export default SliderMovies;
+export default SliderSeries;

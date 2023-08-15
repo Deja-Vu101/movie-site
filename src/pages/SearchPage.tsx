@@ -10,6 +10,23 @@ import { setPage } from "../store/slices/searchSlice";
 
 const SearchPage = () => {
   const { founded } = useTypedSelector((state) => state.search);
+  //const { session_id, request_token } = useTypedSelector((state) => state.user);
+
+  const handlerCheckApiKey = () => {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZDhhZTMxNTM4YTY5NmJiYTJkNGE2ZmNiZmQwMTlhOSIsInN1YiI6IjY0Y2E3Y2JmZGQ4M2ZhMDEzOWRhZTM5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YRbI_c1B40vA3ObEPz_nOejSEz0o5HV7FARlG0u3_EY",
+      }
+    };
+
+    fetch("https://api.themoviedb.org/3/authentication", options)
+      .then((response) => response.json())
+      .then((response) => console.log(response))
+      .catch((err) => console.error(err));
+  };
 
   return (
     <div className="SearchPage" style={{ display: "flex" }}>
@@ -17,6 +34,7 @@ const SearchPage = () => {
       <div className="SearchBar">
         <div className="SearchBar_Container">
           <SearchBar />
+          <div onClick={handlerCheckApiKey}>api key is valid?</div>
           <div className="SearchList">
             {founded?.map((i) => {
               if ("poster_path" in i) {

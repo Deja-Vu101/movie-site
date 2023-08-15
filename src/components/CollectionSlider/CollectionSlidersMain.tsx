@@ -5,6 +5,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import SliderMovies from "../SliderMovies/SliderMovies";
 import { fetchPopularSeries } from "../../store/slices/popularSeriesSlice";
 import "./collectionSlider.scss";
+import SliderSeries from "../SliderMovies/SliderSeries";
 
 const CollectionSlidersMain: React.FC = () => {
   const dispatch = useTypedDispatch();
@@ -31,7 +32,7 @@ const CollectionSlidersMain: React.FC = () => {
           <SliderMovies title="popular movies" items={resultsMovies} />
         </div>
         <div>
-          <SliderMovies title="popular series" items={resultsSeries} />
+          <SliderSeries title="popular series" items={resultsSeries} />
         </div>
       </div>
     </div>

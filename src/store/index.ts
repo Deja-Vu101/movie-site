@@ -3,9 +3,10 @@ import userReducer from "./slices/userSlice";
 import popularMoviesReducer from "./slices/popularMoviesSlice";
 import popularSeriesReducer from "./slices/popularSeriesSlice";
 import searchReducer from "./slices/searchSlice";
-import genresReducer from './slices/genresSlice'
-import topSeriesReducer from './slices/topRatedSeriesSlice';
-import topMoviesReducer from './slices/topRatedMoviesSlice';
+import genresReducer from "./slices/genresSlice";
+import topSeriesReducer from "./slices/topRatedSeriesSlice";
+import topMoviesReducer from "./slices/topRatedMoviesSlice";
+import watchListReducer from "./slices/watchListSlice";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
@@ -17,7 +18,8 @@ export const store = configureStore({
     search: searchReducer,
     genres: genresReducer,
     topRatedSeries: topSeriesReducer,
-    topRatedMovies: topMoviesReducer
+    topRatedMovies: topMoviesReducer,
+    watchList: watchListReducer,
   },
 });
 
