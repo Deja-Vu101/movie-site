@@ -1,23 +1,28 @@
 import { options } from "./../../apiConfigs/tmdb";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IMovieResponse } from "../../components/MainSection/types";
+import {
+  IMovieResponse,
+  ISeriesResponse,
+} from "../../components/MainSection/types";
 import axios from "axios";
 import { RootState } from "..";
 
-interface IWatchListState extends IMovieResponse {
+interface IFavouriteListState extends IMovieResponse {
   loading: boolean;
   error: null | string;
 }
 
-export const fetchWatchList = createAsyncThunk(
-  "watchList/fetchWatchList",
+export const fetchFavouriteList = createAsyncThunk(
+  "favouriteList/fetchFavouriteList",
   async function (_, { getState }) {
     const { session_id } = (getState() as RootState).user;
+
     try {
       const res = await axios.get(
-        `https://api.themoviedb.org/3/account/20246322/watchlist/movies?language=en-US&page=1&session_id=${session_id}&sort_by=created_at.asc`,
+        `https://api.themoviedb.org/3/account/20246322/favorite/movies?language=en-US&page=1&session_id=${session_id}&sort_by=created_at.asc`,
         options
       );
+
       return res.data;
     } catch (error) {
       console.error(error);
@@ -25,8 +30,8 @@ export const fetchWatchList = createAsyncThunk(
   }
 );
 
-export const addToWatchlist = createAsyncThunk(
-  "watchList/addToWatchlist",
+export const addToFavouritelist = createAsyncThunk(
+  "favouriteList/addToFavouritelist",
   async (
     { id, mediaType }: { id: number; mediaType: string },
     { getState }
@@ -44,21 +49,20 @@ export const addToWatchlist = createAsyncThunk(
       body: JSON.stringify({
         media_type: mediaType,
         media_id: id,
-        watchlist: true,
+        favorite: true,
       }),
     };
 
-    const response = await fetch(
-      `https://api.themoviedb.org/3/account/20246322/watchlist?session_id=${session_id}`,
+    const res = await fetch(
+      `https://api.themoviedb.org/3/account/20246322/favorite?session_id=${session_id}`,
       options
     );
 
-    const data = await response.json();
+    const data = await res.json();
     return data;
   }
 );
-
-const initialState: IWatchListState = {
+const initialState: IFavouriteListState = {
   page: 1,
   results: [],
   total_pages: 0,
@@ -67,16 +71,16 @@ const initialState: IWatchListState = {
   error: null,
 };
 
-const watchListSlice = createSlice({
-  name: "watchList",
+const favouriteList = createSlice({
+  name: "favouriteList",
   initialState,
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchWatchList.pending, (state) => {
+      .addCase(fetchFavouriteList.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchWatchList.fulfilled, (state, action) => {
+      .addCase(fetchFavouriteList.fulfilled, (state, action) => {
         state.loading = false;
 
         state.page = action.payload.page;
@@ -84,11 +88,11 @@ const watchListSlice = createSlice({
         state.total_pages = action.payload.total_pages;
         state.total_results = action.payload.total_results;
       })
-      .addCase(fetchWatchList.rejected, (state) => {
+      .addCase(fetchFavouriteList.rejected, (state) => {
         state.loading = false;
       });
   },
 });
 
-export const {} = watchListSlice.actions;
-export default watchListSlice.reducer;
+export const {} = favouriteList.actions;
+export default favouriteList.reducer;

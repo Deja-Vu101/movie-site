@@ -1,9 +1,11 @@
 import { imgBaseUrl } from "../../apiConfigs/tmdb";
 import { HiMiniPlay } from "react-icons/hi2";
+import { AiFillHeart } from "react-icons/ai";
 import { RiPlayListAddFill } from "react-icons/ri";
 import VoteAverage from "../Trending/VoteAverage";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { addToWatchlist } from "../../store/slices/watchListSlice";
+import { addToFavouritelist } from "../../store/slices/favouriteList";
 
 interface IOwnProps {
   id: number;
@@ -28,6 +30,10 @@ const SliderItem: React.FC<IOwnProps> = ({
     dispatch(addToWatchlist({ id, mediaType: mediaType }));
   };
 
+  const saveToFavouritelist = (id: number) => {
+    dispatch(addToFavouritelist({ id, mediaType: "movie" }));
+  };
+
   return (
     <div className="SliderItem">
       <div className="SliderItem_Container">
@@ -50,6 +56,12 @@ const SliderItem: React.FC<IOwnProps> = ({
               onClick={() => saveToPlaylist(id)}
             >
               <RiPlayListAddFill />
+            </div>
+            <div
+              className="SaveItem_Playlist"
+              onClick={() => saveToFavouritelist(id)}
+            >
+              <AiFillHeart />
             </div>
           </div>
         </div>

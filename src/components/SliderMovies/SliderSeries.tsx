@@ -2,8 +2,6 @@ import Slider from "react-slick";
 import { ISeries } from "../MainSection/types";
 import "./sliderMovies.scss";
 import SliderItem from "./SliderItem";
-import { useTypedDispatch } from "../../hooks/useTypedDispatch";
-import { addToWatchlist } from "../../store/slices/watchListSlice";
 
 interface IOwnProps {
   title: string;
@@ -11,7 +9,6 @@ interface IOwnProps {
 }
 
 const SliderSeries: React.FC<IOwnProps> = ({ title, items }) => {
-  
   const settings = {
     dots: false,
     infinite: true,
@@ -59,7 +56,6 @@ const SliderSeries: React.FC<IOwnProps> = ({ title, items }) => {
     ],
   };
 
-  
   return (
     <>
       <div className="Collection_Title">{title}</div>

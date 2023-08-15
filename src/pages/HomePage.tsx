@@ -7,20 +7,19 @@ import CollectionSlidersMain from "../components/CollectionSlider/CollectionSlid
 import { useInitialLoad } from "../hooks/useInitialLoad";
 import GlobalLoader from "../components/Loaders/GlobalLoader/GlobalLoader";
 import { useEffect } from "react";
-import { useTypedSelector } from "../hooks/useTypedSelector";
 import { useTypedDispatch } from "../hooks/useTypedDispatch";
 import { fetchWatchList } from "../store/slices/watchListSlice";
+import { fetchFavouriteList } from "../store/slices/favouriteList";
 
 const HomePage = () => {
   const { isAuth } = useAuth();
   const initialLoad = useInitialLoad(1000);
   const dispatch = useTypedDispatch();
 
-  const { session_id } = useTypedSelector((state) => state.user);
-
   useEffect(() => {
-    dispatch(fetchWatchList(session_id));
-  });
+    dispatch(fetchWatchList());
+    dispatch(fetchFavouriteList());
+  }, []);
 
   return (
     <>
