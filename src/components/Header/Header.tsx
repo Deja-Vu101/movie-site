@@ -6,6 +6,8 @@ import "./style.header.scss";
 import TitleSite from "./TitleSite";
 import BurgerMenu from "./BurgerMenu/BurgerMenu";
 import NavBar from "./NavBar";
+import EmptyImgProfile from "../../assets/img/Empty_Img_Profile.png";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useTypedDispatch();
@@ -38,14 +40,26 @@ const Header = () => {
           <NavBar />
         </div>
 
-        <div>
-          <button
+        <NavLink to={"/profile"}>
+          <div className="Header_Profile">
+            <div className="Image_Profile">
+              <img
+                className="ProfileImg"
+                src={EmptyImgProfile}
+                alt="Image profile"
+                onClick={() => dispatch(logout())}
+              />
+            </div>
+            <div>{name} Kozachkov</div>
+
+            {/*<button
             className="header_btn_profile"
             onClick={() => dispatch(logout())}
           >
             Logout from {name}
-          </button>
-        </div>
+          </button>*/}
+          </div>
+        </NavLink>
       </div>
     </header>
   );

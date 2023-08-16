@@ -1,3 +1,4 @@
+import { IMovie } from "./../../components/MainSection/types";
 import { options } from "./../../apiConfigs/tmdb";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IMovieResponse } from "../../components/MainSection/types";
@@ -7,6 +8,7 @@ import { RootState } from "..";
 interface IWatchListState extends IMovieResponse {
   loading: boolean;
   error: null | string;
+  removedItem: any;
 }
 
 export const fetchWatchList = createAsyncThunk(
@@ -58,19 +60,43 @@ export const addToWatchlist = createAsyncThunk(
   }
 );
 
-const initialState: IWatchListState = {
-  page: 1,
-  results: [],
-  total_pages: 0,
-  total_results: 0,
-  loading: false,
-  error: null,
-};
+const storedWatchlistState = localStorage.getItem("watchlistState");
+const initialState: IWatchListState = storedWatchlistState
+  ? JSON.parse(storedWatchlistState)
+  : {
+      page: 1,
+      results: [],
+      total_pages: 0,
+      total_results: 0,
+      loading: false,
+      error: null,
+      removedItem: [],
+    };
 
 const watchListSlice = createSlice({
   name: "watchList",
   initialState,
-  reducers: {},
+  reducers: {
+    removeItemWatchlist(state, action) {
+      const itemId = action.payload;
+      state.results = state.results.filter(
+        (item: IMovie) => item.id !== itemId
+      );
+      state.removedItem = [...state.removedItem, itemId];
+
+      localStorage.setItem("watchlistState", JSON.stringify(state));
+    },
+    removeItemBlacklist(state, action) {
+      const itemId = action.payload;
+      const itemIndex = state.removedItem.indexOf(itemId);
+
+      if (itemIndex !== -1) {
+        state.removedItem.splice(itemIndex, 1);
+
+        localStorage.setItem("watchlistState", JSON.stringify(state));
+      }
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchWatchList.pending, (state) => {
@@ -90,5 +116,6 @@ const watchListSlice = createSlice({
   },
 });
 
-export const {} = watchListSlice.actions;
+export const { removeItemWatchlist, removeItemBlacklist } =
+  watchListSlice.actions;
 export default watchListSlice.reducer;

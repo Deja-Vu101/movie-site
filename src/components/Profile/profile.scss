@@ -1,0 +1,71 @@
+.ProfilePage_Wrapper{
+	max-width: 1320px;
+	margin: 0 auto;
+	
+	//background-color: orange;
+ }
+ 
+ .ProfilePage_Items{
+	margin: 10px;
+	
+ }
+
+ .ProfilePage_Item{
+	margin-top: 20px;
+	border-radius: 15px;
+	overflow: hidden;
+	box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+ }
+ .ProfilePage_ItemWrapper{
+	display: flex;
+	gap: 15px;
+ }
+
+ .ItemPoster{
+	width: 180px;
+ }
+ .ItemPoster_Img{
+	width: inherit;
+ }
+
+ .ItemBody_Header{
+	display: flex;
+	gap: 10px;
+	margin-top: 15px;
+ }
+ .Vote_Average{
+	width: 40px;
+ }
+ 
+ .Item_Title{
+	
+	font-size: 23px;
+ }
+ .Item_Release{
+	font-size: 19px;
+	color: rgba(240, 255, 255, 0.707);
+ }
+
+ .Item_FlexEnd{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 185px;
+ }
+ .Item_Captions{
+	margin-top: 20px;
+	font-size: 20px;
+ }
+
+ .Item_Buttons{
+	display: flex;
+	text-align: center;
+	font-size: 19px;
+	gap: 20px;
+
+	.Button{
+		display: flex;
+		gap: 5px;
+	}
+ }
+ 

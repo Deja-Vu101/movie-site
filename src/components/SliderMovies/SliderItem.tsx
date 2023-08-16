@@ -1,10 +1,14 @@
 import { imgBaseUrl } from "../../apiConfigs/tmdb";
 import { HiMiniPlay } from "react-icons/hi2";
 import { AiFillHeart } from "react-icons/ai";
-import { RiPlayListAddFill } from "react-icons/ri";
+import { BsFillBookmarksFill } from "react-icons/bs";
+//import { RiPlayListAddFill } from "react-icons/ri";
 import VoteAverage from "../Trending/VoteAverage";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
-import { addToWatchlist } from "../../store/slices/watchListSlice";
+import {
+  addToWatchlist,
+  removeItemBlacklist,
+} from "../../store/slices/watchListSlice";
 import { addToFavouritelist } from "../../store/slices/favouriteList";
 
 interface IOwnProps {
@@ -27,7 +31,13 @@ const SliderItem: React.FC<IOwnProps> = ({
   const dispatch = useTypedDispatch();
 
   const saveToPlaylist = (id: number) => {
-    dispatch(addToWatchlist({ id, mediaType: mediaType }));
+    dispatch(addToWatchlist({ id, mediaType: mediaType })).then(
+      (resultAction) => {
+        if (addToWatchlist.fulfilled.match(resultAction)) {
+          dispatch(removeItemBlacklist(id));
+        }
+      }
+    );
   };
 
   const saveToFavouritelist = (id: number) => {
@@ -55,7 +65,7 @@ const SliderItem: React.FC<IOwnProps> = ({
               className="SaveItem_Playlist"
               onClick={() => saveToPlaylist(id)}
             >
-              <RiPlayListAddFill />
+              <BsFillBookmarksFill />
             </div>
             <div
               className="SaveItem_Playlist"
