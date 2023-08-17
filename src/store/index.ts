@@ -7,7 +7,7 @@ import genresReducer from "./slices/genresSlice";
 import topSeriesReducer from "./slices/topRatedSeriesSlice";
 import topMoviesReducer from "./slices/topRatedMoviesSlice";
 import watchListReducer from "./slices/watchListSlice";
-import favouriteListReducer from "./slices/favouriteList";
+import favoriteListReducer from "./slices/favoriteSlice";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
@@ -21,7 +21,7 @@ export const store = configureStore({
     topRatedSeries: topSeriesReducer,
     topRatedMovies: topMoviesReducer,
     watchList: watchListReducer,
-    favouriteList: favouriteListReducer,
+    favoriteList: favoriteListReducer,
   },
 });
 

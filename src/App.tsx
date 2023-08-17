@@ -20,8 +20,8 @@ function App() {
       <Route path="/tv" element={<TvSeriesPage />} />
       <Route path="/search" element={<SearchPage />} />
       <Route path="/profile" element={<ProfilePage />} />
-      {/*<Route path="/profile/favorite" element={<ProfileFavorite />} />
-      <Route path="/profile/watchlist" element={<ProfileWatchlist />} />*/}
+      <Route path="/profile/favorite" element={<ProfileFavorite />} />
+      <Route path="/profile/watchlist" element={<ProfileWatchlist />} />
       {/* <Routes path="/:id" element={<Movie />} /> */}
     </Routes>
   );

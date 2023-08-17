@@ -50,7 +50,7 @@ const Header = () => {
                 onClick={() => dispatch(logout())}
               />
             </div>
-            <div>{name} Kozachkov</div>
+            <div>{name}</div>
 
             {/*<button
             className="header_btn_profile"

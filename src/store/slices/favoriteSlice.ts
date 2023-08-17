@@ -1,19 +1,17 @@
-import { options } from "./../../apiConfigs/tmdb";
+import { options } from "../../apiConfigs/tmdb";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {
-  IMovieResponse,
-  ISeriesResponse,
-} from "../../components/MainSection/types";
+import { IMovie, IMovieResponse } from "../../components/MainSection/types";
 import axios from "axios";
 import { RootState } from "..";
 
-interface IFavouriteListState extends IMovieResponse {
+interface IFavoriteListState extends IMovieResponse {
   loading: boolean;
   error: null | string;
+  removedItem: any;
 }
 
-export const fetchFavouriteList = createAsyncThunk(
-  "favouriteList/fetchFavouriteList",
+export const fetchFavoriteList = createAsyncThunk(
+  "favoriteList/fetchFavouriteList",
   async function (_, { getState }) {
     const { session_id } = (getState() as RootState).user;
 
@@ -30,7 +28,7 @@ export const fetchFavouriteList = createAsyncThunk(
   }
 );
 
-export const addToFavouritelist = createAsyncThunk(
+export const addToFavoritelist = createAsyncThunk(
   "favouriteList/addToFavouritelist",
   async (
     { id, mediaType }: { id: number; mediaType: string },
@@ -62,37 +60,64 @@ export const addToFavouritelist = createAsyncThunk(
     return data;
   }
 );
-const initialState: IFavouriteListState = {
-  page: 1,
-  results: [],
-  total_pages: 0,
-  total_results: 0,
-  loading: false,
-  error: null,
-};
+const storedFavoriteState = localStorage.getItem("favoriteState");
+const initialState: IFavoriteListState = storedFavoriteState
+  ? JSON.parse(storedFavoriteState)
+  : {
+      page: 1,
+      results: [],
+      total_pages: 0,
+      total_results: 0,
+      loading: false,
+      error: null,
+      removedItem: [],
+    };
 
-const favouriteList = createSlice({
-  name: "favouriteList",
+const favoriteList = createSlice({
+  name: "favoriteList",
   initialState,
-  reducers: {},
+  reducers: {
+    removeItemFavorite(state, action) {
+      const itemId = action.payload;
+      state.results = state.results.filter(
+        (item: IMovie) => item.id !== itemId
+      );
+      state.removedItem = [...state.removedItem, itemId];
+
+      localStorage.setItem("favoriteState", JSON.stringify(state));
+    },
+    removeItemBlacklist(state, action) {
+      const itemId = action.payload;
+      const itemIndex = state.removedItem.indexOf(itemId);
+      state.removedItem = [...state.removedItem, itemId];
+
+      if (itemIndex !== -1) {
+        state.removedItem.splice(itemIndex, 1);
+
+        localStorage.setItem("favoriteState", JSON.stringify(state));
+      }
+    },
+  },
   extraReducers(builder) {
     builder
-      .addCase(fetchFavouriteList.pending, (state) => {
+      .addCase(fetchFavoriteList.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchFavouriteList.fulfilled, (state, action) => {
+      .addCase(fetchFavoriteList.fulfilled, (state, action) => {
         state.loading = false;
 
         state.page = action.payload.page;
         state.results = action.payload.results;
         state.total_pages = action.payload.total_pages;
         state.total_results = action.payload.total_results;
+
+        localStorage.setItem("favoriteState", JSON.stringify(state));
       })
-      .addCase(fetchFavouriteList.rejected, (state) => {
+      .addCase(fetchFavoriteList.rejected, (state) => {
         state.loading = false;
       });
   },
 });
 
-export const {} = favouriteList.actions;
-export default favouriteList.reducer;
+export const { removeItemFavorite, removeItemBlacklist } = favoriteList.actions;
+export default favoriteList.reducer;

@@ -1,65 +1,39 @@
 import { useTypedDispatch } from "../hooks/useTypedDispatch";
 import { fetchWatchList } from "../store/slices/watchListSlice";
-import { fetchFavouriteList } from "../store/slices/favouriteList";
+import { fetchFavoriteList } from "../store/slices/favoriteSlice";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import ProfilePageItem from "../components/Profile/ProfilePageItem";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "../components/Profile/profile.scss";
+import { useNavigate } from "react-router-dom";
+import ProfileWatchlist from "../components/Profile/ProfileWatchlist";
+import ProfileFavorite from "../components/Profile/ProfileFavorite";
 
 const ProfilePage = () => {
+  const [filterList, setFilterList] = useState("");
   const dispatch = useTypedDispatch();
-  //  const { loading: loadingFavorite, results: resultsFavorite } =
-  //    useTypedSelector((state) => state.watchList);
-  const {
-    loading: loadingWatchlist,
-    results: resultsWatchlist,
-    removedItem,
-  } = useTypedSelector((state) => state.watchList);
-
-  const handlerWatchlist = (type: string) => {
-    if (type === "favorite") {
-      dispatch(fetchFavouriteList());
-    } else {
-      dispatch(fetchWatchList());
-    }
-  };
+  const navigate = useNavigate();
+  // const { loading: loadingFavorite, results: resultsFavorite } =
+  //   useTypedSelector((state) => state.favoriteList);
 
   useEffect(() => {
-    console.log(removedItem, "removedItem");
-  }, [removedItem]);
+    if (filterList === "favorite") {
+      navigate("/profile/favorite");
+      dispatch(fetchFavoriteList());
+    } else if (filterList === "watchlist") {
+      navigate("/profile/watchlist");
+      dispatch(fetchWatchList());
+    }
+  }, [filterList]);
 
-  const resultsWithoutRemoved = resultsWatchlist.filter(
-    (item) => !removedItem.includes(item.id)
-  );
   return (
-    <>
+    <div className="ProfilePage_Wrapper">
       ProfilePage
-      <div onClick={() => handlerWatchlist("favorite")}>Favorite</div>
-      <div onClick={() => handlerWatchlist("watchlist")}>Watchlist</div>
-      <div className="ProfilePage_Wrapper">
-        <div className="Filter">
-          <div className="Title">My Watchlist</div>
-        </div>
-
-        <div className="ProfilePage_Items">
-          {loadingWatchlist ? (
-            <h2>Loading...</h2>
-          ) : (
-            resultsWithoutRemoved.map((i) => (
-              <ProfilePageItem
-                key={i.id}
-                poster={i.poster_path}
-                voteAverage={i.vote_average}
-                title={i.title}
-                release={i.release_date}
-                overview={i.overview}
-                id={i.id}
-              />
-            ))
-          )}
-        </div>
-      </div>
-    </>
+      <div onClick={() => setFilterList("favorite")}>Favorite</div>
+      <div onClick={() => setFilterList("watchlist")}>Watchlist</div>
+      {filterList === "watchlist" ? <ProfileWatchlist /> : null}
+      {filterList === "favorite" ? <ProfileFavorite /> : null}
+    </div>
   );
 };
 

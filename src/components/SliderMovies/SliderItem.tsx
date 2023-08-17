@@ -9,7 +9,7 @@ import {
   addToWatchlist,
   removeItemBlacklist,
 } from "../../store/slices/watchListSlice";
-import { addToFavouritelist } from "../../store/slices/favouriteList";
+import FavoriteButton from "../FavoriteButton/FavoriteButton";
 
 interface IOwnProps {
   id: number;
@@ -40,9 +40,9 @@ const SliderItem: React.FC<IOwnProps> = ({
     );
   };
 
-  const saveToFavouritelist = (id: number) => {
-    dispatch(addToFavouritelist({ id, mediaType: "movie" }));
-  };
+  // const saveToFavouritelist = (id: number) => {
+  //   dispatch(addToFavouritelist({ id, mediaType: "movie" }));
+  // };
 
   return (
     <div className="SliderItem">
@@ -69,9 +69,9 @@ const SliderItem: React.FC<IOwnProps> = ({
             </div>
             <div
               className="SaveItem_Playlist"
-              onClick={() => saveToFavouritelist(id)}
+              // onClick={() => saveToFavouritelist(id)}>
             >
-              <AiFillHeart />
+              <FavoriteButton id={id} />
             </div>
           </div>
         </div>

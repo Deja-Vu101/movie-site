@@ -1,11 +1,13 @@
+import { useEffect } from "react";
 import { imgBaseUrl } from "../../apiConfigs/tmdb";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { removeItemWatchlist } from "../../store/slices/watchListSlice";
+import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import FormatReleaseDate from "../FormatReleaseDate";
 import VoteAverage from "../Trending/VoteAverage";
 import "./profile.scss";
 import { AiFillStar } from "react-icons/ai";
-import { AiFillHeart } from "react-icons/ai";
 import { GiCancel } from "react-icons/gi";
 
 interface IOwnProps {
@@ -30,6 +32,7 @@ const ProfilePageItem: React.FC<IOwnProps> = ({
   const removeItem = (id: number) => {
     dispatch(removeItemWatchlist(id));
   };
+
 
   return (
     <div className="ProfilePage_Item">
@@ -62,10 +65,7 @@ const ProfilePageItem: React.FC<IOwnProps> = ({
               <div className="Button">
                 <AiFillStar /> Your rating
               </div>
-              <div className="Button">
-                <AiFillHeart />
-                Favorite
-              </div>
+              <FavoriteButton id={id} title = 'Favorite' />
               <div className="Button" onClick={() => removeItem(id)}>
                 <GiCancel />
                 Remove
