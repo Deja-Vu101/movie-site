@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IMovie, IMovieResponse } from "../../components/MainSection/types";
 import axios from "axios";
 import { RootState } from "..";
+import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 
 interface IFavoriteListState extends IMovieResponse {
   loading: boolean;
@@ -57,6 +58,7 @@ export const addToFavoritelist = createAsyncThunk(
     );
 
     const data = await res.json();
+
     return data;
   }
 );
@@ -89,7 +91,6 @@ const favoriteList = createSlice({
     removeItemBlacklist(state, action) {
       const itemId = action.payload;
       const itemIndex = state.removedItem.indexOf(itemId);
-      state.removedItem = [...state.removedItem, itemId];
 
       if (itemIndex !== -1) {
         state.removedItem.splice(itemIndex, 1);
@@ -115,9 +116,14 @@ const favoriteList = createSlice({
       })
       .addCase(fetchFavoriteList.rejected, (state) => {
         state.loading = false;
-      });
+      })
+
+      //.addCase(addToFavoritelist.fulfilled, (state, action) => {
+      //  const dispatch = useTypedDispatch();
+      //  action.payload.status_code === 1 ? dispatch(fetchFavoriteList()) : null;
+      //});
   },
 });
 
-export const { removeItemFavorite, removeItemBlacklist } = favoriteList.actions;
+export const { removeItemBlacklist, removeItemFavorite } = favoriteList.actions;
 export default favoriteList.reducer;

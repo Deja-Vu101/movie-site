@@ -77,11 +77,15 @@ const TvSeriesPage = () => {
               />
             </div>
             <div className="PosterList">
-              {results.map((movie) => (
+              {results.map((series) => (
                 <FilmPoster
-                  key={movie.id}
-                  id={movie.id}
-                  poster={movie.poster_path}
+                  key={series.id}
+                  id={series.id}
+                  poster={series.poster_path}
+                  mediaType="tv"
+                  title={series.name}
+                  voteAverage={series.vote_average}
+                  year={series.first_air_date}
                 />
               ))}
             </div>

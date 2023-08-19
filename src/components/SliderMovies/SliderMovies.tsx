@@ -3,6 +3,7 @@ import { IMovie } from "../MainSection/types";
 import "./sliderMovies.scss";
 import SliderItem from "./SliderItem";
 
+
 interface IOwnProps {
   title: string;
   items: IMovie[];
@@ -67,7 +68,7 @@ const SliderMovies: React.FC<IOwnProps> = ({ title, items }) => {
             id={i.id}
             poster={i.poster_path}
             voteAverage={i.vote_average}
-            year = {i.release_date}
+            year={i.release_date}
             ItemName={i.title}
             mediaType="movie"
           />

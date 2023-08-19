@@ -1,28 +1,37 @@
 import { AiFillHeart } from "react-icons/ai";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import React, { useEffect } from "react";
+import React from "react";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import {
   addToFavoritelist,
-  fetchFavoriteList,
   removeItemFavorite,
+  removeItemBlacklist,
+  fetchFavoriteList,
 } from "../../store/slices/favoriteSlice";
 
 interface IOwnProps {
   id: number;
   title?: string;
 }
-
 const FavoriteButton: React.FC<IOwnProps> = ({ id, title }) => {
   const dispatch = useTypedDispatch();
-  const { results } = useTypedSelector((state) => state.favoriteList);
+  const { results, removedItem } = useTypedSelector(
+    (state) => state.favoriteList
+  );
 
-  const isFavorite = results.some((item) => item.id === id);
+  const isFavorite =
+    results.some((item) => item.id === id) && !removedItem.includes(id);
 
   const handlerLike = () => {
     isFavorite
       ? dispatch(removeItemFavorite(id))
-      : dispatch(addToFavoritelist({ id, mediaType: "movie" }));
+      : dispatch(addToFavoritelist({ id, mediaType: "movie" }))
+          .then((resultAction) => {
+            if (addToFavoritelist.fulfilled.match(resultAction)) {
+              dispatch(removeItemBlacklist(id));
+            }
+          })
+          .then(() => dispatch(fetchFavoriteList()));
   };
 
   return (

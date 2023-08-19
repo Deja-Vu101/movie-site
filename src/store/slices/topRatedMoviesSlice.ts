@@ -1,18 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ITopRatedResponse } from "../../components/MainSection/types";
+import { IMovie, IMovieResponse, ITopRatedResponse } from "../../components/MainSection/types";
 import axios from "axios";
 import { options } from "../../apiConfigs/tmdb";
 
 const BASE_URL_TOP_RATED_MOVIES =
   "https://api.themoviedb.org/3/movie/top_rated";
 
-interface ITopRatedMoviesState extends ITopRatedResponse {
+interface ITopRatedMoviesState extends IMovieResponse {
   loading: boolean;
   error: null | string;
 }
 
 export const fetchTopRatedMovies = createAsyncThunk<
-  ITopRatedResponse,
+  IMovieResponse,
   number,
   {}
 >("fetchTopRatedMovies", async function (page) {

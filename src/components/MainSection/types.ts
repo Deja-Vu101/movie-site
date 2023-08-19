@@ -66,7 +66,7 @@ export interface IPersonItem {
 
 export interface ITopRatedResponse {
   page: number;
-  results: ISeries[];
+  results: ISeries[] | IMovie[];
   total_pages: number;
   total_results: number;
 }

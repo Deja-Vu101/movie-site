@@ -1,24 +1,40 @@
 import { imgBaseUrl } from "../../../apiConfigs/tmdb";
 import "../poster.style.scss";
 import PosterNotFound from "../../../assets/img/posterNotFound.png";
+import PosterHover from "../PosterHover";
 
 interface IOwnProps {
   id: number;
   poster: string | null;
+  title: string;
+  mediaType: string;
+  voteAverage: number;
+  year: string;
 }
 
-const FilmPoster: React.FC<IOwnProps> = ({ id, poster }) => {
+const FilmPoster: React.FC<IOwnProps> = ({
+  id,
+  poster,
+  title,
+  mediaType,
+  voteAverage,
+  year,
+}) => {
   return (
-    <div className="Poster">
-      {poster !== null ? (
-        <img
-          className="Poster_Image"
-          src={imgBaseUrl + poster}
-          alt="Movie Poster"
-        />
-      ) : (
-        <img className="Poster_Image" src={PosterNotFound} alt="Movie Poster" />
-      )}
+    <div className="FilmPoster">
+      <img
+        className="Poster_Image"
+        src={poster !== null ? imgBaseUrl + poster : PosterNotFound}
+        alt="Movie Poster"
+      />
+      {mediaType === 'person' }
+      <PosterHover
+        ItemName={title}
+        id={id}
+        mediaType={mediaType}
+        voteAverage={voteAverage}
+        year={year}
+      />
     </div>
   );
 };

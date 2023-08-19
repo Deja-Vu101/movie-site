@@ -1,15 +1,5 @@
 import { imgBaseUrl } from "../../apiConfigs/tmdb";
-import { HiMiniPlay } from "react-icons/hi2";
-import { AiFillHeart } from "react-icons/ai";
-import { BsFillBookmarksFill } from "react-icons/bs";
-//import { RiPlayListAddFill } from "react-icons/ri";
-import VoteAverage from "../Trending/VoteAverage";
-import { useTypedDispatch } from "../../hooks/useTypedDispatch";
-import {
-  addToWatchlist,
-  removeItemBlacklist,
-} from "../../store/slices/watchListSlice";
-import FavoriteButton from "../FavoriteButton/FavoriteButton";
+import PosterHover from "../Poster/PosterHover";
 
 interface IOwnProps {
   id: number;
@@ -28,21 +18,6 @@ const SliderItem: React.FC<IOwnProps> = ({
   ItemName,
   mediaType,
 }) => {
-  const dispatch = useTypedDispatch();
-
-  const saveToPlaylist = (id: number) => {
-    dispatch(addToWatchlist({ id, mediaType: mediaType })).then(
-      (resultAction) => {
-        if (addToWatchlist.fulfilled.match(resultAction)) {
-          dispatch(removeItemBlacklist(id));
-        }
-      }
-    );
-  };
-
-  // const saveToFavouritelist = (id: number) => {
-  //   dispatch(addToFavouritelist({ id, mediaType: "movie" }));
-  // };
 
   return (
     <div className="SliderItem">
@@ -52,29 +27,14 @@ const SliderItem: React.FC<IOwnProps> = ({
           src={imgBaseUrl + poster}
           alt="Movie Poster"
         />
+        <PosterHover
+          mediaType={mediaType}
+          voteAverage={voteAverage}
+          ItemName={ItemName}
+          id={id}
+          year={year}
 
-        <div className="SliderItem_Hover">
-          <div className="SliderItem_Icon">
-            <HiMiniPlay />
-          </div>
-          <div className="Description_Poster">
-            <VoteAverage voteAverage={voteAverage} />
-            <div>{year}</div>
-            <div>{ItemName}</div>
-            <div
-              className="SaveItem_Playlist"
-              onClick={() => saveToPlaylist(id)}
-            >
-              <BsFillBookmarksFill />
-            </div>
-            <div
-              className="SaveItem_Playlist"
-              // onClick={() => saveToFavouritelist(id)}>
-            >
-              <FavoriteButton id={id} />
-            </div>
-          </div>
-        </div>
+        />
       </div>
     </div>
   );

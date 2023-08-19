@@ -3,7 +3,6 @@ import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { fetchWatchList } from "../../store/slices/watchListSlice";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import ProfilePageItem from "./ProfilePageItem";
-import { fetchFavoriteList } from "../../store/slices/favoriteSlice";
 
 const ProfileWatchlist = () => {
   const dispatch = useTypedDispatch();

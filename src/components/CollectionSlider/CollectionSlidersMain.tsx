@@ -24,14 +24,14 @@ const CollectionSlidersMain: React.FC = () => {
   useEffect(() => {
     dispatch(fetchPopularMovie(pageMovies));
     dispatch(fetchPopularSeries(pageSeries));
-    dispatch(fetchFavoriteList())
+    dispatch(fetchFavoriteList());
   }, []);
 
   return (
     <div className="CollectionSlider">
       <div className="CollectionSlider_Wrapper">
         <div>
-          <SliderMovies title="popular movies" items={resultsMovies} />
+          <SliderMovies title="popular movies" items={resultsMovies}  />
         </div>
         <div>
           <SliderSeries title="popular series" items={resultsSeries} />

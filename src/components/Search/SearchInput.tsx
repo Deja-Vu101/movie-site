@@ -1,13 +1,11 @@
 import React from "react";
 
-
 interface IOwnProps {
-  inputValue: string
-  setInputValue: (inputValue: string) => void
+  inputValue: string;
+  setInputValue: (inputValue: string) => void;
 }
 
 const SearchInput: React.FC<IOwnProps> = ({ inputValue, setInputValue }) => {
-
   return (
     <div className="SearchInput">
       <input

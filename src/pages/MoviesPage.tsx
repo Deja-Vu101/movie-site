@@ -73,6 +73,10 @@ const MoviesPage = () => {
                   key={movie.id}
                   id={movie.id}
                   poster={movie.poster_path}
+                  mediaType="movie"
+                  title={movie.title}
+                  voteAverage={movie.vote_average}
+                  year={movie.release_date}
                 />
               ))}
             </div>

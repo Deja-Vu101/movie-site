@@ -1,9 +1,25 @@
-.Poster_Image{
-	width: 330px;
-	margin-right: 11px;
-	margin-bottom: 5px;
+.Poster_Image {
+  width: 330px;
+  margin-right: 11px;
+  margin-bottom: 5px;
 }
 .FilmPoster img {
-	max-width: 100%;
-	height: auto;
+  max-width: 100%;
+}
+.FilmPoster {
+  position: relative;
+}
+.FilmPoster:hover .SliderItem_Hover {
+  opacity: 1;
+}
+.Poster {
+  position: relative;
+}
+.ProfileHover {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.6);
 }
