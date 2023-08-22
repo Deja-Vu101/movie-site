@@ -13,12 +13,12 @@ interface IFavoriteListState extends IMovieResponse {
 
 export const fetchFavoriteList = createAsyncThunk(
   "favoriteList/fetchFavouriteList",
-  async function (_, { getState }) {
+  async function (mediaType: string, { getState }) {
     const { session_id } = (getState() as RootState).user;
 
     try {
       const res = await axios.get(
-        `https://api.themoviedb.org/3/account/20246322/favorite/movies?language=en-US&page=1&session_id=${session_id}&sort_by=created_at.asc`,
+        `https://api.themoviedb.org/3/account/20246322/favorite/${mediaType}?language=en-US&page=1&session_id=${session_id}&sort_by=created_at.asc`,
         options
       );
 

@@ -12,8 +12,9 @@ import {
 interface IOwnProps {
   id: number;
   title?: string;
+  mediaType: string;
 }
-const FavoriteButton: React.FC<IOwnProps> = ({ id, title }) => {
+const FavoriteButton: React.FC<IOwnProps> = ({ id, title, mediaType }) => {
   const dispatch = useTypedDispatch();
   const { results, removedItem } = useTypedSelector(
     (state) => state.favoriteList
@@ -25,13 +26,19 @@ const FavoriteButton: React.FC<IOwnProps> = ({ id, title }) => {
   const handlerLike = () => {
     isFavorite
       ? dispatch(removeItemFavorite(id))
-      : dispatch(addToFavoritelist({ id, mediaType: "movie" }))
+      : dispatch(addToFavoritelist({ id, mediaType: mediaType }))
           .then((resultAction) => {
             if (addToFavoritelist.fulfilled.match(resultAction)) {
               dispatch(removeItemBlacklist(id));
             }
           })
-          .then(() => dispatch(fetchFavoriteList()));
+          .then(() =>
+            dispatch(
+              fetchFavoriteList(
+                mediaType === "movie" ? mediaType + "s" : mediaType
+              )
+            )
+          );
   };
 
   return (

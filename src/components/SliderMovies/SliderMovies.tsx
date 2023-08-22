@@ -3,7 +3,6 @@ import { IMovie } from "../MainSection/types";
 import "./sliderMovies.scss";
 import SliderItem from "./SliderItem";
 
-
 interface IOwnProps {
   title: string;
   items: IMovie[];

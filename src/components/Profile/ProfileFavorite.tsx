@@ -3,16 +3,23 @@ import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import ProfilePageItem from "./ProfilePageItem";
 import { fetchFavoriteList } from "../../store/slices/favoriteSlice";
+import Header from "../Header/Header";
+import { useLocation } from "react-router-dom";
+import ProfileHeader from "./ProfileHeader";
 
 const ProfileFavorite = () => {
   const dispatch = useTypedDispatch();
+  const location = useLocation();
+
+  const mediaType =
+    location.pathname === "/profile/favorite/movies" ? "movies" : "tv";
 
   const { loading, results, removedItem } = useTypedSelector(
     (state) => state.favoriteList
   );
 
   useEffect(() => {
-    dispatch(fetchFavoriteList());
+    dispatch(fetchFavoriteList(mediaType));
   }, []);
 
   const resultsWithoutRemoved = results.filter(
@@ -20,6 +27,9 @@ const ProfileFavorite = () => {
   );
   return (
     <>
+      <Header />
+      <ProfileHeader />
+
       <div className="Watchlist_Wrapper">
         <div className="Filter">
           <div className="Title">My Favorite</div>

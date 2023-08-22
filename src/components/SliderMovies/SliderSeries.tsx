@@ -9,6 +9,7 @@ interface IOwnProps {
 }
 
 const SliderSeries: React.FC<IOwnProps> = ({ title, items }) => {
+  
   const settings = {
     dots: false,
     infinite: true,
@@ -55,7 +56,7 @@ const SliderSeries: React.FC<IOwnProps> = ({ title, items }) => {
       //},
     ],
   };
-
+ 
   return (
     <>
       <div className="Collection_Title">{title}</div>

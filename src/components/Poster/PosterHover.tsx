@@ -41,7 +41,13 @@ const PosterHover: React.FC<IOwnProps> = ({
               dispatch(removeItemBlacklist(id));
             }
           })
-          .then(() => dispatch(fetchWatchList()));
+          .then(() =>
+            dispatch(
+              fetchWatchList(
+                mediaType === "movie" ? mediaType + "s" : mediaType
+              )
+            )
+          );
   };
 
   return (
@@ -59,7 +65,7 @@ const PosterHover: React.FC<IOwnProps> = ({
           <div style={{ fontWeight: "500", marginTop: "10px" }}>{ItemName}</div>
           <div className="Poster_Button">
             <div className="Button">
-              <FavoriteButton id={id} />
+              <FavoriteButton id={id} mediaType={mediaType} />
             </div>
             <div
               className="Button"

@@ -13,11 +13,11 @@ interface IWatchListState extends IMovieResponse {
 
 export const fetchWatchList = createAsyncThunk(
   "watchList/fetchWatchList",
-  async function (_, { getState }) {
+  async function (mediaType: string, { getState }) {
     const { session_id } = (getState() as RootState).user;
     try {
       const res = await axios.get(
-        `https://api.themoviedb.org/3/account/20246322/watchlist/movies?language=en-US&page=1&session_id=${session_id}&sort_by=created_at.asc`,
+        `https://api.themoviedb.org/3/account/20246322/watchlist/${mediaType}?language=en-US&page=1&session_id=${session_id}&sort_by=created_at.asc`,
         options
       );
       return res.data;
