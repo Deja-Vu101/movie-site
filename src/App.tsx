@@ -1,3 +1,4 @@
+import MoviePage from "./components/MoviesSeriesPage/MoviePage/MoviePage";
 import ProfileFavorite from "./components/Profile/ProfileFavorite";
 import ProfileWatchlist from "./components/Profile/ProfileWatchlist";
 import HomePage from "./pages/HomePage";
@@ -16,16 +17,19 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+
       <Route path="/movie" element={<MoviesPage />} />
       <Route path="/tv" element={<TvSeriesPage />} />
       <Route path="/search" element={<SearchPage />} />
+
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/profile/favorite/movies" element={<ProfileFavorite />} />
       <Route path="/profile/favorite/series" element={<ProfileFavorite />} />
 
       <Route path="/profile/watchlist/movies" element={<ProfileWatchlist />} />
       <Route path="/profile/watchlist/series" element={<ProfileWatchlist />} />
-      {/* <Routes path="/:id" element={<Movie />} /> */}
+
+      <Route path="/movie/:id" element={<MoviePage />} />
     </Routes>
   );
 }

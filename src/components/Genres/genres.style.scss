@@ -1,3 +1,21 @@
+.Genre {
+  .Genre_List {
+    display: flex;
+    gap: 10px;
+
+    .Genre_List_Item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      background-color: red;
+      height: 22px;
+      padding: 15px;
+      border-radius: 16px;
+      background-color: red;
+    }
+  }
+}
 .Genre_List {
   flex-wrap: wrap;
 }

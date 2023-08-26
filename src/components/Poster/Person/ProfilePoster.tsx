@@ -1,11 +1,10 @@
 import { imgBaseUrl } from "../../../apiConfigs/tmdb";
 import "../poster.style.scss";
 import PosterNotFound from "../../../assets/img/posterNotFound.png";
-import ImgNotFound from "../../../assets/img/image-not-found-icon.svg";
 
 interface IOwnProps {
   id: number;
-  posterProfile: string | null;
+  posterProfile: null | string;
   name: string;
 }
 

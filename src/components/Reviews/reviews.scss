@@ -1,0 +1,141 @@
+.Reviews {
+}
+
+.Reviews_Wrapper {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+
+  position: relative;
+
+  border-radius: 5px;
+  &:hover {
+    background-color: #131313;
+  }
+}
+
+.Reviews_AuthorImg {
+  position: absolute;
+  top: 30px;
+  left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background-color: purple;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.Reviews_Body {
+  margin-left: 48px;
+}
+
+.Reviews_Name {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.Reviews_Date {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.66;
+}
+
+.Reviews_Flex {
+  width: 1334px;
+}
+
+.Reviews_Content {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  margin-top: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+  max-width: 1300px;
+}
+.Reviews_InputWrapper {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 5px;
+  position: relative;
+}
+.line {
+  margin-top: 30px;
+  width: 100%;
+  height: 1px;
+  background-color: RGB(31, 31, 31);
+}
+.Reviews_Input {
+  margin-left: 18px;
+  margin-top: 15px;
+}
+.ReviewsArea {
+  margin-top: 20px;
+}
+.Area {
+  width: 1250px;
+  height: 92px;
+  padding: 16px 14px;
+  font-size: 16px;
+  border: 1px solid gray;
+  background-color: black;
+  color: white;
+  font-weight: 500;
+  resize: none;
+}
+
+.ReviewsArea textarea:hover {
+  border: 1px solid white;
+}
+.ReviewsArea textarea:focus:valid {
+  border: 1px solid red;
+}
+
+.PostBtn {
+  text-transform: uppercase;
+  padding: 8px 22px;
+  background-color: red;
+  margin-top: 16px;
+  font-weight: 500;
+  line-height: 1.75;
+  display: inline-flex;
+  border-radius: 4px;
+
+  div {
+    display: inline-flex;
+    align-items: center;
+    font-size: 16px;
+    margin-right: 11px;
+  }
+}
+
+.Reviews_LoadMore {
+  margin-left: 10px;
+  font-size: 30px;
+}
+
+.Reviews_Buttons {
+  margin-right: 40px;
+  margin-left: 20px;
+  font-size: 20px;
+}
+.Button_Delete {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+  padding: 6px 16px;
+  background-color: red;
+  line-height: 1.75;
+  font-weight: 500;
+  border-radius: 4px;
+}
+.Button_Delete span {
+  display: flex;
+  font-size: 18px;
+}

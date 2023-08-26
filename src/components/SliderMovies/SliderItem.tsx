@@ -23,6 +23,7 @@ const SliderItem: React.FC<IOwnProps> = ({
     <div className="SliderItem">
       <div className="SliderItem_Container">
         <img
+          
           className="SliderItem_Image"
           src={imgBaseUrl + poster}
           alt="Movie Poster"
@@ -33,7 +34,6 @@ const SliderItem: React.FC<IOwnProps> = ({
           ItemName={ItemName}
           id={id}
           year={year}
-
         />
       </div>
     </div>

@@ -10,6 +10,8 @@ import {
   removeItemWatchlist,
 } from "../../store/slices/watchListSlice";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { useNavigate } from "react-router-dom";
+import WatchListBtn from "../WatchListBtn/WatchListBtn";
 
 interface IOwnProps {
   id: number;
@@ -27,32 +29,14 @@ const PosterHover: React.FC<IOwnProps> = ({
   year,
 }) => {
   const dispatch = useTypedDispatch();
-  const { results, removedItem } = useTypedSelector((state) => state.watchList);
 
-  const isSave =
-    results.some((item) => item.id === id) && !removedItem.includes(id);
-
-  const saveToPlaylist = (id: number) => {
-    isSave
-      ? dispatch(removeItemWatchlist(id))
-      : dispatch(addToWatchlist({ id, mediaType: mediaType }))
-          .then((resultAction) => {
-            if (addToWatchlist.fulfilled.match(resultAction)) {
-              dispatch(removeItemBlacklist(id));
-            }
-          })
-          .then(() =>
-            dispatch(
-              fetchWatchList(
-                mediaType === "movie" ? mediaType + "s" : mediaType
-              )
-            )
-          );
-  };
-
+  const navigate = useNavigate();
   return (
     <div className="SliderItem_Hover">
-      <div className="SliderItem_Icon">
+      <div
+        className="SliderItem_Icon"
+        onClick={() => navigate(`/${mediaType}/${id}`)}
+      >
         <HiMiniPlay />
       </div>
 
@@ -67,13 +51,7 @@ const PosterHover: React.FC<IOwnProps> = ({
             <div className="Button">
               <FavoriteButton id={id} mediaType={mediaType} />
             </div>
-            <div
-              className="Button"
-              onClick={() => saveToPlaylist(id)}
-              style={{ color: isSave ? "rgb(146, 0, 146)" : "white" }}
-            >
-              <BsFillBookmarksFill />
-            </div>
+            <WatchListBtn id={id} mediaType={mediaType} />
           </div>
         </div>
       </div>

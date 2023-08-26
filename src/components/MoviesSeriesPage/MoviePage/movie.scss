@@ -1,0 +1,158 @@
+.Backdrop_Container {
+  display: flex;
+}
+
+.BackDrop {
+  display: flex;
+  width: 100%;
+  height: 70vh;
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  position: fixed;
+}
+.BackDrop::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
+}
+.Continieu_BackDrop {
+  width: 100%;
+  background-color: black;
+  height: 50vh;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+}
+
+.Description {
+  max-width: 1334px;
+  margin: 0 auto;
+  min-height: 730px;
+  position: relative;
+  z-index: 1;
+  margin-top: 120px;
+  margin-top: 360px;
+}
+.Description img {
+  width: 520px;
+  height: 730px;
+}
+.Description_Wrapper {
+  display: flex;
+  gap: 30px;
+}
+.Description_Title {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.235;
+}
+.MovieVoteAndGenres {
+  display: flex;
+  gap: 10px;
+  margin-top: 40px;
+  align-items: center;
+}
+.Genre {
+  .Genre_List {
+    display: flex;
+    gap: 10px;
+
+    .Genre_List_Item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      background-color: red;
+      height: 22px;
+      padding: 15px;
+      border-radius: 16px;
+      background-color: red;
+    }
+  }
+}
+.Genre_List {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Description_Overview {
+  margin-top: 40px;
+  font-size: 20px;
+}
+.Description_Button {
+  display: flex;
+  margin-top: 40px;
+  align-items: center;
+  gap: 25px;
+}
+.btn_WatchNow {
+  text-transform: uppercase;
+  display: inline-flex;
+  font-size: 15px;
+  cursor: pointer;
+  line-height: 1.75;
+  font-weight: 500;
+  padding: 8px 22px;
+  background-color: #ff0000;
+  min-width: 64px;
+  border-radius: 4px;
+}
+.MainSectionVideo {
+  position: relative;
+  //height: 1000px;
+  z-index: 8;
+  background-color: black;
+  padding-top: 10px;
+}
+
+.BG {
+  z-index: 7;
+  position: relative;
+}
+
+.SliderActors {
+  margin-top: 40px;
+  width: 780px;
+}
+
+.MainSectionVideo {
+  padding-top: 32px;
+  // background-color: orange;
+  // height: 735px;
+}
+
+.MainSectionVideo_Container {
+  margin: 0 auto;
+  width: 1334px;
+  margin-top: 70px;
+}
+
+.Section {
+  margin-top: 80px;
+}
+.Image {
+  width: 1000px; /* Заданий фіксований розмір */
+  height: 750px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  object-fit: cover;
+}
+
+.Image_Content {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+.SectionPoster{
+  height: 500px;
+  width: 1334px;
+}

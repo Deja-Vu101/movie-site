@@ -8,6 +8,11 @@ import topSeriesReducer from "./slices/topRatedSeriesSlice";
 import topMoviesReducer from "./slices/topRatedMoviesSlice";
 import watchListReducer from "./slices/watchListSlice";
 import favoriteListReducer from "./slices/favoriteSlice";
+import movieReducer from "./slices/movieSlice";
+import actorsReducer from "./slices/actorsSlice";
+import videosReducer from "./slices/videosSlice";
+import photosReducer from "./slices/photosSlice";
+import reviewsReducer from "./slices/reviewsSlice";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
@@ -22,6 +27,11 @@ export const store = configureStore({
     topRatedMovies: topMoviesReducer,
     watchList: watchListReducer,
     favoriteList: favoriteListReducer,
+    movie: movieReducer,
+    actors: actorsReducer,
+    video: videosReducer,
+    photos: photosReducer,
+    reviews: reviewsReducer,
   },
 });
 

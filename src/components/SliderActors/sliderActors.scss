@@ -1,0 +1,18 @@
+.Cast {
+  position: relative;
+}
+.Cast img {
+  width: 160px;
+  height: 192px;
+  object-fit: cover;
+  padding-right: 10px;
+}
+
+.CastHover {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
