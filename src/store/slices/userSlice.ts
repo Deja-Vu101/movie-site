@@ -3,6 +3,19 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CreateRequestToken } from "../../globalTypes/globalTypes";
 import axios from "axios";
 
+export interface IUserState {
+  email: string | null;
+  token: string | null;
+  id: string | null;
+  name: string | null;
+  success: boolean | null;
+  expires_at: string | null;
+  request_token: string | null;
+  session_id: any;
+  loading: boolean;
+  createDate: string | undefined;
+}
+
 export const fetchRequestToken = createAsyncThunk<
   CreateRequestToken,
   undefined,
@@ -19,18 +32,6 @@ export const fetchRequestToken = createAsyncThunk<
   }
 });
 
-export interface IUserState {
-  email: string | null;
-  token: string | null;
-  id: string | null;
-  name: string | null;
-  success: boolean | null;
-  expires_at: string | null;
-  request_token: string | null;
-  session_id: any;
-  loading: boolean;
-}
-
 const storedUserState = localStorage.getItem("userState");
 const initialState: IUserState = storedUserState
   ? JSON.parse(storedUserState)
@@ -44,6 +45,7 @@ const initialState: IUserState = storedUserState
       success: null,
       session_id: null,
       loading: false,
+      createDate: "",
     };
 
 const userSlice = createSlice({
@@ -55,6 +57,7 @@ const userSlice = createSlice({
       state.token = action.payload.token;
       state.id = action.payload.id;
       state.name = action.payload.name;
+      state.createDate = action.payload.createDate;
 
       localStorage.setItem("userState", JSON.stringify(state));
     },
@@ -68,12 +71,11 @@ const userSlice = createSlice({
       state.token = null;
       state.id = null;
       state.name = null;
-      state.expires_at= null,
-      state.request_token= null,
-      state.success= null,
-      state.session_id= null,
-
-      localStorage.setItem("userState", JSON.stringify(state));
+      (state.expires_at = null),
+        (state.request_token = null),
+        (state.success = null),
+        (state.session_id = null),
+        localStorage.setItem("userState", JSON.stringify(state));
     },
   },
   extraReducers(builder) {

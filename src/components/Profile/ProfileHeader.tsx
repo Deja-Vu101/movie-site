@@ -9,6 +9,7 @@ import { fetchFavoriteList } from "../../store/slices/favoriteSlice";
 import { fetchWatchList } from "../../store/slices/watchListSlice";
 import VoteAverageProfile from "../VoteAverageProfile/VoteAverageProfile";
 import { fetchRating } from "../../store/slices/ratingSlice";
+import FormatReleaseDate from "../FormatReleaseDate";
 
 const ProfileHeader = () => {
   const dispatch = useTypedDispatch();
@@ -19,7 +20,7 @@ const ProfileHeader = () => {
   const [showWatchlistMenu, setShowWatchlistMenu] = useState(false);
 
   const [showFavoritesMenu, setShowFavoritesMenu] = useState(false);
-  const { name } = useTypedSelector((state) => state.user);
+  const { name, createDate } = useTypedSelector((state) => state.user);
   const { results } = useTypedSelector((state) => state.rating);
 
   console.log(results, "resultsRating");
@@ -60,7 +61,15 @@ const ProfileHeader = () => {
           </div>
           <div className="Profile_Description">
             <div className="Profile_DescriptionFlex">
-              <div className="Profile_Name">{name}</div>
+              <div className="Profile_Name">
+                {name}
+                <span className="Profile_MemberSince">
+                  Member since {"  "}
+                  <span>
+                    <FormatReleaseDate release={1693254110356} />
+                  </span>
+                </span>
+              </div>
               <div className="Profile_Statistik">
                 <div
                   style={{ display: "flex", gap: "5px", alignItems: "center" }}

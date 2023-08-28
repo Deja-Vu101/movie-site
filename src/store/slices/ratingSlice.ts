@@ -67,7 +67,6 @@ export const deleteRating = createAsyncThunk(
       },
       body: JSON.stringify({
         movie_id: movieID,
-        //value: newRating,
       }),
     };
     try {
@@ -76,9 +75,7 @@ export const deleteRating = createAsyncThunk(
         options
       );
       const data = await res.json();
-      console.log(data, "dataSlice");
-
-      //return data;
+      return data;
     } catch (error) {
       console.error(error);
     }

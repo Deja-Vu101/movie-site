@@ -108,7 +108,8 @@
   gap: 10px;
 }
 .Profile_Name {
-  font-size: 30px;
+  display: flex;
+  font-size: 40px;
   font-weight: 450;
 }
 .Profile_Statistik {
@@ -182,4 +183,14 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: block;
   opacity: 0.95;
+}
+
+.Profile_MemberSince {
+  display: flex;
+  align-items: end;
+  gap: 5px;
+  font-size: 18px;
+  color: RGB(177, 192, 195);
+
+  margin-left: 10px;
 }
