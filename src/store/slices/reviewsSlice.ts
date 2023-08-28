@@ -7,6 +7,7 @@ import {
 } from "../../globalTypes/globalTypes";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../apiConfigs/firebase";
+import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 
 interface AllReviewsResponse {
   firebaseReviews: IReviewsFirebase[];
@@ -47,16 +48,7 @@ export const fetchReviews = createAsyncThunk<AllReviewsResponse, string, {}>(
     }
   }
 );
-export function isIReviewsFirebase(obj: any): obj is IReviewsFirebase {
-  return (
-    typeof obj === "object" &&
-    "idUser" in obj &&
-    "idReview" in obj &&
-    "author" in obj &&
-    "content" in obj &&
-    "created_at" in obj
-  );
-}
+
 export const addReviews = createAsyncThunk(
   "reviewsSlice/addReviews",
   async function (commentData: IReviewsFirebase) {
@@ -76,6 +68,44 @@ export const addReviews = createAsyncThunk(
   }
 );
 
+export const deleteReviews = createAsyncThunk(
+  "reviewsSlice/deleteReviews",
+  async function ({
+    movieID,
+    reviewID,
+  }: {
+    movieID: string;
+    reviewID: string;
+  }) {
+    try {
+      const docRef = doc(db, "reviews/all");
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const currentData: IReviewsFirebase[] = docSnap.data().results;
+        const newData = currentData.filter(
+          (review) => review.idReview !== reviewID
+        );
+        await updateDoc(docRef, { results: newData });
+
+        return newData;
+        //console.log(newData);
+      }
+    } catch (error: any) {
+      console.error(error);
+    }
+  }
+);
+
+export function isIReviewsFirebase(obj: any): obj is IReviewsFirebase {
+  return (
+    typeof obj === "object" &&
+    "idUser" in obj &&
+    "idReview" in obj &&
+    "author" in obj &&
+    "content" in obj &&
+    "created_at" in obj
+  );
+}
 const initialState: IReviewsSliceState = {
   error: null,
   loading: false,
@@ -100,8 +130,8 @@ const reviewsSlice = createSlice({
       .addCase(fetchReviews.fulfilled, (state, action) => {
         state.loading = false;
 
-        (state.results = action.payload.reviews.results),
-          (state.id = action.payload.reviews.id);
+        state.results = action.payload.reviews.results;
+        state.id = action.payload.reviews.id;
         state.page = action.payload.reviews.page;
         state.total_pages = action.payload.reviews.total_pages;
         state.total_results = action.payload.reviews.total_results;
@@ -113,7 +143,12 @@ const reviewsSlice = createSlice({
         state.error = "Error";
       })
       .addCase(addReviews.fulfilled, (state, action) => {
-        state.loading = false;
+        if (isIReviewsFirebase(action.payload)) {
+          state.reviewsFirebase = [...state.reviewsFirebase, action.payload];
+        }
+      })
+
+      .addCase(deleteReviews.fulfilled, (state, action) => {
         if (isIReviewsFirebase(action.payload)) {
           state.reviewsFirebase = [...state.reviewsFirebase, action.payload];
         }

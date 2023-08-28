@@ -7,6 +7,8 @@ import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { useNavigate } from "react-router-dom";
 import { fetchFavoriteList } from "../../store/slices/favoriteSlice";
 import { fetchWatchList } from "../../store/slices/watchListSlice";
+import VoteAverageProfile from "../VoteAverageProfile/VoteAverageProfile";
+import { fetchRating } from "../../store/slices/ratingSlice";
 
 const ProfileHeader = () => {
   const dispatch = useTypedDispatch();
@@ -18,6 +20,9 @@ const ProfileHeader = () => {
 
   const [showFavoritesMenu, setShowFavoritesMenu] = useState(false);
   const { name } = useTypedSelector((state) => state.user);
+  const { results } = useTypedSelector((state) => state.rating);
+
+  console.log(results, "resultsRating");
 
   useEffect(() => {
     if (filterList === "favorites-movies") {
@@ -35,6 +40,10 @@ const ProfileHeader = () => {
     }
   }, [filterList]);
 
+  useEffect(() => {
+    dispatch(fetchRating());
+  }, []);
+
   return (
     <>
       <div
@@ -50,7 +59,24 @@ const ProfileHeader = () => {
             />
           </div>
           <div className="Profile_Description">
-            <div className="Profile_Name">{name}</div>
+            <div className="Profile_DescriptionFlex">
+              <div className="Profile_Name">{name}</div>
+              <div className="Profile_Statistik">
+                <div
+                  style={{ display: "flex", gap: "5px", alignItems: "center" }}
+                >
+                  <VoteAverageProfile />
+                  Average <br /> Movie Score
+                </div>
+
+                <div
+                  style={{ display: "flex", gap: "5px", alignItems: "center" }}
+                >
+                  <VoteAverageProfile voteAverage={0} />
+                  Average <br /> TV Score
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

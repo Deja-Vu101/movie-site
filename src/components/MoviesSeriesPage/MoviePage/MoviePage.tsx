@@ -18,12 +18,11 @@ import { fetchVideo } from "../../../store/slices/videosSlice";
 import VideosSwiper from "../VideoSwiper";
 import { fetchPhotos } from "../../../store/slices/photosSlice";
 import PhotosSwiper from "../PhotosSwiper";
-import { addReviews, fetchReviews } from "../../../store/slices/reviewsSlice";
+import { fetchReviews } from "../../../store/slices/reviewsSlice";
 import Reviews from "../../Reviews/Reviews";
-
-import { db } from "../../../apiConfigs/firebase";
-import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { IReviews } from "../../../globalTypes/globalTypes";
+import { fetchRating } from "../../../store/slices/ratingSlice";
+import Rating from "../../Rating/Rating";
+import RatingSection from "../../Rating/Rating";
 
 const MoviePage = () => {
   const dispatch = useTypedDispatch();
@@ -31,10 +30,10 @@ const MoviePage = () => {
   const { results, loading } = useTypedSelector((state) => state.movie);
 
   const { results: actors } = useTypedSelector((state) => state.actors);
-  //const { results: videos } = useTypedSelector((state) => state.video);
-  //const { backdrops, posters, logos } = useTypedSelector(
-  //  (state) => state.photos
-  //);
+  const { results: videos } = useTypedSelector((state) => state.video);
+  const { backdrops, posters, logos } = useTypedSelector(
+    (state) => state.photos
+  );
   const { results: reviews, reviewsFirebase } = useTypedSelector(
     (state) => state.reviews
   );
@@ -44,17 +43,13 @@ const MoviePage = () => {
   useEffect(() => {
     if (id) {
       dispatch(fetchMovie(id));
-      //dispatch(fetchActors(id));
+      dispatch(fetchActors(id));
       //dispatch(fetchVideo(id));
-      //dispatch(fetchPhotos(id));
+      dispatch(fetchPhotos(id));
+      dispatch(fetchReviews(id));
+      dispatch(fetchRating());
     }
   }, [id]);
-
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchReviews(id));
-    }
-  }, [handlePost]);
 
   return (
     <div>
@@ -105,6 +100,9 @@ const MoviePage = () => {
                     <FavoriteButton id={results.id} mediaType="movie" />
                     <WatchListBtn id={results.id} mediaType="movie" />
                     <WatchNowBtn />
+                    {typeof id !== "undefined" && (
+                      <RatingSection movieID={id} />
+                    )}
                   </div>
                   <div className="SliderActors">
                     <SliderActors items={actors.cast} title="Top Billed Cast" />
@@ -117,10 +115,10 @@ const MoviePage = () => {
           <div className="MainSectionVideo">
             <div className="MainSectionVideo_Container">
               <div className="MainSectionVideo_Wrapper">
-                {/*<div className="Section">
+                <div className="Section">
                   <div className="Collection_Title">Videos</div>
                   <div className="Title_Decoration"></div>
-                  <VideosSwiper results={videos} />
+                  {/*<VideosSwiper results={videos} />*/}
                 </div>
 
                 <div className="Section">
@@ -129,7 +127,7 @@ const MoviePage = () => {
 
                 <div className="Section SectionPoster">
                   <PhotosSwiper photos={posters} title="Posters" />
-                </div>*/}
+                </div>
 
                 <div className="Section">
                   <Reviews

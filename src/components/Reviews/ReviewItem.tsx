@@ -1,13 +1,19 @@
-import { MdExpandMore } from "react-icons/md";
+import { MdExpandMore, MdExpandLess } from "react-icons/md";
 import { AiFillDelete } from "react-icons/ai";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { useTypedDispatch } from "../../hooks/useTypedDispatch";
+import { deleteReviews, fetchReviews } from "../../store/slices/reviewsSlice";
+import { useState } from "react";
+import FormatReleaseDate from "../FormatReleaseDate";
+import ReviewsDateCreate from "../FormatCreateAtData";
 
 interface IOwnProps {
   name: string;
   content: string;
-  created_at: string;
+  created_at: string | number;
   idUser: string;
   idReview: string;
+  movieId: string | undefined;
 }
 
 const ReviewItem: React.FC<IOwnProps> = ({
@@ -16,8 +22,24 @@ const ReviewItem: React.FC<IOwnProps> = ({
   name,
   idReview,
   idUser,
+  movieId,
 }) => {
+  const dispatch = useTypedDispatch();
   const { id } = useTypedSelector((state) => state.user);
+
+  const onClickDeleteReviews = () => {
+    if (movieId) {
+      dispatch(deleteReviews({ movieID: movieId, reviewID: idReview })).then(
+        (resultAction) => {
+          if (deleteReviews.fulfilled.match(resultAction)) {
+            dispatch(fetchReviews(movieId));
+          }
+        }
+      );
+    }
+  };
+  const [isHidden, setIsHidden] = useState(true);
+
   return (
     <>
       <div className="Reviews_Wrapper">
@@ -26,22 +48,24 @@ const ReviewItem: React.FC<IOwnProps> = ({
         </div>
         <div className="Reviews_Body">
           <div className="Reviews_Name">{name}</div>
-          <div className="Reviews_Date">{created_at}</div>
+          <div className="Reviews_Date">
+            <ReviewsDateCreate created_at={created_at} />
+          </div>
           <div className="Reviews_Flex">
             <div className="Reviews_Content">
               {content?.length > 260 ? (
-                <span>
-                  {content?.slice(0, 260)}...{" "}
+                <span onClick={() => setIsHidden(!isHidden)}>
+                  {isHidden ? content?.slice(0, 260) + "..." : content}
                   <span className="Reviews_LoadMore">
-                    <MdExpandMore />
+                    {isHidden ? <MdExpandMore /> : <MdExpandLess />}
                   </span>
                 </span>
               ) : (
-                content
+                <span className="Contenr">{content}</span>
               )}
               {idUser === id ? (
                 <div className="Reviews_Buttons">
-                  <div className="Button_Delete">
+                  <div className="Button_Delete" onClick={onClickDeleteReviews}>
                     <span>
                       <AiFillDelete />
                     </span>

@@ -53,33 +53,37 @@ const Reviews: React.FC<IOwnProps> = ({
 
         {reviews.map((i) => (
           <ReviewItem
-            key={i.idReview}
+            key={i.content}
             name={i.author}
             content={i.content}
             created_at={i.created_at}
             idReview={i.idReview}
             idUser={i.idUser}
+            movieId={movieId}
           />
         ))}
 
         {reviewsFirebase.map((i) =>
           i.idMovie === movieId ? (
             <ReviewItem
-              key={i.idReview}
+              key={i.content}
               name={i.author}
               content={i.content}
-              created_at={i.created_at}
+              created_at={Number(i.created_at)}
               idReview={i.idReview}
               idUser={i.idUser}
+              movieId={movieId}
             />
           ) : null
         )}
         <div className="line"></div>
         <div className="Reviews_InputWrapper">
-          <div className="Reviews_AuthorImg">r</div>
+          <div className="Reviews_AuthorImg">
+            {name?.slice(0, 1).toLocaleLowerCase()}
+          </div>
           <div className="Reviews_Input">
             <div className="Reviews_Body">
-              <div className="Reviews_Name">Rostyslav</div>
+              <div className="Reviews_Name">{name}</div>
               <div className="ReviewsArea">
                 <textarea
                   className="Area"

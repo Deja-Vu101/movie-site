@@ -6,10 +6,16 @@ import Header from "../components/Header/Header";
 import ProfileHeader from "../components/Profile/ProfileHeader";
 import { useAuth } from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useTypedDispatch } from "../hooks/useTypedDispatch";
+import { fetchRating } from "../store/slices/ratingSlice";
 
 const ProfilePage = () => {
+  const dispatch = useTypedDispatch();
   const { isAuth } = useAuth();
   const [filterList, setFilterList] = useState("");
+
+
 
   return (
     <>
