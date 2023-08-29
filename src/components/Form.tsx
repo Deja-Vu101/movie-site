@@ -13,10 +13,9 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 interface IOwnProps {
   title: string;
-  handleClick: (email: string, password: string, name: string) => void;
 }
 
-const Form: React.FC<IOwnProps> = ({ title, handleClick }) => {
+const Form: React.FC<IOwnProps> = ({ title }) => {
   const navigate = useNavigate();
   const auth = getAuth();
   const dispatch = useTypedDispatch();
@@ -97,15 +96,20 @@ const Form: React.FC<IOwnProps> = ({ title, handleClick }) => {
 
     signInWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
-        dispatch(
-          setUser({
-            email: user.email,
-            token: user.refreshToken,
-            id: user.uid,
-            name: user.displayName,
-          })
-        );
-        navigate("/");
+        auth.onAuthStateChanged((userAuth) => {
+          if (userAuth) {
+            const userPayload = {
+              email: user.email,
+              token: user.refreshToken,
+              id: user.uid,
+              name: user.displayName,
+              createDate: userAuth.metadata.creationTime,
+              avatarURL: userAuth.photoURL,
+            };
+            dispatch(setUser(userPayload));
+            navigate("/");
+          }
+        });
       })
       .catch(console.error);
   };

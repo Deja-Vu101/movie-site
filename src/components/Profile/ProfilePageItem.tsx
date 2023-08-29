@@ -65,7 +65,7 @@ const ProfilePageItem: React.FC<IOwnProps> = ({
               <div className="Button">
                 <AiFillStar /> Your rating
               </div>
-              <FavoriteButton id={id} title = 'Favorite' />
+              <FavoriteButton id={id} title = 'Favorite' mediaType="" />
               <div className="Button" onClick={() => removeItem(id)}>
                 <GiCancel />
                 Remove

@@ -94,9 +94,17 @@
   width: 150px;
   height: 150px;
   border-radius: 50%;
+  position: relative;
 }
 .Avatar_Img {
   width: inherit;
+}
+.Profile_AvatarEdit {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 25px;
+  cursor: pointer;
 }
 .Profile_Description {
   display: flex;

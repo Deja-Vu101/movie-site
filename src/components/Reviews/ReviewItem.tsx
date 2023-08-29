@@ -14,6 +14,7 @@ interface IOwnProps {
   idUser: string;
   idReview: string;
   movieId: string | undefined;
+  avatar?: string;
 }
 
 const ReviewItem: React.FC<IOwnProps> = ({
@@ -23,9 +24,10 @@ const ReviewItem: React.FC<IOwnProps> = ({
   idReview,
   idUser,
   movieId,
+  avatar,
 }) => {
   const dispatch = useTypedDispatch();
-  const { id } = useTypedSelector((state) => state.user);
+  const { id, avatarURL } = useTypedSelector((state) => state.user);
 
   const onClickDeleteReviews = () => {
     if (movieId) {
@@ -44,7 +46,16 @@ const ReviewItem: React.FC<IOwnProps> = ({
     <>
       <div className="Reviews_Wrapper">
         <div className="Reviews_AuthorImg">
-          {name?.toLowerCase()?.slice(0, 1)}
+          {/*{name?.toLowerCase()?.slice(0, 1)}*/}
+          <img
+            className="Reviews_Img"
+            src={
+              avatar !== "" && avatar
+                ? avatar
+                : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
+            }
+            alt="Avatar revie"
+          />
         </div>
         <div className="Reviews_Body">
           <div className="Reviews_Name">{name}</div>

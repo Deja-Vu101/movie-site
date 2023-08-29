@@ -10,7 +10,7 @@ import { addReviews, fetchReviews } from "../../store/slices/reviewsSlice";
 import { useEffect } from "react";
 
 interface IOwnProps {
-  reviews: IReviewsFirebase[];
+  reviews: (IReviewsFirebase | IReviews)[];
   movieId: string | undefined;
   handlePost: boolean;
   setHandlePost: (handlePost: boolean) => void;
@@ -23,7 +23,11 @@ const Reviews: React.FC<IOwnProps> = ({
   reviewsFirebase,
 }) => {
   const dispatch = useTypedDispatch();
-  const { id: idUser, name } = useTypedSelector((state) => state.user);
+  const {
+    id: idUser,
+    name,
+    avatarURL,
+  } = useTypedSelector((state) => state.user);
 
   const [textAreaValue, setTextAreaValue] = useState("");
 
@@ -32,6 +36,7 @@ const Reviews: React.FC<IOwnProps> = ({
       const uniqueId = uuidv4();
       const newReview: IReviewsFirebase = {
         author: name,
+        authorUrl: avatarURL,
         content: textAreaValue,
         created_at: Date.now().toString(),
         idReview: uniqueId,
@@ -73,13 +78,23 @@ const Reviews: React.FC<IOwnProps> = ({
               idReview={i.idReview}
               idUser={i.idUser}
               movieId={movieId}
+              avatar={i.authorUrl}
             />
           ) : null
         )}
         <div className="line"></div>
         <div className="Reviews_InputWrapper">
           <div className="Reviews_AuthorImg">
-            {name?.slice(0, 1).toLocaleLowerCase()}
+            {/*{name?.toLowerCase()?.slice(0, 1)}*/}
+            <img
+              className="Reviews_Img"
+              src={
+                avatarURL !== "" && avatarURL
+                  ? avatarURL
+                  : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
+              }
+              alt="Avatar revie"
+            />
           </div>
           <div className="Reviews_Input">
             <div className="Reviews_Body">

@@ -10,20 +10,32 @@ import { fetchWatchList } from "../../store/slices/watchListSlice";
 import VoteAverageProfile from "../VoteAverageProfile/VoteAverageProfile";
 import { fetchRating } from "../../store/slices/ratingSlice";
 import FormatReleaseDate from "../FormatReleaseDate";
+import { TbEdit } from "react-icons/tb";
+import Modal from "react-modal";
+import AvatarEditor from "./AvatarEditor";
+import { setUserAvatar } from "../../store/slices/userSlice";
+
+//const { results } = useTypedSelector((state) => state.rating);
 
 const ProfileHeader = () => {
   const dispatch = useTypedDispatch();
   const navigate = useNavigate();
   const [filterList, setFilterList] = useState("");
+
+  const [showFavoritesMenu, setShowFavoritesMenu] = useState(false);
+  const { name, createDate, avatarURL } = useTypedSelector(
+    (state) => state.user
+  );
+
+  const [avatarUrl, setAvatarURL] = useState(avatarURL);
+
+  useEffect(() => {
+    setAvatarURL(avatarURL);
+  }, [avatarURL]);
+
   const [showOverviewMenu, setShowOverviewMenu] = useState(false);
 
   const [showWatchlistMenu, setShowWatchlistMenu] = useState(false);
-
-  const [showFavoritesMenu, setShowFavoritesMenu] = useState(false);
-  const { name, createDate } = useTypedSelector((state) => state.user);
-  const { results } = useTypedSelector((state) => state.rating);
-
-  console.log(results, "resultsRating");
 
   useEffect(() => {
     if (filterList === "favorites-movies") {
@@ -45,6 +57,16 @@ const ProfileHeader = () => {
     dispatch(fetchRating());
   }, []);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <div
@@ -52,13 +74,30 @@ const ProfileHeader = () => {
         style={{ height: "230px", backgroundImage: `url(${Fone})` }}
       >
         <div className="Profile_Wrapper">
-          <div className="Profile_Avatar">
+          <div className="Profile_Avatar" style={{ display: "flex" }}>
             <img
               className="Avatar_Img"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
+              src={
+                avatarUrl !== "" && avatarUrl
+                  ? avatarUrl
+                  : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
+              }
+              //src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
               alt="EmptyProfile"
             />
+            <div className="Profile_AvatarEdit" onClick={openModal}>
+              <TbEdit />
+            </div>
           </div>
+
+          <Modal
+            isOpen={isModalOpen}
+            onRequestClose={closeModal}
+            contentLabel="Edit Avatar Modal"
+          >
+            <AvatarEditor  />
+          </Modal>
+
           <div className="Profile_Description">
             <div className="Profile_DescriptionFlex">
               <div className="Profile_Name">

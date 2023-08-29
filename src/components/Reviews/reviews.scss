@@ -24,7 +24,6 @@
   align-items: center;
   width: 40px;
   height: 40px;
-  background-color: purple;
   border-radius: 50%;
   z-index: 1;
 }
@@ -142,4 +141,9 @@
 .Button_Delete span {
   display: flex;
   font-size: 18px;
+}
+
+.Reviews_Img {
+  width: 40px;
+  height: 40px;
 }

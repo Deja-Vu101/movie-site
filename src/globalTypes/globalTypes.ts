@@ -183,6 +183,7 @@ export interface IReviewsFirebase {
   idReview: string;
   idMovie: string;
   author: string;
+  authorUrl: string;
   content: string;
   created_at: string;
 }

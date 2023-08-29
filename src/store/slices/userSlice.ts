@@ -3,6 +3,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CreateRequestToken } from "../../globalTypes/globalTypes";
 import axios from "axios";
 
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../apiConfigs/firebase";
+
 export interface IUserState {
   email: string | null;
   token: string | null;
@@ -14,7 +17,29 @@ export interface IUserState {
   session_id: any;
   loading: boolean;
   createDate: string | undefined;
+  avatarURL: any;
 }
+
+export const fetchUrl = createAsyncThunk(
+  "user/fetchUrl",
+  async function (id, { rejectWithValue }) {
+    try {
+      const docRef = doc(db, `/avatars`);
+      const docSnap = await getDoc(docRef);
+
+      let firebaseReviewsDB = [];
+
+      if (docSnap.exists()) {
+        firebaseReviewsDB = docSnap.data().results;
+      }
+
+      return firebaseReviewsDB;
+    } catch (error: any) {
+      console.error(error);
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 export const fetchRequestToken = createAsyncThunk<
   CreateRequestToken,
@@ -46,6 +71,7 @@ const initialState: IUserState = storedUserState
       session_id: null,
       loading: false,
       createDate: "",
+      avatarURL: "",
     };
 
 const userSlice = createSlice({
@@ -58,8 +84,12 @@ const userSlice = createSlice({
       state.id = action.payload.id;
       state.name = action.payload.name;
       state.createDate = action.payload.createDate;
+      state.avatarURL = action.payload.avatarURL;
 
       localStorage.setItem("userState", JSON.stringify(state));
+    },
+    setUserAvatar(state, action) {
+      state.avatarURL = action.payload;
     },
     setSessionId(state, action) {
       state.session_id = action.payload;
@@ -94,10 +124,14 @@ const userSlice = createSlice({
       .addCase(fetchRequestToken.rejected, (state) => {
         state.loading = false;
         state.success = false;
+      })
+      .addCase(fetchUrl.fulfilled, (state, action) => {
+        state.avatarURL = action.payload;
       });
   },
 });
 
-export const { logout, setUser, setSessionId } = userSlice.actions;
+export const { logout, setUser, setSessionId, setUserAvatar } =
+  userSlice.actions;
 
 export default userSlice.reducer;

@@ -7,10 +7,12 @@ import TitleSite from "./TitleSite";
 import BurgerMenu from "./BurgerMenu/BurgerMenu";
 import NavBar from "./NavBar";
 import { NavLink } from "react-router-dom";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 const Header = () => {
   const dispatch = useTypedDispatch();
-  const { name } = useAuth();  
+  const { name } = useAuth();
+  const { avatarURL } = useTypedSelector((state) => state.user);
 
   useEffect(() => {
     const header = document.querySelector(".header");
@@ -44,7 +46,11 @@ const Header = () => {
             <div className="Image_Profile">
               <img
                 className="ProfileImg"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
+                src={
+                  avatarURL !== "" && avatarURL
+                    ? avatarURL
+                    : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
+                }
                 alt="Image profile"
                 onClick={() => dispatch(logout())}
               />
