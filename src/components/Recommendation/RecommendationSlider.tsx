@@ -1,15 +1,13 @@
 import Slider from "react-slick";
-import { ISeries } from "../MainSection/types";
-import "./sliderMovies.scss";
-import SliderItem from "./SliderItem";
+import SliderItem from "../SliderMovies/SliderItem";
+import { IRecommendation } from "../../globalTypes/globalTypes";
 
 interface IOwnProps {
   title: string;
-  items: ISeries[];
+  items: IRecommendation[];
 }
 
-const SliderSeries: React.FC<IOwnProps> = ({ title, items }) => {
-  
+const RecommendationSlider: React.FC<IOwnProps> = ({ title, items }) => {
   const settings = {
     dots: false,
     infinite: true,
@@ -56,7 +54,7 @@ const SliderSeries: React.FC<IOwnProps> = ({ title, items }) => {
       //},
     ],
   };
- 
+
   return (
     <div style={{paddingBottom: '50px'}}>
       <div className="Collection_Title">{title}</div>
@@ -68,9 +66,9 @@ const SliderSeries: React.FC<IOwnProps> = ({ title, items }) => {
             id={i.id}
             poster={i.poster_path}
             voteAverage={i.vote_average}
-            year={i.first_air_date}
-            ItemName={i.original_name}
-            mediaType="tv"
+            year={i.release_date}
+            ItemName={i.title}
+            mediaType="movie"
           />
         ))}
       </Slider>
@@ -78,4 +76,4 @@ const SliderSeries: React.FC<IOwnProps> = ({ title, items }) => {
   );
 };
 
-export default SliderSeries;
+export default RecommendationSlider;

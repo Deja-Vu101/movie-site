@@ -23,6 +23,9 @@ import Reviews from "../../Reviews/Reviews";
 import { fetchRating } from "../../../store/slices/ratingSlice";
 import Rating from "../../Rating/Rating";
 import RatingSection from "../../Rating/Rating";
+import { fetchRecommendations } from "../../../store/slices/recommendationsSlice";
+import SliderMovies from "../../SliderMovies/SliderMovies";
+import RecommendationSlider from "../../Recommendation/RecommendationSlider";
 
 const MoviePage = () => {
   const dispatch = useTypedDispatch();
@@ -37,6 +40,9 @@ const MoviePage = () => {
   const { results: reviews, reviewsFirebase } = useTypedSelector(
     (state) => state.reviews
   );
+  const { results: recommendations } = useTypedSelector(
+    (state) => state.recommendations
+  );
 
   const [handlePost, setHandlePost] = useState(false);
 
@@ -48,6 +54,7 @@ const MoviePage = () => {
       dispatch(fetchPhotos(id));
       dispatch(fetchReviews(id));
       dispatch(fetchRating());
+      dispatch(fetchRecommendations(id));
     }
   }, [id]);
 
@@ -136,6 +143,13 @@ const MoviePage = () => {
                     setHandlePost={setHandlePost}
                     handlePost={handlePost}
                     reviewsFirebase={reviewsFirebase}
+                  />
+                </div>
+
+                <div className="Section">
+                  <RecommendationSlider
+                    title="You may also like"
+                    items={recommendations}
                   />
                 </div>
               </div>

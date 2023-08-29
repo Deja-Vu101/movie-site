@@ -14,6 +14,7 @@ import videosReducer from "./slices/videosSlice";
 import photosReducer from "./slices/photosSlice";
 import reviewsReducer from "./slices/reviewsSlice";
 import ratingReducer from "./slices/ratingSlice";
+import recommendationsReducer from "./slices/recommendationsSlice";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
@@ -34,6 +35,7 @@ export const store = configureStore({
     photos: photosReducer,
     reviews: reviewsReducer,
     rating: ratingReducer,
+    recommendations: recommendationsReducer,
   },
 });
 

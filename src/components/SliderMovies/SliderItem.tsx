@@ -3,7 +3,7 @@ import PosterHover from "../Poster/PosterHover";
 
 interface IOwnProps {
   id: number;
-  poster: string;
+  poster?: string;
   voteAverage: number;
   year: string;
   ItemName: string;
