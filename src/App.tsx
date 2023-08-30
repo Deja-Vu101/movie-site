@@ -1,9 +1,12 @@
 import MoviePage from "./components/MoviesSeriesPage/MoviePage/MoviePage";
+import ProfileEdit from "./components/Profile/ProfileEdit/ProfileEdit";
 import ProfileFavorite from "./components/Profile/ProfileFavorite";
 import ProfileWatchlist from "./components/Profile/ProfileWatchlist";
+import ProfileRoutes from "./components/ProfileRoutes";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import MoviesPage from "./pages/MoviesPage";
+import ProfileEditPage from "./pages/ProfileEditPage";
 import ProfilePage from "./pages/ProfilePage";
 import RegisterPage from "./pages/RegisterPage";
 import SearchPage from "./pages/SearchPage";
@@ -28,6 +31,8 @@ function App() {
 
       <Route path="/profile/watchlist/movies" element={<ProfileWatchlist />} />
       <Route path="/profile/watchlist/series" element={<ProfileWatchlist />} />
+
+      <Route path="/profile/edit" element={<ProfileEditPage />} />
 
       <Route path="/movie/:id" element={<MoviePage />} />
     </Routes>

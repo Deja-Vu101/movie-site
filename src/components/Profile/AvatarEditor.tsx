@@ -1,10 +1,13 @@
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAuth } from "firebase/auth";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { updateProfile } from "firebase/auth";
 import { updateProfileDataInFirestore } from "../../updatesProfile/updateUser";
 import { setUserAvatar } from "../../store/slices/userSlice";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { TbEdit } from "react-icons/tb";
+import "../Profile/profile.scss";
 
 interface IOwnProps {
   closeModal: () => void;
@@ -12,6 +15,7 @@ interface IOwnProps {
 }
 
 const AvatarUploader = () => {
+  const { avatarURL } = useTypedSelector((state) => state.user);
   const dispatch = useTypedDispatch();
   const auth = getAuth();
   const currentUser = auth.currentUser;
@@ -40,12 +44,43 @@ const AvatarUploader = () => {
     }
   };
 
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleUploadClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (e: any) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      handleUpload(selectedFile);
+    }
+  };
   return (
     <div>
-      <input
-        type="file"
-        onChange={(e: any) => handleUpload(e.target.files[0])}
-      />
+      <div style={{ display: "flex", position: "relative", width: "200px" }}>
+        <img
+          src={
+            avatarURL !== "" && avatarURL
+              ? avatarURL
+              : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
+          }
+          alt="Avatar"
+          style={{ width: "inherit" }}
+        />
+        <div className="Profile_AvatarEdit" onClick={handleUploadClick}>
+          <TbEdit />
+        </div>
+        <input
+          type="file"
+          ref={fileInputRef} // Призначаємо реф на input
+          style={{ display: "none" }} // Ховаємо input
+          onChange={(e: any) => handleUpload(e.target.files[0])}
+        />
+      </div>
+
       {/*<button onClick={handleUpload}>Upload</button>*/}
     </div>
   );

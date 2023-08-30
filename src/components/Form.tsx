@@ -8,7 +8,6 @@ import {
   setUser,
 } from "../store/slices/userSlice";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import { AiOutlineArrowDown } from "react-icons/ai";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 interface IOwnProps {

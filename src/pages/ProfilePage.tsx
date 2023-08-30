@@ -6,7 +6,7 @@ import Header from "../components/Header/Header";
 import ProfileHeader from "../components/Profile/ProfileHeader";
 import { useAuth } from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
-import { useTypedDispatch } from "../hooks/useTypedDispatch";
+import { Outlet } from "react-router-dom";
 
 const ProfilePage = () => {
   const { isAuth } = useAuth();
@@ -15,12 +15,15 @@ const ProfilePage = () => {
   return (
     <>
       {isAuth ? null : <Navigate to={"/login"} />}
+
       <Header />
       <ProfileHeader />
 
       <div className="ProfilePage_Wrapper">
         {filterList === "watchlist" ? <ProfileWatchlist /> : null}
         {filterList === "favorite" ? <ProfileFavorite /> : null}
+
+        <Outlet />
       </div>
     </>
   );

@@ -14,6 +14,7 @@ import { TbEdit } from "react-icons/tb";
 import Modal from "react-modal";
 import AvatarEditor from "./AvatarEditor";
 import { setUserAvatar } from "../../store/slices/userSlice";
+import ProfileEdit from "./ProfileEdit/ProfileEdit";
 
 //const { results } = useTypedSelector((state) => state.rating);
 
@@ -57,16 +58,6 @@ const ProfileHeader = () => {
     dispatch(fetchRating());
   }, []);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   return (
     <>
       <div
@@ -85,18 +76,23 @@ const ProfileHeader = () => {
               //src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
               alt="EmptyProfile"
             />
-            <div className="Profile_AvatarEdit" onClick={openModal}>
-              <TbEdit />
-            </div>
           </div>
 
-          <Modal
+          {/*<Modal
             isOpen={isModalOpen}
             onRequestClose={closeModal}
             contentLabel="Edit Avatar Modal"
-          >
-            <AvatarEditor  />
-          </Modal>
+            style={{
+              content: { backgroundColor: "black" },
+              overlay: { zIndex: "1000" },
+            }}
+          >*/}
+          {/*<ProfileEdit
+            isModalOpen={isModalOpen}
+            closeModal={closeModal}
+            openModal={openModal}
+          />*/}
+          {/*</Modal>*/}
 
           <div className="Profile_Description">
             <div className="Profile_DescriptionFlex">
@@ -178,7 +174,7 @@ const ProfileHeader = () => {
             >
               Watchlist <AiOutlineCaretDown />
               {showWatchlistMenu && (
-                <ul className="submenu">
+                <ul className="submenuWatchList">
                   <li onClick={() => setFilterList("watchlist-movies")}>
                     Movies
                   </li>

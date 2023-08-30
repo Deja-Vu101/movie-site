@@ -19,13 +19,10 @@
       align-items: center;
     }
 
-    
-
     .header_btn_profile {
       color: white;
       background-color: red;
       padding: 6px 16px;
-      font-size: 14px;
     }
   }
 }
@@ -61,12 +58,9 @@
     cursor: pointer;
     background-color: rgb(122, 0, 0);
   }
-  .active {
-    background-color: rgb(255, 0, 0) !important;
-  }
 }
 
-.Header_Profile{
+.Header_Profile {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -75,11 +69,72 @@
   padding: 6px 16px;
   font-size: 14px;
   background-color: rgb(235, 0, 0);
+  position: relative;
 }
-.Image_Profile{
-  width: 30px;  
+
+.Image_Profile {
+  width: 30px;
 }
-.ProfileImg{
+.ProfileImg {
   width: inherit;
 }
 
+.DropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: -1px;
+  width: 140px;
+  background-color: RGB(19, 19, 19);
+  color: #fff;
+  border: 1px solid #444;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: opacity 0.2s, transform 0.2s;
+
+  font-size: 17px;
+
+  .active {
+    background-color: initial !important;
+  }
+}
+
+.Header_Profile:hover .DropdownMenu {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+a:hover {
+  color: #007bff;
+}
+
+.DropdownMenu ul {
+  background-color: #444;
+  box-shadow: none;
+  border: none;
+}
+.DropdownMenu span:hover {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.DropdownMenu li:last-child {
+  border-top: 1px solid #333;
+}

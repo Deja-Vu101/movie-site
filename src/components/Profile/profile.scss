@@ -101,9 +101,9 @@
 }
 .Profile_AvatarEdit {
   position: absolute;
-  bottom: 0;
+  bottom: -10px;
   right: 0;
-  font-size: 25px;
+  font-size: 35px;
   cursor: pointer;
 }
 .Profile_Description {
@@ -125,6 +125,7 @@
   display: flex;
   gap: 30px;
 }
+
 .Profile_Nav {
   display: flex;
   width: 100%;
@@ -157,10 +158,38 @@
   background-color: black;
   padding: 0;
   margin: 0;
+  border: 1px solid #444;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: block;
+  opacity: 0.95;
+
+  background-color: RGB(19, 19, 19);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.Profile_Nav li:hover {
+  background-color: RGB(31, 31, 31);
+}
+.submenuWatchList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style-type: none;
+  background-color: black;
+  padding: 0;
+  margin: 0;
   border: 1px solid #7c7c7c;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: block;
   opacity: 0.95;
+  width: 100px;
+  border: 1px solid #444;
+  background-color: RGB(19, 19, 19);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  li {
+    padding: 8px 15px;
+    cursor: pointer;
+    display: flex;
+  }
 }
 .submenuLastChild {
   border-top: 1px solid #7c7c7c;
@@ -183,12 +212,12 @@
   top: 0;
   right: -120%;
   list-style-type: none;
-  background-color: black;
+  background-color: RGB(19, 19, 19);
   padding: 0;
   margin-left: 100%;
   margin-top: 20%;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #444;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   display: block;
   opacity: 0.95;
 }
@@ -201,4 +230,15 @@
   color: RGB(177, 192, 195);
 
   margin-left: 10px;
+}
+
+.Edit_Inputs input{
+  padding: 5px;
+  font-size: 20px;
+  width: 100%;
+  margin-top: 10px;
+}
+.Edit_Inputs label{
+  font-size: 20px;
+  
 }

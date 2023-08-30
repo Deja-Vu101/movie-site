@@ -58,7 +58,7 @@ export const fetchRequestToken = createAsyncThunk<
 });
 
 const storedUserState = localStorage.getItem("userState");
-const initialState: IUserState = storedUserState
+export const initialState: IUserState = storedUserState
   ? JSON.parse(storedUserState)
   : {
       email: null,
