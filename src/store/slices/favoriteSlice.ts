@@ -3,7 +3,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IMovie, IMovieResponse } from "../../components/MainSection/types";
 import axios from "axios";
 import { RootState } from "..";
-import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 
 interface IFavoriteListState extends IMovieResponse {
   loading: boolean;
@@ -116,12 +115,7 @@ const favoriteList = createSlice({
       })
       .addCase(fetchFavoriteList.rejected, (state) => {
         state.loading = false;
-      })
-
-      //.addCase(addToFavoritelist.fulfilled, (state, action) => {
-      //  const dispatch = useTypedDispatch();
-      //  action.payload.status_code === 1 ? dispatch(fetchFavoriteList()) : null;
-      //});
+      });
   },
 });
 

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IMovie, IMovieResponse, ITopRatedResponse } from "../../components/MainSection/types";
+import { IMovieResponse } from "../../components/MainSection/types";
 import axios from "axios";
 import { options } from "../../apiConfigs/tmdb";
 
@@ -11,22 +11,21 @@ interface ITopRatedMoviesState extends IMovieResponse {
   error: null | string;
 }
 
-export const fetchTopRatedMovies = createAsyncThunk<
-  IMovieResponse,
-  number,
-  {}
->("fetchTopRatedMovies", async function (page) {
-  try {
-    const res = await axios.get(
-      BASE_URL_TOP_RATED_MOVIES + `?language=en-US&page=${page}`,
-      options
-    );
+export const fetchTopRatedMovies = createAsyncThunk<IMovieResponse, number, {}>(
+  "fetchTopRatedMovies",
+  async function (page) {
+    try {
+      const res = await axios.get(
+        BASE_URL_TOP_RATED_MOVIES + `?language=en-US&page=${page}`,
+        options
+      );
 
-    return res.data;
-  } catch (error) {
-    console.error(error);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
   }
-});
+);
 
 const initialState: ITopRatedMoviesState = {
   page: 1,
@@ -41,9 +40,9 @@ const topRatedMoviesSlice = createSlice({
   name: "topRatedMovies",
   initialState,
   reducers: {
-	setPageRatedMovies(state){
-		state.page += 1
-	}
+    setPageRatedMovies(state) {
+      state.page += 1;
+    },
   },
   extraReducers(builder) {
     builder
@@ -67,5 +66,5 @@ const topRatedMoviesSlice = createSlice({
   },
 });
 
-export const {setPageRatedMovies} = topRatedMoviesSlice.actions;
+export const { setPageRatedMovies } = topRatedMoviesSlice.actions;
 export default topRatedMoviesSlice.reducer;

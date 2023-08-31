@@ -50,7 +50,12 @@ export const popularSeries = createSlice({
       .addCase(fetchPopularSeries.fulfilled, (state, action) => {
         const data = action.payload;
         state.loading = false;
-        const newResults = data.results.filter(newItem => !state.results.some(existingItem => existingItem.id === newItem.id ))
+        const newResults = data.results.filter(
+          (newItem) =>
+            !state.results.some(
+              (existingItem) => existingItem.id === newItem.id
+            )
+        );
         state.results = [...state.results, ...newResults];
       })
       .addCase(fetchPopularSeries.rejected, (state) => {

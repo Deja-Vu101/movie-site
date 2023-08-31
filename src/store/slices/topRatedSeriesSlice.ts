@@ -51,7 +51,12 @@ const topRatedSeries = createSlice({
       .addCase(fetchTopRatedSeries.fulfilled, (state, action) => {
         const data = action.payload;
         state.loading = false;
-        const newResults = data.results.filter(newItem => !state.results.some(existingItem => existingItem.id === newItem.id ))
+        const newResults = data.results.filter(
+          (newItem) =>
+            !state.results.some(
+              (existingItem) => existingItem.id === newItem.id
+            )
+        );
         state.results = [...state.results, ...newResults];
       })
       .addCase(fetchTopRatedSeries.rejected, (state) => {
@@ -60,5 +65,5 @@ const topRatedSeries = createSlice({
   },
 });
 
-export const {setPageRatedSeries} = topRatedSeries.actions;
+export const { setPageRatedSeries } = topRatedSeries.actions;
 export default topRatedSeries.reducer;

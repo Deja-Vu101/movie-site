@@ -51,7 +51,7 @@ const CardsTrending = () => {
       },
     ],
   };
-  
+
   return (
     <div className="CardsTrending">
       <Slider {...settings}>
@@ -64,6 +64,7 @@ const CardsTrending = () => {
             genres={i.genre_ids}
             voteAverage={i.vote_average}
             mediaType={i.media_type}
+            id={i.id}
           />
         ))}
       </Slider>

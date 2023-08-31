@@ -7,8 +7,8 @@ import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import FormatReleaseDate from "../FormatReleaseDate";
 import VoteAverage from "../Trending/VoteAverage";
 import "./profile.scss";
-import { AiFillStar } from "react-icons/ai";
 import { GiCancel } from "react-icons/gi";
+import RatingSection from "../Rating/Rating";
 
 interface IOwnProps {
   poster: string;
@@ -32,7 +32,6 @@ const ProfilePageItem: React.FC<IOwnProps> = ({
   const removeItem = (id: number) => {
     dispatch(removeItemWatchlist(id));
   };
-
 
   return (
     <div className="ProfilePage_Item">
@@ -63,9 +62,9 @@ const ProfilePageItem: React.FC<IOwnProps> = ({
             <div className="Item_Captions">{overview}</div>
             <div className="Item_Buttons">
               <div className="Button">
-                <AiFillStar /> Your rating
+                <RatingSection movieID={id.toString()} /> Your rating
               </div>
-              <FavoriteButton id={id} title = 'Favorite' mediaType="" />
+              <FavoriteButton id={id} title="Favorite" mediaType="" />
               <div className="Button" onClick={() => removeItem(id)}>
                 <GiCancel />
                 Remove

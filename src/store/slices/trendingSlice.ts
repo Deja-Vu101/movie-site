@@ -23,7 +23,7 @@ export const fetchTrending = createAsyncThunk<ITrending, string, {}>(
         `https://api.themoviedb.org/3/trending/${pageTrend}/day?language=en-US`,
         options
       );
-      
+
       return res.data;
     } catch (error) {
       console.error(error);

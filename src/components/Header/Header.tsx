@@ -53,7 +53,6 @@ const Header = () => {
           <TitleSite />
           <NavBar />
         </div>
-        {/*<NavLink to={"/profile"}>*/}
         <div
           className="Header_Profile"
           onClick={() => setVisibleHeaderMenu(!visibleHeaderMenu)}
@@ -63,8 +62,9 @@ const Header = () => {
             <img
               className="ProfileImg"
               src={
-                avatarURL ||
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
+                avatarURL !== ""
+                  ? avatarURL
+                  : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
               }
               alt="Image profile"
             />
@@ -97,26 +97,6 @@ const Header = () => {
             </div>
           )}
         </div>
-
-        {/*<div
-          className="Header_Profile"
-          onClick={() => setVisibleHeaderMenu(!visibleHeaderMenu)}
-        >
-          <div className="Image_Profile">
-            <img
-              className="ProfileImg"
-              src={
-                avatarURL !== "" && avatarURL
-                  ? avatarURL
-                  : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
-              }
-              alt="Image profile"
-              //onClick={() => dispatch(logout())}
-            />
-          </div>
-          <div>{name}</div>
-        </div>*/}
-        {/*</NavLink>*/}
       </div>
     </header>
   );
