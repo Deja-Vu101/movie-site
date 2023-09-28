@@ -22,7 +22,7 @@ const HomePage = () => {
           <Header />
           <TrendingSlider />
           <MainSection>
-            <CollectionSlidersMain />
+            {/*<CollectionSlidersMain />*/}
           </MainSection>
         </>
       )}

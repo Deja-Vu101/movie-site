@@ -32,6 +32,7 @@
 .header_title {
   font-weight: 600;
   font-size: 27px;
+
   .header_title_word {
     margin-right: 24px;
     color: #ff0000;
@@ -67,13 +68,23 @@
   color: white;
   border: 1px solid red;
   padding: 6px 16px;
-  font-size: 14px;
   background-color: rgb(235, 0, 0);
   position: relative;
+  font-size: 16px;
+
+  @media (max-width: 520px) {
+    max-width: 119px;
+    padding: 5px 10px;
+    gap: 2px;
+  }
 }
 
 .Image_Profile {
   width: 30px;
+  @media (max-width: 520px) {
+    width: 25px;
+    //display: none;
+  }
 }
 .ProfileImg {
   width: inherit;
@@ -95,6 +106,10 @@
   transition: opacity 0.2s, transform 0.2s;
 
   font-size: 17px;
+
+  @media (max-width: 520px) {
+    max-width: 117px;
+  }
 
   .active {
     background-color: initial !important;

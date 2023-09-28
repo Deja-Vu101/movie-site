@@ -29,7 +29,11 @@ const CardsItem: React.FC<IOwnProps> = ({
               <VoteAverage voteAverage={voteAverage} />
               <GenresList genres={genres} mediaType={mediaType} />
             </div>
-            <div className="Overview">{overview}</div>
+            <div className="Overview">
+              {overview.length > 200
+                ? overview.slice(0, 200) + "..."
+                : overview}
+            </div>
             <div className="btn_WatchNow">
               <span
                 style={{

@@ -17,7 +17,7 @@ const SliderMovies: React.FC<IOwnProps> = ({ title, items }) => {
     slidesToScroll: 3,
     responsive: [
       {
-        breakpoint: 1400,
+        breakpoint: 1450,
         settings: {
           slidesToShow: 4,
           slidesToScroll: 2,

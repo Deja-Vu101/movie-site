@@ -51,7 +51,6 @@
   transition: opacity 0.3s;
 
   display: block;
- 
 }
 
 .SliderItem:hover .SliderItem_Hover {
@@ -89,21 +88,19 @@
 
   display: flex;
   flex-direction: column;
-  
 }
-.Description_PosterWrapper{
+.Description_PosterWrapper {
   margin-left: 15px;
   font-size: 20px;
 }
-.Poster_Button{
+.Poster_Button {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-right: 20px;
 }
 
-
-.Button{
+.Button {
   margin-top: 10px;
   font-size: 25px;
   margin-bottom: 5px;
