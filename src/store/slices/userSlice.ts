@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CreateRequestToken } from "../../globalTypes/globalTypes";
 import axios from "axios";
 
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../apiConfigs/firebase";
 
 export interface IUserState {

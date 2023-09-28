@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import Header from "../../Header/Header";
 import "./movie.scss";
 import { useEffect } from "react";
@@ -26,9 +26,11 @@ import RatingSection from "../../Rating/Rating";
 import { fetchRecommendations } from "../../../store/slices/recommendationsSlice";
 import SliderMovies from "../../SliderMovies/SliderMovies";
 import RecommendationSlider from "../../Recommendation/RecommendationSlider";
+import { useAuth } from "../../../hooks/useAuth";
 
 const MoviePage = () => {
   const dispatch = useTypedDispatch();
+  const { isAuth } = useAuth();
   const id = useParams().id;
   const { results, loading } = useTypedSelector((state) => state.movie);
 
@@ -50,7 +52,7 @@ const MoviePage = () => {
     if (id) {
       dispatch(fetchMovie(id));
       dispatch(fetchActors(id));
-      //dispatch(fetchVideo(id));
+      dispatch(fetchVideo(id));
       dispatch(fetchPhotos(id));
       dispatch(fetchReviews(id));
       dispatch(fetchRating());
@@ -60,6 +62,7 @@ const MoviePage = () => {
 
   return (
     <div>
+      {isAuth ? null : <Navigate to={"/login"} />}
       {loading ? (
         <GlobalLoader />
       ) : (
@@ -125,7 +128,7 @@ const MoviePage = () => {
                 <div className="Section">
                   <div className="Collection_Title">Videos</div>
                   <div className="Title_Decoration"></div>
-                  {/*<VideosSwiper results={videos} />*/}
+                  {/* <VideosSwiper results={videos} /> */}
                 </div>
 
                 <div className="Section">

@@ -7,7 +7,6 @@ import {
 } from "../../globalTypes/globalTypes";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../apiConfigs/firebase";
-import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 
 interface AllReviewsResponse {
   firebaseReviews: IReviewsFirebase[];

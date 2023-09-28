@@ -62,8 +62,9 @@ const Header = () => {
             <img
               className="ProfileImg"
               src={
-                avatarURL ||
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
+                avatarURL !== ""
+                  ? avatarURL
+                  : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
               }
               alt="Image profile"
             />

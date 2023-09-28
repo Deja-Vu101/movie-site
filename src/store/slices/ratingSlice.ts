@@ -118,11 +118,6 @@ const ratingSlice = createSlice({
         state.loading = false;
         state.error = "Error";
       });
-
-    //.addCase(addRating.fulfilled, (state, action) => {
-    //  console.log([...state.results], 'data');
-
-    //})
   },
 });
 

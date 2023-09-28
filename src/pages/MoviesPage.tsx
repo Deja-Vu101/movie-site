@@ -19,6 +19,7 @@ import { useInitialLoad } from "../hooks/useInitialLoad";
 
 const MoviesPage = () => {
   const dispatch = useTypedDispatch();
+
   const {
     page: pagePopularMovies,
     results: resultsPopularMovies,

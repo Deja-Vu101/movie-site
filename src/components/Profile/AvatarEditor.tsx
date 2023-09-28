@@ -75,7 +75,7 @@ const AvatarUploader = () => {
         </div>
         <input
           type="file"
-          ref={fileInputRef} // Призначаємо реф на input
+          ref={fileInputRef}
           style={{ display: "none" }} // Ховаємо input
           onChange={(e: any) => handleUpload(e.target.files[0])}
         />

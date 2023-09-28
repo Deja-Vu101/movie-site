@@ -1,4 +1,3 @@
-import { IVideos } from './../../globalTypes/globalTypes';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { options } from "../../apiConfigs/tmdb";
@@ -28,7 +27,7 @@ const initialState: IVideosSliceState = {
   error: null,
   id: 0,
   loading: false,
-  results: []
+  results: [],
 };
 
 const videosSlice = createSlice({

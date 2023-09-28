@@ -4,8 +4,8 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { deleteReviews, fetchReviews } from "../../store/slices/reviewsSlice";
 import { useState } from "react";
-import FormatReleaseDate from "../FormatReleaseDate";
 import ReviewsDateCreate from "../FormatCreateAtData";
+import Default from '../../assets/img/Default.png'
 
 interface IOwnProps {
   name: string;
@@ -54,7 +54,7 @@ const ReviewItem: React.FC<IOwnProps> = ({
                 ? avatar
                 : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
             }
-            alt="Avatar revie"
+            alt="Avatar reviewer"
           />
         </div>
         <div className="Reviews_Body">
@@ -72,7 +72,7 @@ const ReviewItem: React.FC<IOwnProps> = ({
                   </span>
                 </span>
               ) : (
-                <span className="Contenr">{content}</span>
+                <span className="Content">{content}</span>
               )}
               {idUser === id ? (
                 <div className="Reviews_Buttons">

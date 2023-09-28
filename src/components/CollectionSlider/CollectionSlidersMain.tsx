@@ -10,16 +10,12 @@ import { fetchFavoriteList } from "../../store/slices/favoriteSlice";
 
 const CollectionSlidersMain: React.FC = () => {
   const dispatch = useTypedDispatch();
-  const {
-    loading: loadingMovies,
-    page: pageMovies,
-    results: resultsMovies,
-  } = useTypedSelector((state) => state.popularMovies);
-  const {
-    page: pageSeries,
-    loading: loadingSeries,
-    results: resultsSeries,
-  } = useTypedSelector((state) => state.popularSeries);
+  const { page: pageMovies, results: resultsMovies } = useTypedSelector(
+    (state) => state.popularMovies
+  );
+  const { page: pageSeries, results: resultsSeries } = useTypedSelector(
+    (state) => state.popularSeries
+  );
 
   useEffect(() => {
     dispatch(fetchPopularMovie(pageMovies));

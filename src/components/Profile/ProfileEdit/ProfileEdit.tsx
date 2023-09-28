@@ -29,6 +29,7 @@ const ProfileEdit: React.FC<IOwnProps> = ({ closeModal }) => {
   );
   const auth = getAuth();
   const user = auth.currentUser;
+
   const [displayName, setDisplayName] = useState(name ? name : "");
   const [newEmail, setNewEmail] = useState(email ? email : "");
   const [newPassword, setNewPassword] = useState("");
