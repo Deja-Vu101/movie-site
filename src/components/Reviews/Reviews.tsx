@@ -85,7 +85,6 @@ const Reviews: React.FC<IOwnProps> = ({
         <div className="line"></div>
         <div className="Reviews_InputWrapper">
           <div className="Reviews_AuthorImg">
-            {/*{name?.toLowerCase()?.slice(0, 1)}*/}
             <img
               className="Reviews_Img"
               src={

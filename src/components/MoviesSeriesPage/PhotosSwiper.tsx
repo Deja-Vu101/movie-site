@@ -17,7 +17,7 @@ const PhotosSwiper: React.FC<IOwnProps> = ({ photos, title }) => {
       <div className="Collection_Title">{title}</div>
       <div className="Title_Decoration"></div>
       <Swiper
-        slidesPerView={"auto"}
+        slidesPerView={title === "Posters" ? 1 : "auto"}
         centeredSlides={true}
         spaceBetween={title === "Posters" ? 1 : 15}
         pagination={{
@@ -34,6 +34,7 @@ const PhotosSwiper: React.FC<IOwnProps> = ({ photos, title }) => {
                 src={imgBaseUrl + i.file_path}
                 alt="Image"
                 className="Image_Content"
+                loading="lazy"
               />
             </div>
           </SwiperSlide>

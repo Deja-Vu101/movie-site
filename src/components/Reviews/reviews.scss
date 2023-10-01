@@ -1,65 +1,3 @@
-.Reviews {
-  display: flex;
-}
-
-.Reviews_Wrapper {
-  display: flex;
-  gap: 16px;
-  padding: 16px;
-
-  position: relative;
-
-  border-radius: 5px;
-  &:hover {
-    background-color: #131313;
-  }
-}
-
-.Reviews_AuthorImg {
-  position: absolute;
-  top: 30px;
-  left: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  z-index: 1;
-}
-
-.Reviews_Body {
-  margin-left: 48px;
-}
-
-.Reviews_Name {
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 1.6;
-}
-
-.Reviews_Date {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.66;
-}
-
-.Reviews_Flex {
-  width: 1300px;
-}
-
-.Reviews_Content {
-  display: flex;
-  justify-content: space-between;
-  font-size: 18px;
-  margin-top: 16px;
-  line-height: 1.5;
-  font-weight: 400;
-  max-width: 1350px;
-}
-.Content {
-  width: 600px;
-}
 .Reviews_InputWrapper {
   display: flex;
   gap: 16px;
@@ -74,8 +12,8 @@
   background-color: RGB(31, 31, 31);
 }
 .Reviews_Input {
-  margin-left: 18px;
-  margin-top: 15px;
+  margin-left: 10px;
+  margin-top: 5px;
 }
 .ReviewsArea {
   margin-top: 20px;
@@ -109,6 +47,7 @@
   display: inline-flex;
   border-radius: 4px;
 
+  cursor: pointer;
   div {
     display: inline-flex;
     align-items: center;
@@ -137,13 +76,152 @@
   line-height: 1.75;
   font-weight: 500;
   border-radius: 4px;
+
+  cursor: pointer;
 }
 .Button_Delete span {
   display: flex;
   font-size: 18px;
 }
 
-.Reviews_Img {
+.Reviews {
+  display: flex;
+  flex-direction: column;
+}
+
+.Reviews_Wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  position: relative;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #131313;
+  }
+}
+
+.Reviews_AuthorImg {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 40px;
   height: 40px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.Reviews_Body {
+  margin-top: 0;
+  margin-left: 48px;
+}
+
+.Reviews_Name {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.Reviews_Date {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.Reviews_Flex {
+  width: 100%;
+}
+
+.Reviews_Content {
+  font-size: 16px;
+  margin-top: 12px;
+  line-height: 1.4;
+  font-weight: 400;
+  max-width: 100%;
+  display: flex;
+}
+
+.Content {
+  width: 100%;
+}
+
+.Area {
+  max-width: 100%;
+  height: 92px;
+  padding: 16px 14px;
+  font-size: 16px;
+  border: 1px solid gray;
+  background-color: black;
+  color: white;
+  font-weight: 500;
+  resize: none;
+}
+.Reviews_Img {
+  width: 32px;
+  height: 32px;
+}
+@media (max-width: 1379px) {
+  .Reviews_InputWrapper {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .Reviews_Input {
+    margin-left: 0;
+  }
+
+  .Reviews_Name {
+    font-size: 16px;
+  }
+
+  .Area {
+    max-width: 100%;
+  }
+}
+
+.Area {
+  max-width: 100%;
+  height: 92px;
+  padding: 12px 14px;
+  font-size: 16px;
+  border: 1px solid gray;
+  background-color: black;
+  color: white;
+  font-weight: 500;
+  resize: none;
+  margin-top: 12px;
+}
+
+.Reviews_Buttons {
+  font-size: 20px;
+  text-align: center;
+}
+
+.Button_Delete {
+  position: absolute;
+  top: 10px;
+  right: 5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+  padding: 8px 16px;
+  background-color: red;
+  line-height: 1.75;
+  font-weight: 500;
+  border-radius: 4px;
+}
+.Button_Delete span {
+  display: flex;
+  font-size: 18px;
+}
+.Button_Delete_Text {
+  @media (max-width: 700px) {
+    display: none;
+  }
 }

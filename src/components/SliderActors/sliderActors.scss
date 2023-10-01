@@ -6,6 +6,23 @@
   height: 192px;
   object-fit: cover;
   padding-right: 10px;
+
+  @media (max-width: 1120px) {
+    width: 125px;
+    height: 150px;
+  }
+  @media (max-width: 950px) {
+    width: 160px;
+    height: 192px;
+  }
+  @media (max-width: 950px) {
+    width: 125px;
+    height: 150px;
+  }
+  @media (max-width: 420px) {
+    width: 191px;
+    height: 229px;
+  }
 }
 
 .CastHover {

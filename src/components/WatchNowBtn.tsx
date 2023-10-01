@@ -2,8 +2,8 @@ import { HiMiniPlay } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 
 interface IOwnProps {
-  mediaType: string;
-  id: string;
+  mediaType?: string;
+  id?: string;
 }
 
 const WatchNowBtn: React.FC<IOwnProps> = ({ id, mediaType }) => {

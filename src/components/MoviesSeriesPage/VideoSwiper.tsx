@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { IVideos } from "../../globalTypes/globalTypes";
-import './style.scss';
+import "./style.scss";
 
 interface IOwnProps {
   results: IVideos[] | undefined;
@@ -21,20 +21,21 @@ const VideosSlider: React.FC<IOwnProps> = ({ results }) => {
   return (
     <div className="videos-slider">
       <Slider {...settings}>
-        {results &&
-          results.map((i) => (
-            <div key={i.id} className="video-slide">
+        {
+          results && (
+            <div key={results[0]?.id} className="video-slide">
               <iframe
-                width="1350"
-                height="800"
-                src={`https://www.youtube.com/embed/${i.key}`}
+                width={'100%'}
+                height={'100%'}
+                src={`https://www.youtube.com/embed/${results[0]?.key}`}
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               ></iframe>
             </div>
-          ))}
+          )
+        }
       </Slider>
     </div>
   );

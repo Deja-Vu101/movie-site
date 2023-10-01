@@ -35,33 +35,31 @@ const SliderActors: React.FC<IOwnProps> = ({ items, title }) => {
       {
         breakpoint: 1200,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 4,
           slidesToScroll: 2,
-          infinite: true,
-          dots: true,
           arrows: false,
         },
       },
       {
-        breakpoint: 1020,
+        breakpoint: 1000,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
+          slidesToShow: 4,
+          slidesToScroll: 3,
           initialSlide: 2,
           arrows: false,
         },
       },
-      //{
-      //  breakpoint: 501,
-      //  settings: {
-      //    slidesToShow: 2,
-      //    slidesToScroll: 1,
-      //  },
-      //},
+      {
+        breakpoint: 950,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
     ],
   };
   return (
-    <>
+    <div className="CardItem">
       <div className="Collection_Title">{title}</div>
       <div className="Title_Decoration"></div>
 
@@ -83,7 +81,7 @@ const SliderActors: React.FC<IOwnProps> = ({ items, title }) => {
           </div>
         ))}
       </Slider>
-    </>
+    </div>
   );
 };
 

@@ -76,13 +76,13 @@ const MoviePage = () => {
                   backgroundImage: `url(${imgBaseUrl + results.backdrop_path})`,
                 }}
               ></div>
-              <div className="Continieu_BackDrop"></div>
+              <div className="Continue_BackDrop"></div>
             </div>
 
             <div className="Description">
               <div className="Description_Wrapper">
-                <div>
-                  <img src={imgBaseUrl + results.poster_path} alt="123" />
+                <div className="Description_Image">
+                  <img src={imgBaseUrl + results.poster_path} alt="Poster" />
                 </div>
                 <div className="Description_Body">
                   <div className="Description_Title">
@@ -108,11 +108,13 @@ const MoviePage = () => {
 
                   <div className="Description_Button">
                     <FavoriteButton id={results.id} mediaType="movie" />
-                    <WatchListBtn id={results.id} mediaType="movie" />
-                    <WatchNowBtn />
                     {typeof id !== "undefined" && (
                       <RatingSection movieID={id} />
                     )}
+
+                    <WatchNowBtn />
+
+                    <WatchListBtn id={results.id} mediaType="movie" />
                   </div>
                   <div className="SliderActors">
                     <SliderActors items={actors.cast} title="Top Billed Cast" />
@@ -128,7 +130,7 @@ const MoviePage = () => {
                 <div className="Section">
                   <div className="Collection_Title">Videos</div>
                   <div className="Title_Decoration"></div>
-                  {/* <VideosSwiper results={videos} /> */}
+                  <VideosSwiper results={videos} />
                 </div>
 
                 <div className="Section">

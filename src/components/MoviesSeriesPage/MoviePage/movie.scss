@@ -20,7 +20,7 @@
   height: 100%;
   background-image: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
 }
-.Continieu_BackDrop {
+.Continue_BackDrop {
   width: 100%;
   background-color: black;
   height: 50vh;
@@ -36,22 +36,78 @@
   min-height: 730px;
   position: relative;
   z-index: 1;
-  margin-top: 120px;
   margin-top: 360px;
+
+  @media (max-width: 1199px) {
+    margin-top: 150px;
+  }
+  @media (max-width: 1000px) {
+    margin-top: 120px;
+  }
+  @media (max-width: 950px) {
+    margin-top: 210px;
+  }
 }
 .Description img {
   width: 520px;
   height: 730px;
+
+  @media (max-width: 1199px) {
+    width: 454px;
+    height: 635px;
+  }
+
+  @media (max-width: 1000px) {
+    width: 367px;
+    height: 520px;
+  }
+
+  @media (max-width: 950px) {
+    width: 433px;
+    height: 606px;
+  }
+  @media (max-width: 490px) {
+    width: 267px;
+    height: 374px;
+  }
 }
+
 .Description_Wrapper {
   display: flex;
   gap: 30px;
+  margin: 0 20px 0 20px;
+  @media (max-width: 1199px) {
+    max-width: 1167px;
+    justify-content: center;
+  }
+
+  @media (max-width: 950px) {
+    flex-direction: column;
+  }
+}
+.Description_Image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Description_Body {
+  @media (max-width: 1199px) {
+    width: 550px;
+  }
+  @media (max-width: 950px) {
+    width: 100%;
+  }
 }
 .Description_Title {
   font-size: 64px;
   font-weight: 700;
   line-height: 1.235;
+
+  @media (max-width: 1199px) {
+    font-size: 32px;
+  }
 }
+
 .MovieVoteAndGenres {
   display: flex;
   gap: 10px;
@@ -84,12 +140,20 @@
 .Description_Overview {
   margin-top: 40px;
   font-size: 20px;
+
+  @media (max-width: 1199px) {
+    font-size: 18px;
+  }
 }
 .Description_Button {
   display: flex;
   margin-top: 40px;
   align-items: center;
   gap: 25px;
+
+  @media (max-width: 600px) {
+    justify-content: center;
+  }
 }
 .btn_WatchNow {
   text-transform: uppercase;
@@ -119,6 +183,12 @@
 .SliderActors {
   margin-top: 40px;
   width: 780px;
+  @media (max-width: 1199px) {
+    width: 550px;
+  }
+  @media (max-width: 950px) {
+    width: 100%;
+  }
 }
 
 .MainSectionVideo {
@@ -128,11 +198,13 @@
 }
 
 .MainSectionVideo_Container {
-  margin: 0 auto;
-  width: 1334px;
-  margin-top: 70px;
-}
+  max-width: 1334px;
 
+  margin: 0 auto;
+}
+.MainSectionVideo_Wrapper {
+  margin: 70px 20px 0 20px;
+}
 .Section {
   margin-top: 80px;
 }
@@ -145,14 +217,21 @@
   object-fit: cover;
 }
 
+//.Image_Content {
+//  max-width: 100%;
+//  max-height: 100%;
+//  width: auto;
+//  height: auto;
+//}
 .Image_Content {
   max-width: 100%;
   max-height: 100%;
   width: auto;
   height: auto;
+  object-fit: fill;
 }
 
-.SectionPoster{
-  height: 500px;
-  width: 1334px;
-}
+//.SectionPoster {
+//  height: 500px;
+//  width: 1334px;
+//}

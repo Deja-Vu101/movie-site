@@ -41,6 +41,7 @@ export const fetchReviews = createAsyncThunk<AllReviewsResponse, string, {}>(
       }
 
       return { reviews: reviewsMovieDB, firebaseReviews: firebaseReviewsDB };
+      //return { firebaseReviews: firebaseReviewsDB };
     } catch (error: any) {
       console.error(error);
       return rejectWithValue(error.message);

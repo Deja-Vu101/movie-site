@@ -5,7 +5,7 @@ import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { deleteReviews, fetchReviews } from "../../store/slices/reviewsSlice";
 import { useState } from "react";
 import ReviewsDateCreate from "../FormatCreateAtData";
-import Default from '../../assets/img/Default.png'
+import Default from "../../assets/img/Default.png";
 
 interface IOwnProps {
   name: string;
@@ -46,7 +46,6 @@ const ReviewItem: React.FC<IOwnProps> = ({
     <>
       <div className="Reviews_Wrapper">
         <div className="Reviews_AuthorImg">
-          {/*{name?.toLowerCase()?.slice(0, 1)}*/}
           <img
             className="Reviews_Img"
             src={
@@ -80,7 +79,10 @@ const ReviewItem: React.FC<IOwnProps> = ({
                     <span>
                       <AiFillDelete />
                     </span>
-                    Delete
+                    <div className="Button_Delete_Text">
+                       Delete
+                    </div>
+                   
                   </div>
                 </div>
               ) : null}
