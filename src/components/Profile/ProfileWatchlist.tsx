@@ -25,10 +25,6 @@ const ProfileWatchlist = () => {
     dispatch(fetchWatchList(mediaType));
   }, []);
 
-  //useEffect(() => {
-  //  dispatch(fetchFavoriteList(mediaType));
-  //}, [results]);
-
   const resultsWithoutRemoved = resultsWatchlist.filter(
     (item) => !removedItem.includes(item.id)
   );

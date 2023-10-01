@@ -49,7 +49,10 @@ const FavoriteButton: React.FC<IOwnProps> = ({ id, title, mediaType }) => {
           width: "inherit",
         }}
       >
-        <AiFillHeart /> <span style={{ color: "white" }}>{title}</span>
+        <AiFillHeart />{" "}
+        <span className="Button_Name" style={{ color: "white" }}>
+          {title}
+        </span>
       </div>
     </div>
   );

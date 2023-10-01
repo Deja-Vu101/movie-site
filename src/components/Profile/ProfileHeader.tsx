@@ -7,16 +7,9 @@ import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { useNavigate } from "react-router-dom";
 import { fetchFavoriteList } from "../../store/slices/favoriteSlice";
 import { fetchWatchList } from "../../store/slices/watchListSlice";
-import VoteAverageProfile from "../VoteAverageProfile/VoteAverageProfile";
 import { fetchRating } from "../../store/slices/ratingSlice";
 import FormatReleaseDate from "../FormatReleaseDate";
-import { TbEdit } from "react-icons/tb";
-import Modal from "react-modal";
-import AvatarEditor from "./AvatarEditor";
-import { setUserAvatar } from "../../store/slices/userSlice";
-import ProfileEdit from "./ProfileEdit/ProfileEdit";
-
-//const { results } = useTypedSelector((state) => state.rating);
+import ProfileStatistics from "./ProfileStatistics/ProfileStatistics";
 
 const ProfileHeader = () => {
   const dispatch = useTypedDispatch();
@@ -29,10 +22,6 @@ const ProfileHeader = () => {
   );
 
   const [avatarUrl, setAvatarURL] = useState(avatarURL);
-
-  useEffect(() => {
-    setAvatarURL(avatarURL);
-  }, [avatarURL]);
 
   const [showOverviewMenu, setShowOverviewMenu] = useState(false);
 
@@ -58,14 +47,15 @@ const ProfileHeader = () => {
     dispatch(fetchRating());
   }, []);
 
+  useEffect(() => {
+    setAvatarURL(avatarURL);
+  }, [avatarURL]);
+
   return (
     <>
-      <div
-        className="Profile"
-        style={{ height: "230px", backgroundImage: `url(${Fone})` }}
-      >
+      <div className="Profile" style={{ backgroundImage: `url(${Fone})` }}>
         <div className="Profile_Wrapper">
-          <div className="Profile_Avatar" style={{ display: "flex" }}>
+          <div className="Profile_Avatar">
             <img
               className="Avatar_Img"
               src={
@@ -73,53 +63,21 @@ const ProfileHeader = () => {
                   ? avatarUrl
                   : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
               }
-              //src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
               alt="EmptyProfile"
             />
           </div>
 
-          {/*<Modal
-            isOpen={isModalOpen}
-            onRequestClose={closeModal}
-            contentLabel="Edit Avatar Modal"
-            style={{
-              content: { backgroundColor: "black" },
-              overlay: { zIndex: "1000" },
-            }}
-          >*/}
-          {/*<ProfileEdit
-            isModalOpen={isModalOpen}
-            closeModal={closeModal}
-            openModal={openModal}
-          />*/}
-          {/*</Modal>*/}
-
           <div className="Profile_Description">
             <div className="Profile_DescriptionFlex">
               <div className="Profile_Name">
-                {name}
+                <span className="Name">{name}</span>
                 <span className="Profile_MemberSince">
-                  Member since {"  "}
-                  <span>
-                    <FormatReleaseDate release={1693254110356} />
-                  </span>
+                  Member since
+                  <FormatReleaseDate release={1693254110356} />
                 </span>
               </div>
-              <div className="Profile_Statistik">
-                <div
-                  style={{ display: "flex", gap: "5px", alignItems: "center" }}
-                >
-                  <VoteAverageProfile />
-                  Average <br /> Movie Score
-                </div>
 
-                <div
-                  style={{ display: "flex", gap: "5px", alignItems: "center" }}
-                >
-                  <VoteAverageProfile voteAverage={0} />
-                  Average <br /> TV Score
-                </div>
-              </div>
+              <ProfileStatistics />
             </div>
           </div>
         </div>

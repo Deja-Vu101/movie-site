@@ -1,5 +1,6 @@
 import { imgBaseUrl } from "../../apiConfigs/tmdb";
 import PosterHover from "../Poster/PosterHover";
+import PosterNotFound from "../../assets/img/notfound.jpg";
 
 interface IOwnProps {
   id: number;
@@ -18,14 +19,12 @@ const SliderItem: React.FC<IOwnProps> = ({
   ItemName,
   mediaType,
 }) => {
-
   return (
     <div className="SliderItem">
       <div className="SliderItem_Container">
         <img
-          
           className="SliderItem_Image"
-          src={imgBaseUrl + poster}
+          src={poster !== null ? imgBaseUrl + poster : PosterNotFound}
           alt="Movie Poster"
         />
         <PosterHover

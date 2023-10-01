@@ -1,0 +1,16 @@
+.Profile_Statistics {
+  display: flex;
+  font-size: 18px;
+  gap: 30px;
+
+  @media (max-width: 630px) {
+    font-size: 16px;
+    gap: 15px;
+  }
+  
+  @media (max-width: 440px) {
+    font-size: 18px;
+    flex-direction: column;
+    gap: 5px;
+  }
+}

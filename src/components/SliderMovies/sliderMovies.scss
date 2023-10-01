@@ -3,16 +3,8 @@
 }
 
 .SliderItem_Image {
-  width: 270px;
-  height: 430px;
-  @media (max-width: 1400px) {
-    width: 273px;
-    height: 437px;
-  }
-  @media (max-width: 1380px) {
-    width: 300px;
-    height: 460px;
-  }
+  width: inherit;
+  height: inherit;
 }
 
 .Collection_Title {
@@ -32,6 +24,13 @@
 
 .SliderItem_Container {
   position: relative;
+  width: 270px;
+  height: 430px;
+
+  @media (max-width: 600px) {
+    width: 170px;
+    height: 275px;
+  }
 }
 
 .SliderItem_Hover {

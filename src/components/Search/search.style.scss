@@ -31,7 +31,8 @@
 }
 
 .SearchInput {
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
 }
 .SearchInput input {
   width: 100%;
@@ -42,7 +43,7 @@
   color: white;
   font-weight: 500;
 }
-.SearchInput input:hover{
+.SearchInput input:hover {
   border: 1px solid white;
 }
 .SearchInput input:focus:valid {
@@ -50,7 +51,10 @@
 }
 
 .SearchList {
+}
+.SearchList_Container {
   display: flex;
   flex-wrap: wrap;
   margin-top: 30px;
+  justify-content: center;
 }

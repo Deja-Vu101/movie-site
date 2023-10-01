@@ -9,7 +9,6 @@ interface IOwnProps {
 }
 
 const SliderSeries: React.FC<IOwnProps> = ({ title, items }) => {
-  
   const settings = {
     dots: false,
     infinite: true,
@@ -18,7 +17,7 @@ const SliderSeries: React.FC<IOwnProps> = ({ title, items }) => {
     slidesToScroll: 3,
     responsive: [
       {
-        breakpoint: 1400,
+        breakpoint: 1450,
         settings: {
           slidesToShow: 4,
           slidesToScroll: 2,
@@ -29,9 +28,9 @@ const SliderSeries: React.FC<IOwnProps> = ({ title, items }) => {
         },
       },
       {
-        breakpoint: 1200,
+        breakpoint: 1120,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 3,
           slidesToScroll: 2,
           infinite: true,
           dots: true,
@@ -39,26 +38,18 @@ const SliderSeries: React.FC<IOwnProps> = ({ title, items }) => {
         },
       },
       {
-        breakpoint: 1020,
+        breakpoint: 860,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 1,
+          slidesToScroll: 2,
           initialSlide: 2,
           arrows: false,
         },
       },
-      //{
-      //  breakpoint: 501,
-      //  settings: {
-      //    slidesToShow: 2,
-      //    slidesToScroll: 1,
-      //  },
-      //},
     ],
   };
- 
   return (
-    <div style={{paddingBottom: '50px'}}>
+    <div style={{ paddingBottom: "50px" }}>
       <div className="Collection_Title">{title}</div>
       <div className="Title_Decoration"></div>
       <Slider {...settings}>

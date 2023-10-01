@@ -1,15 +1,7 @@
 import { HiMiniPlay } from "react-icons/hi2";
-import { BsFillBookmarksFill } from "react-icons/bs";
 import VoteAverage from "../Trending/VoteAverage";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
-import {
-  addToWatchlist,
-  fetchWatchList,
-  removeItemBlacklist,
-  removeItemWatchlist,
-} from "../../store/slices/watchListSlice";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useNavigate } from "react-router-dom";
 import WatchListBtn from "../WatchListBtn/WatchListBtn";
 
@@ -41,7 +33,7 @@ const PosterHover: React.FC<IOwnProps> = ({
       </div>
 
       <div className="Description_Poster">
-        <div style={{ width: "70px" }}>
+        <div className="Description_VoteAverage" style={{ width: "70px" }}>
           <VoteAverage voteAverage={voteAverage} />
         </div>
         <div className="Description_PosterWrapper">

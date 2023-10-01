@@ -37,18 +37,7 @@ const CardsItem: React.FC<IOwnProps> = ({
                 ? overview.slice(0, 200) + "..."
                 : overview}
             </div>
-            <div className="btn_WatchNow">
-              <span
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginRight: "5px",
-                }}
-              >
-                <HiMiniPlay />
-              </span>
-              Watch now
-            </div>
+              <WatchNowBtn id={id.toString()} mediaType={mediaType} />
           </div>
         </div>
       </div>

@@ -2,6 +2,16 @@
   width: 330px;
   margin-right: 11px;
   margin-bottom: 5px;
+
+  @media (max-width: 900px) {
+    width: 206px;
+    height: 332px;
+  }
+
+  @media (max-width: 464px) {
+    width: 160px;
+    height: 268px;
+  }
 }
 .FilmPoster img {
   max-width: 100%;
@@ -12,9 +22,24 @@
 .FilmPoster:hover .SliderItem_Hover {
   opacity: 1;
 }
+.SliderItem_Hover {
+  @media (max-width: 899px) {
+    opacity: 1;
+  }
+}
+.SliderItem_Icon {
+  @media (max-width: 899px) {
+    display: none;
+  }
+}
 .Poster {
   position: relative;
 }
+.Poster img {
+  width: 171px;
+  height: 273px;
+}
+
 .ProfileHover {
   position: absolute;
   bottom: 0;

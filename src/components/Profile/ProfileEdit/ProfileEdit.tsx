@@ -164,22 +164,12 @@ const ProfileEdit: React.FC<IOwnProps> = ({ closeModal }) => {
   }, [user]);
 
   return (
-    <div
-      style={{
-        background: "black",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        minHeight: "100vh",
-        padding: "20px",
-        gap: "30px",
-      }}
-    >
-      <div className="Edit_Avatar" style={{ marginBottom: "20px" }}>
+    <div className="Profile_Edit">
+      <div className="Edit_Title">
         <TitleSite />
       </div>
 
-      <div style={{ display: "flex", alignItems: "center", gap: "40px" }}>
+      <div className="Edit_Wrapper">
         <AvatarUploader />
         <div className="Edit_Inputs">
           {error && <p style={{ color: "red" }}>{error}</p>}
@@ -256,9 +246,11 @@ const ProfileEdit: React.FC<IOwnProps> = ({ closeModal }) => {
               </button>
             </div>
           ) : (
-            <button className="Header_Profile" onClick={saveAllChanges}>
-              Save Changes
-            </button>
+            <div className="Edit_SaveChange">
+              <button className="Header_Profile" onClick={saveAllChanges}>
+                Save Changes
+              </button>
+            </div>
           )}
         </div>
       </div>
