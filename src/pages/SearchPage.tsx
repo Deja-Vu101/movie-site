@@ -7,7 +7,6 @@ import { useTypedSelector } from "../hooks/useTypedSelector";
 import { IMovie, IPersonItem } from "../components/MainSection/types";
 import PaginationButton from "../components/PaginationButton";
 import { setPage } from "../store/slices/searchSlice";
-
 import "../components/SliderMovies/sliderMovies.scss";
 
 const SearchPage = () => {

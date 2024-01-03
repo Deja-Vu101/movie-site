@@ -28,18 +28,22 @@ const ProfileHeader = () => {
   const [showWatchlistMenu, setShowWatchlistMenu] = useState(false);
 
   useEffect(() => {
-    if (filterList === "favorites-movies") {
-      navigate("/profile/favorite/movies");
-      dispatch(fetchFavoriteList("movies"));
-    } else if (filterList === "favorites-series") {
-      navigate("/profile/favorite/series");
-      dispatch(fetchFavoriteList("tv"));
-    } else if (filterList === "watchlist-movies") {
-      navigate("/profile/watchlist/movies");
-      dispatch(fetchWatchList("movies"));
-    } else if (filterList === "watchlist-series") {
-      navigate("/profile/watchlist/series");
-      dispatch(fetchWatchList("tv"));
+    const listTypeMap: { [key: string]: { path: string; type: string } } = {
+      "favorites-movies": { path: "/profile/favorite/movies", type: "movies" },
+      "favorites-series": { path: "/profile/favorite/series", type: "tv" },
+      "watchlist-movies": { path: "/profile/watchlist/movies", type: "movies" },
+      "watchlist-series": { path: "/profile/watchlist/series", type: "tv" },
+    };
+
+    const selectedList = listTypeMap[filterList];
+
+    if (selectedList) {
+      navigate(selectedList.path);
+      dispatch(
+        selectedList.type === "movies"
+          ? fetchFavoriteList("movies")
+          : fetchWatchList("tv")
+      );
     }
   }, [filterList]);
 

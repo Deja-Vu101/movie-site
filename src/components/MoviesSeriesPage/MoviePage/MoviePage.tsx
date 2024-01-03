@@ -21,10 +21,8 @@ import PhotosSwiper from "../PhotosSwiper";
 import { fetchReviews } from "../../../store/slices/reviewsSlice";
 import Reviews from "../../Reviews/Reviews";
 import { fetchRating } from "../../../store/slices/ratingSlice";
-import Rating from "../../Rating/Rating";
 import RatingSection from "../../Rating/Rating";
 import { fetchRecommendations } from "../../../store/slices/recommendationsSlice";
-import SliderMovies from "../../SliderMovies/SliderMovies";
 import RecommendationSlider from "../../Recommendation/RecommendationSlider";
 import { useAuth } from "../../../hooks/useAuth";
 
@@ -36,9 +34,7 @@ const MoviePage = () => {
 
   const { results: actors } = useTypedSelector((state) => state.actors);
   const { results: videos } = useTypedSelector((state) => state.video);
-  const { backdrops, posters, logos } = useTypedSelector(
-    (state) => state.photos
-  );
+  const { backdrops, posters } = useTypedSelector((state) => state.photos);
   const { results: reviews, reviewsFirebase } = useTypedSelector(
     (state) => state.reviews
   );

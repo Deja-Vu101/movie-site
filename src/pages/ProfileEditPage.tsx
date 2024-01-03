@@ -9,11 +9,6 @@ const ProfileEditPage = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(true);
 
-  //const openModal = () => {
-  //  setIsModalOpen(true);
-  //  navigate("/profile/edit");
-  //};
-
   const closeModal = () => {
     setIsModalOpen(false);
     navigate("/profile");

@@ -19,7 +19,6 @@ const ProfileWatchlist = () => {
     results: resultsWatchlist,
     removedItem,
   } = useTypedSelector((state) => state.watchList);
-  const { results } = useTypedSelector((state) => state.favoriteList);
 
   useEffect(() => {
     dispatch(fetchWatchList(mediaType));

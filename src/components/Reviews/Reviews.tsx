@@ -6,8 +6,7 @@ import { useState } from "react";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { v4 as uuidv4 } from "uuid";
-import { addReviews, fetchReviews } from "../../store/slices/reviewsSlice";
-import { useEffect } from "react";
+import { addReviews } from "../../store/slices/reviewsSlice";
 
 interface IOwnProps {
   reviews: (IReviewsFirebase | IReviews)[];

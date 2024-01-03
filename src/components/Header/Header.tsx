@@ -62,37 +62,41 @@ const Header = () => {
             <img
               className="ProfileImg"
               src={
-                avatarURL !== ""
+                !!avatarURL
                   ? avatarURL
                   : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
               }
-              alt="Image profile"
             />
           </div>
           <div>{name}</div>
           {visibleHeaderMenu && (
             <div className="DropdownMenu" style={{ width: dropdownWidth }}>
-              <ul>
-                <li>
-                  <NavLink to={"/profile"}>View profile</NavLink>
-                </li>
+              <ul className="DropdownMenu_List">
+                <NavLink className={"List_Item"} to={"/profile"}>
+                  View profile
+                </NavLink>
 
-                <li>
-                  <NavLink to={"/profile/favorite/movies"}>Favorite</NavLink>
-                </li>
+                <NavLink
+                  className={"List_Item"}
+                  to={"/profile/favorite/movies"}
+                >
+                  Favorite
+                </NavLink>
 
-                <li>
-                  <NavLink to={"/profile/watchlist/movies"}>Watchlist</NavLink>
-                </li>
-                <ul style={{ marginTop: "4px" }}>
-                  <li>
-                    <NavLink to={"/profile/edit"}>Edit profile</NavLink>
-                  </li>
+                <NavLink
+                  className={"List_Item"}
+                  to={"/profile/watchlist/movies"}
+                >
+                  Watchlist
+                </NavLink>
 
-                  <li>
-                    <span onClick={() => dispatch(logout())}>Logout</span>
-                  </li>
-                </ul>
+                <NavLink className={"List_Item"} to={"/profile/edit"}>
+                  Edit profile
+                </NavLink>
+
+                <li onClick={() => dispatch(logout())}>
+                  <span>Logout</span>
+                </li>
               </ul>
             </div>
           )}
