@@ -1,4 +1,5 @@
-import MoviePage from "./components/MoviesSeriesPage/MoviePage/MoviePage";
+import MoviePage from "./components/MoviesSeriesPage/Pages/MoviePage/MoviePage";
+import SeriesPage from "./components/MoviesSeriesPage/Pages/SeriesPage/SeriesPage";
 import ProfileFavorite from "./components/Profile/ProfileFavorite";
 import ProfileWatchlist from "./components/Profile/ProfileWatchlist";
 import HomePage from "./pages/HomePage";
@@ -33,6 +34,7 @@ function App() {
       <Route path="/profile/edit" element={<ProfileEditPage />} />
 
       <Route path="/movie/:id" element={<MoviePage />} />
+      <Route path="/tv/:id" element={<SeriesPage />} />
     </Routes>
   );
 }

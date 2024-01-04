@@ -9,20 +9,22 @@ interface IActorsSliceState {
   results: IResponseCredits;
 }
 
-export const fetchActors = createAsyncThunk(
-  "actorsSlice/fetchActors",
-  async function (id: string) {
-    try {
-      const res = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,
-        options
-      );
-      return res.data;
-    } catch (error) {
-      console.error(error);
-    }
+export const fetchActors = createAsyncThunk<
+  IResponseCredits,
+  { id: string; mediaType: string },
+  {}
+>("actorsSlice/fetchActors", async function ({id, mediaType}) {
+  try {
+    const res = await axios.get(
+      `https://api.themoviedb.org/3/${mediaType}/${id}/credits?language=en-US`,
+      options
+    );
+
+    return res.data;
+  } catch (error) {
+    console.error(error);
   }
-);
+});
 
 const initialState: IActorsSliceState = {
   loading: false,

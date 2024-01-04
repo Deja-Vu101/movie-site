@@ -8,20 +8,21 @@ interface IVideosSliceState extends IVideosResponse {
   error: null | string;
 }
 
-export const fetchVideo = createAsyncThunk(
-  "videosSlice/fetchVideo",
-  async function (id: string) {
-    try {
-      const res = await axios.get<IVideosResponse>(
-        `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
-        options
-      );
-      return res.data;
-    } catch (error) {
-      console.error(error);
-    }
+export const fetchVideo = createAsyncThunk<
+  IVideosResponse,
+  { id: string; mediaType: string },
+  {}
+>("videosSlice/fetchVideo", async function ({ id, mediaType }) {
+  try {
+    const res = await axios.get(
+      `https://api.themoviedb.org/3/${mediaType}/${id}/videos?language=en-US`,
+      options
+    );
+    return res.data;
+  } catch (error) {
+    console.error(error);
   }
-);
+});
 
 const initialState: IVideosSliceState = {
   error: null,
@@ -43,7 +44,7 @@ const videosSlice = createSlice({
       .addCase(fetchVideo.fulfilled, (state, action) => {
         state.loading = false;
 
-        state.results = action.payload?.results;
+        state.results = action.payload.results;
       })
       .addCase(fetchVideo.rejected, (state) => {
         state.loading = false;

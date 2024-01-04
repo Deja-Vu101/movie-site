@@ -83,9 +83,9 @@ const TvSeriesPage = () => {
                   id={series.id}
                   poster={series.poster_path}
                   mediaType="tv"
-                  title={series.name}
+                  title={"name" in series ? series.name : ""}
                   voteAverage={series.vote_average}
-                  year={series.first_air_date}
+                  year={"first_air_date" in series ? series.first_air_date : ""}
                 />
               ))}
             </div>

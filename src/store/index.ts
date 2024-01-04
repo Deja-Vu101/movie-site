@@ -9,6 +9,7 @@ import topMoviesReducer from "./slices/topRatedMoviesSlice";
 import watchListReducer from "./slices/watchListSlice";
 import favoriteListReducer from "./slices/favoriteSlice";
 import movieReducer from "./slices/movieSlice";
+import seriesReducer from "./slices/seriesSlice";
 import actorsReducer from "./slices/actorsSlice";
 import videosReducer from "./slices/videosSlice";
 import photosReducer from "./slices/photosSlice";
@@ -30,6 +31,7 @@ export const store = configureStore({
     watchList: watchListReducer,
     favoriteList: favoriteListReducer,
     movie: movieReducer,
+    series: seriesReducer,
     actors: actorsReducer,
     video: videosReducer,
     photos: photosReducer,

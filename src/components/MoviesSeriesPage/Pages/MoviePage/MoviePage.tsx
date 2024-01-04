@@ -1,30 +1,30 @@
 import { Navigate, useParams } from "react-router-dom";
-import Header from "../../Header/Header";
-import "./movie.scss";
+import Header from "../../../Header/Header";
+import "../movie.scss";
 import { useEffect } from "react";
-import { useTypedDispatch } from "../../../hooks/useTypedDispatch";
-import { fetchMovie } from "../../../store/slices/movieSlice";
-import { useTypedSelector } from "../../../hooks/useTypedSelector";
-import { imgBaseUrl } from "../../../apiConfigs/tmdb";
-import VoteAverage from "../../Trending/VoteAverage";
-import FavoriteButton from "../../FavoriteButton/FavoriteButton";
-import WatchNowBtn from "../../WatchNowBtn";
-import WatchListBtn from "../../WatchListBtn/WatchListBtn";
+import { useTypedDispatch } from "../../../../hooks/useTypedDispatch";
+import { fetchMovie } from "../../../../store/slices/movieSlice";
+import { useTypedSelector } from "../../../../hooks/useTypedSelector";
+import { imgBaseUrl } from "../../../../apiConfigs/tmdb";
+import VoteAverage from "../../../Trending/VoteAverage";
+import FavoriteButton from "../../../FavoriteButton/FavoriteButton";
+import WatchNowBtn from "../../../WatchNowBtn";
+import WatchListBtn from "../../../WatchListBtn/WatchListBtn";
 import { useState } from "react";
-import { fetchActors } from "../../../store/slices/actorsSlice";
-import SliderActors from "../../SliderActors/SliderActors";
-import GlobalLoader from "../../Loaders/GlobalLoader/GlobalLoader";
-import { fetchVideo } from "../../../store/slices/videosSlice";
-import VideosSwiper from "../VideoSwiper";
-import { fetchPhotos } from "../../../store/slices/photosSlice";
-import PhotosSwiper from "../PhotosSwiper";
-import { fetchReviews } from "../../../store/slices/reviewsSlice";
-import Reviews from "../../Reviews/Reviews";
-import { fetchRating } from "../../../store/slices/ratingSlice";
-import RatingSection from "../../Rating/Rating";
-import { fetchRecommendations } from "../../../store/slices/recommendationsSlice";
-import RecommendationSlider from "../../Recommendation/RecommendationSlider";
-import { useAuth } from "../../../hooks/useAuth";
+import { fetchActors } from "../../../../store/slices/actorsSlice";
+import SliderActors from "../../../SliderActors/SliderActors";
+import GlobalLoader from "../../../Loaders/GlobalLoader/GlobalLoader";
+import { fetchVideo } from "../../../../store/slices/videosSlice";
+import VideosSwiper from "../../VideoSwiper";
+import { fetchPhotos } from "../../../../store/slices/photosSlice";
+import PhotosSwiper from "../../PhotosSwiper";
+import { fetchReviews } from "../../../../store/slices/reviewsSlice";
+import Reviews from "../../../Reviews/Reviews";
+import { fetchRating } from "../../../../store/slices/ratingSlice";
+import RatingSection from "../../../Rating/Rating";
+import { fetchRecommendations } from "../../../../store/slices/recommendationsSlice";
+import RecommendationSlider from "../../../Recommendation/RecommendationSlider";
+import { useAuth } from "../../../../hooks/useAuth";
 
 const MoviePage = () => {
   const dispatch = useTypedDispatch();
@@ -47,12 +47,12 @@ const MoviePage = () => {
   useEffect(() => {
     if (id) {
       dispatch(fetchMovie(id));
-      dispatch(fetchActors(id));
-      dispatch(fetchVideo(id));
-      dispatch(fetchPhotos(id));
-      dispatch(fetchReviews(id));
+      dispatch(fetchActors({ id: id, mediaType: "movie" }));
+      dispatch(fetchVideo({ id: id, mediaType: "movie" }));
+      dispatch(fetchPhotos({ id: id, mediaType: "movie" }));
+      dispatch(fetchReviews({ id: id, mediaType: "movie" }));
       dispatch(fetchRating());
-      dispatch(fetchRecommendations(id));
+      dispatch(fetchRecommendations({ id: id, mediaType: "movie" }));
     }
   }, [id]);
 

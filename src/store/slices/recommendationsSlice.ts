@@ -10,12 +10,12 @@ interface IRecommendationsState extends IResponseRecommendations {
 
 export const fetchRecommendations = createAsyncThunk<
   IResponseRecommendations,
-  string,
+  { id: string; mediaType: string },
   {}
->("recommendations/fetchRecommendations", async function (id) {
+>("recommendations/fetchRecommendations", async function ({ id, mediaType }) {
   try {
     const res = await axios.get(
-      `https://api.themoviedb.org/3/movie/${id}/recommendations?language=en-US&page=1`,
+      `https://api.themoviedb.org/3/${mediaType}/${id}/recommendations?language=en-US&page=1`,
       options
     );
 

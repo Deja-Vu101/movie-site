@@ -19,12 +19,16 @@ interface IReviewsSliceState extends IReviewsResponse {
   reviewsFirebase: IReviewsFirebase[];
 }
 
-export const fetchReviews = createAsyncThunk<AllReviewsResponse, string, {}>(
+export const fetchReviews = createAsyncThunk<
+  AllReviewsResponse,
+  { id: string; mediaType: string },
+  {}
+>(
   "reviewsSlice/fetchReviews",
-  async function (id, { rejectWithValue }) {
+  async function ({ id, mediaType }, { rejectWithValue }) {
     try {
       const resMovieDBReviews = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}/reviews?language=en-US&page=1`,
+        `https://api.themoviedb.org/3/${mediaType}/${id}/reviews?language=en-US&page=1`,
         options
       );
 

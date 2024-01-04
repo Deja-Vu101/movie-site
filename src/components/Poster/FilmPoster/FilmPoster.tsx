@@ -27,7 +27,7 @@ const FilmPoster: React.FC<IOwnProps> = ({
         src={poster !== null ? imgBaseUrl + poster : PosterNotFound}
         alt="Movie Poster"
       />
-      {mediaType === 'person' }
+      {mediaType === "person"}
       <PosterHover
         ItemName={title}
         id={id}
