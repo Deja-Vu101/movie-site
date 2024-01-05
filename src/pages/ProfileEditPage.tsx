@@ -24,7 +24,7 @@ const ProfileEditPage = () => {
         contentLabel="Edit Avatar Modal"
         style={{
           content: { backgroundColor: "black" },
-          overlay: { zIndex: "1000" },
+          overlay: { zIndex: "1000", backgroundColor: "rgba(0, 0, 0, 0.5)" },
         }}
       >
         <ProfileEdit closeModal={closeModal} />

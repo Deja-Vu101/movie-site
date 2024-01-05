@@ -172,74 +172,65 @@ const ProfileEdit: React.FC<IOwnProps> = ({ closeModal }) => {
       <div className="Edit_Wrapper">
         <AvatarUploader />
         <div className="Edit_Inputs">
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          {success && <p style={{ color: "green" }}>{success}</p>}
+          {error && <p className="ErrorMessage">{error}</p>}
+          {success && <p className="SuccessMessage">{success}</p>}
 
-          <div style={{ marginBottom: "20px" }}>
-            <label style={{ color: "white" }}>Display Name: </label>
-            <div style={{ display: "flex" }}>
+          <div className="InputWrapper">
+            <label className="InputLabel">Display Name:</label>
+            <div className="InputContainer">
               <input
                 type="text"
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
+                className="InputWrapper_Input"
               />
-              <span
-                style={{
-                  fontSize: "25px",
-                  display: "flex",
-                  alignItems: "center",
-                  marginLeft: "10px",
-                  marginTop: "8px",
-                }}
-                onClick={handleUpdateProfile}
-              >
-                <span style={{ cursor: "pointer" }}>
-                  <GiConfirmed />
-                </span>
+              <span className="ConfirmIcon" onClick={handleUpdateProfile}>
+                <GiConfirmed />
               </span>
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
-            <label style={{ color: "white" }}>New Email: </label>
+          <div className="InputWrapper">
+            <label className="InputLabel">New Email:</label>
             <input
               type="email"
               value={newEmail}
               onChange={(e) => setNewEmail(e.target.value)}
+              className="InputWrapper_Input"
             />
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
-            <label style={{ color: "white" }}>New Password: </label>
+          <div className="InputWrapper">
+            <label className="InputLabel">New Password:</label>
             <input
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
+              className="InputWrapper_Input"
             />
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
-            <label style={{ color: "white" }}>Repeat Password: </label>
+          <div className="InputWrapper">
+            <label className="InputLabel">Repeat Password:</label>
             <input
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              className="InputWrapper_Input"
             />
           </div>
 
           {confirmChanges ? (
-            <div>
-              <div className="Edit_Inputs">
-                <label style={{ color: "white" }}>Confirm changes: </label>
-                <input
-                  type="password"
-                  onChange={(e) => setConfirmChangesPass(e.target.value)}
-                  placeholder="Enter your current password"
-                />
-              </div>
+            <div className="InputWrapper">
+              <label className="InputLabel">Confirm changes:</label>
+              <input
+                type="password"
+                onChange={(e) => setConfirmChangesPass(e.target.value)}
+                placeholder="Enter your current password"
+                className="InputWrapper_Input"
+              />
               <button
-                className="Header_Profile"
-                style={{ marginTop: "20px" }}
+                className="SaveChangesButton iButton"
                 onClick={saveAllChanges}
               >
                 Save Changes
@@ -247,7 +238,10 @@ const ProfileEdit: React.FC<IOwnProps> = ({ closeModal }) => {
             </div>
           ) : (
             <div className="Edit_SaveChange">
-              <button className="Header_Profile" onClick={saveAllChanges}>
+              <button
+                className="SaveChangesButton iButton"
+                onClick={saveAllChanges}
+              >
                 Save Changes
               </button>
             </div>
@@ -255,15 +249,7 @@ const ProfileEdit: React.FC<IOwnProps> = ({ closeModal }) => {
         </div>
       </div>
 
-      <span
-        style={{
-          fontSize: "35px",
-          position: "absolute",
-          right: "20px",
-          cursor: "pointer",
-        }}
-        onClick={closeModal}
-      >
+      <span className="CloseIcon" onClick={closeModal}>
         <AiOutlineCloseCircle />
       </span>
     </div>

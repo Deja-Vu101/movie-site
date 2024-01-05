@@ -121,14 +121,20 @@
     }
   }
 }
-
 .Avatar_Wrapper {
-  display: flex;
   position: relative;
-  width: 200px;
+}
+.Avatar_Content {
+  display: flex;
+
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  overflow: hidden;
 
   @media (max-width: 610px) {
-    width: 100px;
+    max-width: 140px;
+    max-height: 140px;
   }
 }
 
@@ -168,6 +174,7 @@
   width: 150px;
   height: 150px;
   border-radius: 50%;
+  overflow: hidden;
   position: relative;
   align-items: center;
 
@@ -177,7 +184,9 @@
   }
 }
 .Avatar_Img {
-  width: inherit;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .Profile_AvatarEdit {
   position: absolute;
@@ -334,7 +343,7 @@
 .Edit_Wrapper {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
 
   @media (max-width: 610px) {
     flex-direction: column;
@@ -366,13 +375,6 @@
   }
 }
 
-.Edit_SaveChange {
-  display: flex;
-  justify-content: center;
-  
-}
-
-
 .TextWrapper {
   display: inline-block;
   position: relative;
@@ -386,4 +388,68 @@
   right: 0;
   background: white;
   padding-left: 0.2em;
+}
+
+.Edit_Inputs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ErrorMessage,
+.SuccessMessage {
+  margin-top: 10px;
+  color: #ff3b30;
+}
+
+.InputWrapper {
+  margin-bottom: 20px;
+}
+
+.InputLabel {
+  font-size: 16px;
+  color: white;
+}
+
+.InputContainer {
+  display: flex;
+  align-items: center;
+}
+
+.InputWrapper_Input {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+}
+
+.ConfirmIcon {
+  display: flex;
+  font-size: 22px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.SaveChangesButton {
+  margin-top: 20px;
+  font-size: 16px;
+  background-color: #9e0000;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.iButton {
+  width: 100%;
+}
+
+.CloseIcon {
+  font-size: 28px;
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
 }

@@ -60,22 +60,25 @@ const AvatarUploader = () => {
   return (
     <div>
       <div className="Avatar_Wrapper">
-        <img
-          src={
-            avatarURL !== "" && avatarURL
-              ? avatarURL
-              : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
-          }
-          alt="Avatar"
-          style={{ width: "inherit" }}
-        />
+        <div className="Avatar_Content">
+          <img
+            src={
+              avatarURL !== "" && avatarURL
+                ? avatarURL
+                : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
+            }
+            alt="Avatar"
+            className="Avatar_Img"
+          />
+        </div>
+
         <div className="Profile_AvatarEdit" onClick={handleUploadClick}>
           <TbEdit />
         </div>
         <input
           type="file"
           ref={fileInputRef}
-          style={{ display: "none" }} // Ховаємо input
+          style={{ display: "none" }}
           onChange={(e: any) => handleUpload(e.target.files[0])}
         />
       </div>
