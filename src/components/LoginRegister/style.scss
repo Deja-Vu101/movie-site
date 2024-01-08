@@ -102,3 +102,23 @@
   justify-content: center;
   margin-bottom: 10px;
 }
+
+.Guest_Button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.Guest_Button button {
+  background-color: #ff0000;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.Guest_Button button:hover {
+  background-color: #b30000;
+}

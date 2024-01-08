@@ -58,7 +58,6 @@ const MoviePage = () => {
 
   return (
     <div>
-      {isAuth ? null : <Navigate to={"/login"} />}
       {loading ? (
         <GlobalLoader />
       ) : (

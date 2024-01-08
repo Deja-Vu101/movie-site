@@ -302,3 +302,9 @@ export interface IRecommendation {
   vote_average: number;
   vote_count: number;
 }
+
+export interface IGuestResponse {
+  success: boolean;
+  guest_session_id: string;
+  expires_at: string;
+}

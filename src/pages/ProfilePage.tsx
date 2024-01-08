@@ -9,12 +9,12 @@ import { Navigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 
 const ProfilePage = () => {
-  const { isAuth } = useAuth();
+  const { isAuth, isGuest } = useAuth();
   const [filterList, setFilterList] = useState("");
 
   return (
     <>
-      {isAuth ? null : <Navigate to={"/login"} />}
+      {isAuth || isGuest ? null : <Navigate to={"/login"} />}
 
       <Header />
       <ProfileHeader />

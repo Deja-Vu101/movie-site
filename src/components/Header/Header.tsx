@@ -6,13 +6,13 @@ import "./style.header.scss";
 import TitleSite from "./TitleSite";
 import BurgerMenu from "./BurgerMenu/BurgerMenu";
 import NavBar from "./NavBar";
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useState } from "react";
 
 const Header = () => {
   const dispatch = useTypedDispatch();
-  const { name } = useAuth();
+  const { name, isGuest, isAuth } = useAuth();
   const { avatarURL } = useTypedSelector((state) => state.user);
 
   const [visibleHeaderMenu, setVisibleHeaderMenu] = useState(true);
@@ -47,6 +47,7 @@ const Header = () => {
 
   return (
     <header className="header">
+      {isAuth || isGuest ? null : <Navigate to={"/login"} />}
       <div className="header_wrapper">
         <div className="header_content">
           <BurgerMenu />
@@ -68,7 +69,7 @@ const Header = () => {
               }
             />
           </div>
-          <div>{name}</div>
+          <div>{isGuest ? "Guest" : name}</div>
           {visibleHeaderMenu && (
             <div className="DropdownMenu" style={{ width: dropdownWidth }}>
               <ul className="DropdownMenu_List">
@@ -90,12 +91,14 @@ const Header = () => {
                   Watchlist
                 </NavLink>
 
-                <NavLink className={"List_Item"} to={"/profile/edit"}>
-                  Edit profile
-                </NavLink>
+                {!isGuest ?? (
+                  <NavLink className={"List_Item"} to={"/profile/edit"}>
+                    Edit profile
+                  </NavLink>
+                )}
 
                 <li onClick={() => dispatch(logout())}>
-                  <span>Logout</span>
+                  <span>{isGuest ? "Login" : "Logout"}</span>
                 </li>
               </ul>
             </div>

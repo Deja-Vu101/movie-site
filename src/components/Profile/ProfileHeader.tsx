@@ -10,14 +10,16 @@ import { fetchWatchList } from "../../store/slices/watchListSlice";
 import { fetchRating } from "../../store/slices/ratingSlice";
 import FormatReleaseDate from "../FormatReleaseDate";
 import ProfileStatistics from "./ProfileStatistics/ProfileStatistics";
+import { useAuth } from "../../hooks/useAuth";
 
 const ProfileHeader = () => {
   const dispatch = useTypedDispatch();
   const navigate = useNavigate();
+  const { isGuest } = useAuth();
   const [filterList, setFilterList] = useState("");
 
   const [showFavoritesMenu, setShowFavoritesMenu] = useState(false);
-  const { name, createDate, avatarURL } = useTypedSelector(
+  const { name, createDate, avatarURL, expires_at } = useTypedSelector(
     (state) => state.user
   );
 
@@ -74,10 +76,16 @@ const ProfileHeader = () => {
           <div className="Profile_Description">
             <div className="Profile_DescriptionFlex">
               <div className="Profile_Name">
-                <span className="Name">{name}</span>
+                <span className="Name">{isGuest ? "Guest" : name}</span>
                 <span className="Profile_MemberSince">
-                  Member since
-                  <FormatReleaseDate release={1693254110356} />
+                  {isGuest ? (
+                    "The session will be deactivated on " + expires_at
+                  ) : (
+                    <>
+                      Member since
+                      <FormatReleaseDate release={1693254110356} />
+                    </>
+                  )}
                 </span>
               </div>
 
@@ -107,7 +115,10 @@ const ProfileHeader = () => {
                     Favorites <AiFillCaretRight />
                   </li>
                   <li>Recommendations</li>
-                  <li className="submenuLastChild">Edit Profile</li>
+                  {!isGuest ?? (
+                    <li className="submenuLastChild">Edit Profile</li>
+                  )}
+
                   {showFavoritesMenu && (
                     <ul
                       className="submenu submenu-right"

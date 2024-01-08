@@ -4,11 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useTypedDispatch } from "../hooks/useTypedDispatch";
 import {
   fetchRequestToken,
+  setGuest,
   setSessionId,
   setUser,
 } from "../store/slices/userSlice";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { IGuestResponse } from "../globalTypes/globalTypes";
+import { guestAuth } from "../services/AuthServices/authService";
 
 interface IOwnProps {
   title: string;
@@ -65,52 +68,39 @@ const Form: React.FC<IOwnProps> = ({ title }) => {
     dispatch(fetchRequestToken());
   };
 
-  //const handleButtonClick = () => {
-  //  localStorage.setItem("email", email);
-  //  localStorage.setItem("password", password);
-  //  localStorage.setItem("userName", userName);
+  const loginUser = async (email: string, password: string) => {
+    try {
+      const response = await fetch(
+        "https://api.themoviedb.org/3/authentication/session/new",
+        optionsWithToken
+      );
 
-  //  handleClick(email, password, userName);
-  //  setReadySignUp(true);
-  //  localStorage.setItem("readySignUp", "true");
-  //};
+      const data = await response.json();
+      dispatch(setSessionId(data.session_id));
 
-  const handlerLogin = (email: string, password: string) => {
-    const auth = getAuth();
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
 
-    const fetchSessionID = async () => {
-      try {
-        const response = await fetch(
-          "https://api.themoviedb.org/3/authentication/session/new",
-          optionsWithToken
-        );
+      auth.onAuthStateChanged((userAuth) => {
+        if (userAuth) {
+          const userPayload = {
+            email: user.email,
+            token: user.refreshToken,
+            id: user.uid,
+            name: user.displayName,
+            createDate: userAuth.metadata.creationTime,
+            avatarURL: userAuth.photoURL,
+          };
+          dispatch(setUser(userPayload));
+          navigate("/");
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-        const data = await response.json();
-        dispatch(setSessionId(data.session_id));
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchSessionID();
-
-    signInWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        auth.onAuthStateChanged((userAuth) => {
-          if (userAuth) {
-            const userPayload = {
-              email: user.email,
-              token: user.refreshToken,
-              id: user.uid,
-              name: user.displayName,
-              createDate: userAuth.metadata.creationTime,
-              avatarURL: userAuth.photoURL,
-            };
-            dispatch(setUser(userPayload));
-            navigate("/");
-          }
-        });
-      })
-      .catch(console.error);
+  const onClickGuestAuth = () => {
+    guestAuth(optionsWithToken, dispatch, navigate);
   };
 
   return (
@@ -200,7 +190,8 @@ const Form: React.FC<IOwnProps> = ({ title }) => {
       <div>
         <button
           className="Form_Button"
-          onClick={() => handlerLogin(email, password)}
+          onClick={() => loginUser(email, password)}
+          //onClick={() => handlerLogin(email, password)}
           //style={
           //  readySignUp
           //    ? undefined
@@ -209,6 +200,10 @@ const Form: React.FC<IOwnProps> = ({ title }) => {
         >
           {title}
         </button>
+
+        <div className="Guest_Button">
+          <button onClick={() => onClickGuestAuth()}>Try guest session</button>
+        </div>
 
         <p className="register-link">
           or{" "}

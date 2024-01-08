@@ -1,5 +1,5 @@
 import { options } from "./../../apiConfigs/tmdb";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CreateRequestToken } from "../../globalTypes/globalTypes";
 import axios from "axios";
 
@@ -18,6 +18,7 @@ export interface IUserState {
   loading: boolean;
   createDate: string | undefined;
   avatarURL: any;
+  guest_session_id: any;
 }
 
 export const fetchUrl = createAsyncThunk(
@@ -88,6 +89,20 @@ const userSlice = createSlice({
 
       localStorage.setItem("userState", JSON.stringify(state));
     },
+    setGuest(
+      state,
+      action: PayloadAction<{
+        guest_session_id: string;
+        expires_at: string | null;
+        success: boolean;
+      }>
+    ) {
+      state.guest_session_id = action.payload.guest_session_id;
+      state.expires_at = action.payload.expires_at;
+      state.success = action.payload.success;
+
+      localStorage.setItem("userState", JSON.stringify(state));
+    },
     setUserAvatar(state, action) {
       state.avatarURL = action.payload;
     },
@@ -101,11 +116,12 @@ const userSlice = createSlice({
       state.token = null;
       state.id = null;
       state.name = null;
-      (state.expires_at = null),
-        (state.request_token = null),
-        (state.success = null),
-        (state.session_id = null),
-        localStorage.setItem("userState", JSON.stringify(state));
+      state.guest_session_id = null;
+      state.expires_at = null;
+      state.request_token = null;
+      state.success = null;
+      state.session_id = null;
+      localStorage.setItem("userState", JSON.stringify(state));
     },
   },
   extraReducers(builder) {
@@ -131,7 +147,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { logout, setUser, setSessionId, setUserAvatar } =
+export const { logout, setUser, setGuest, setSessionId, setUserAvatar } =
   userSlice.actions;
 
 export default userSlice.reducer;

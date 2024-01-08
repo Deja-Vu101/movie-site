@@ -59,7 +59,6 @@ const SeriesPage = () => {
 
   return (
     <div>
-      {isAuth ? null : <Navigate to={"/login"} />}
       {loading ? (
         <GlobalLoader />
       ) : (
