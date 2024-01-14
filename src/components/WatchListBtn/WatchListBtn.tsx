@@ -36,6 +36,7 @@ const WatchListBtn: React.FC<IOwnProps> = ({ id, mediaType }) => {
             )
           );
   };
+
   return (
     <div
       className="Button"

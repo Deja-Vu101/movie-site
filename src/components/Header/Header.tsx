@@ -63,7 +63,7 @@ const Header = () => {
             <img
               className="ProfileImg"
               src={
-                !!avatarURL
+                !isGuest && avatarURL
                   ? avatarURL
                   : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
               }
@@ -91,7 +91,7 @@ const Header = () => {
                   Watchlist
                 </NavLink>
 
-                {!isGuest ?? (
+                {!isGuest && (
                   <NavLink className={"List_Item"} to={"/profile/edit"}>
                     Edit profile
                   </NavLink>

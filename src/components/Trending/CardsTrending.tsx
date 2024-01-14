@@ -4,9 +4,15 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { imgBaseUrl } from "../../apiConfigs/tmdb";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useEffect, useState } from "react";
 
 const CardsTrending = () => {
   const { results } = useTypedSelector((state) => state.trending);
+  const [visibleSlides, setVisibleSlides] = useState<number[]>([]);
+
+  useEffect(() => {
+    setVisibleSlides([0, 19]);
+  }, []);
 
   const settings = {
     dots: false,
@@ -50,12 +56,15 @@ const CardsTrending = () => {
         },
       },
     ],
+    afterChange: (currentSlide: number) => {
+      setVisibleSlides((prev) => [...prev, currentSlide]);
+    },
   };
 
   return (
     <div className="CardsTrending">
       <Slider {...settings}>
-        {results.map((i) => (
+        {results.map((i, index) => (
           <CardsItem
             key={i.id}
             url={imgBaseUrl + i.backdrop_path}
@@ -65,9 +74,11 @@ const CardsTrending = () => {
             voteAverage={i.vote_average}
             mediaType={i.media_type}
             id={i.id}
+            isVisible={visibleSlides.includes(index)}
           />
         ))}
       </Slider>
+
       <div className="imgFilter"></div>
     </div>
   );

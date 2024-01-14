@@ -9,7 +9,6 @@ interface IFavoriteListState extends IMovieResponse {
   error: null | string;
   removedItem: any;
 }
-
 export const fetchFavoriteList = createAsyncThunk(
   "favoriteList/fetchFavouriteList",
   async function (mediaType: string, { getState }) {
@@ -61,6 +60,7 @@ export const addToFavoritelist = createAsyncThunk(
     return data;
   }
 );
+
 const storedFavoriteState = localStorage.getItem("favoriteState");
 const initialState: IFavoriteListState = storedFavoriteState
   ? JSON.parse(storedFavoriteState)

@@ -10,8 +10,13 @@ import {
 } from "../store/slices/userSlice";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { IGuestResponse } from "../globalTypes/globalTypes";
-import { guestAuth } from "../services/AuthServices/authService";
+import {
+  authToken,
+  createGuestSession,
+  guestAuth,
+  loginAuthenticationSession,
+} from "../services/AuthServices/authService";
+import { fetchAvatarDataStorage } from "../services/updateUser";
 
 interface IOwnProps {
   title: string;
@@ -23,18 +28,18 @@ const Form: React.FC<IOwnProps> = ({ title }) => {
   const dispatch = useTypedDispatch();
   const { request_token } = useTypedSelector((state) => state.user);
 
-  const optionsWithToken = {
-    method: "POST",
-    headers: {
-      accept: "application/json",
-      "content-type": "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZDhhZTMxNTM4YTY5NmJiYTJkNGE2ZmNiZmQwMTlhOSIsInN1YiI6IjY0Y2E3Y2JmZGQ4M2ZhMDEzOWRhZTM5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YRbI_c1B40vA3ObEPz_nOejSEz0o5HV7FARlG0u3_EY",
-    },
-    body: JSON.stringify({
-      request_token: request_token,
-    }),
-  };
+  //const optionsWithToken = {
+  //  method: "POST",
+  //  headers: {
+  //    accept: "application/json",
+  //    "content-type": "application/json",
+  //    Authorization:
+  //      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZDhhZTMxNTM4YTY5NmJiYTJkNGE2ZmNiZmQwMTlhOSIsInN1YiI6IjY0Y2E3Y2JmZGQ4M2ZhMDEzOWRhZTM5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YRbI_c1B40vA3ObEPz_nOejSEz0o5HV7FARlG0u3_EY",
+  //  },
+  //  body: JSON.stringify({
+  //    request_token: request_token,
+  //  }),
+  //};
 
   //const [readySignUp, setReadySignUp] = useState(
   //  localStorage.getItem("readySignUp") || false
@@ -70,13 +75,15 @@ const Form: React.FC<IOwnProps> = ({ title }) => {
 
   const loginUser = async (email: string, password: string) => {
     try {
-      const response = await fetch(
-        "https://api.themoviedb.org/3/authentication/session/new",
-        optionsWithToken
-      );
+      //const response = await fetch(
+      //  "https://api.themoviedb.org/3/authentication/session/new",
+      //  optionsWithToken
+      //);
 
-      const data = await response.json();
-      dispatch(setSessionId(data.session_id));
+      //const data = await response.json();
+      //dispatch(setSessionId(data.session_id));
+      request_token &&
+        loginAuthenticationSession(request_token, dispatch, navigate);
 
       const { user } = await signInWithEmailAndPassword(auth, email, password);
 
@@ -90,6 +97,8 @@ const Form: React.FC<IOwnProps> = ({ title }) => {
             createDate: userAuth.metadata.creationTime,
             avatarURL: userAuth.photoURL,
           };
+          fetchAvatarDataStorage(user.uid, dispatch);
+
           dispatch(setUser(userPayload));
           navigate("/");
         }
@@ -100,7 +109,16 @@ const Form: React.FC<IOwnProps> = ({ title }) => {
   };
 
   const onClickGuestAuth = () => {
-    guestAuth(optionsWithToken, dispatch, navigate);
+    guestAuth(dispatch, navigate);
+    //.then((session) => {
+    //if (session !== undefined) {
+    //  authToken(session, dispatch, navigate);
+    //  //.then((request_token) => {
+    //  //  if (request_token !== undefined) {
+    //  //    createGuestSession(request_token);
+    //  //  }
+    //  //});
+    //}
   };
 
   return (

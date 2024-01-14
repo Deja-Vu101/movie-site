@@ -22,7 +22,7 @@ const ProfileWatchlist = () => {
 
   useEffect(() => {
     dispatch(fetchWatchList(mediaType));
-  }, []);
+  }, [mediaType]);
 
   const resultsWithoutRemoved = resultsWatchlist.filter(
     (item) => !removedItem.includes(item.id)

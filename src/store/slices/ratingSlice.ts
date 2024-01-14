@@ -3,11 +3,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { IRatingResponse } from "../../globalTypes/globalTypes";
 import { options } from "../../apiConfigs/tmdb";
+import { useAuth } from "../../hooks/useAuth";
 
 export const fetchRating = createAsyncThunk<IRatingResponse>(
   "ratingSlice/fetchRating",
   async function (_, { getState }) {
     const { session_id } = (getState() as RootState).user;
+
     try {
       const res = await axios.get(
         `https://api.themoviedb.org/3/account/20246322/rated/movies?language=en-US&page=1&session_id=${session_id}&sort_by=created_at.asc`,
@@ -26,6 +28,7 @@ export const addRating = createAsyncThunk(
     { getState }
   ) {
     const { session_id } = (getState() as RootState).user;
+
     const options = {
       method: "POST",
       headers: {
@@ -57,6 +60,7 @@ export const deleteRating = createAsyncThunk(
   "ratingSlice/deleteRating",
   async function ({ movieID }: { movieID: string }, { getState }) {
     const { session_id } = (getState() as RootState).user;
+
     const options = {
       method: "DELETE",
       headers: {

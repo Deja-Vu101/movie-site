@@ -63,7 +63,7 @@ const AvatarUploader = () => {
         <div className="Avatar_Content">
           <img
             src={
-              avatarURL !== "" && avatarURL
+              avatarURL !== ""
                 ? avatarURL
                 : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/256px-Default_pfp.svg.png"
             }

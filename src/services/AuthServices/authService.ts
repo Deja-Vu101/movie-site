@@ -1,16 +1,58 @@
 import { Dispatch } from "redux";
-import { IGuestResponse } from "../../globalTypes/globalTypes";
-import { setGuest } from "../../store/slices/userSlice";
+import {
+  CreateRequestToken,
+  IGuestResponse,
+} from "../../globalTypes/globalTypes";
+import {
+  setGuest,
+  setRequestToken,
+  setSessionId,
+} from "../../store/slices/userSlice";
 
-export const guestAuth = async (
-  optionsWithToken: any,
+export const loginAuthenticationSession = async (
+  request_token: string,
   dispatch: Dispatch,
   navigate: (path: string) => void
 ) => {
   try {
+    const optionsWithToken = {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "content-type": "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZDhhZTMxNTM4YTY5NmJiYTJkNGE2ZmNiZmQwMTlhOSIsInN1YiI6IjY0Y2E3Y2JmZGQ4M2ZhMDEzOWRhZTM5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YRbI_c1B40vA3ObEPz_nOejSEz0o5HV7FARlG0u3_EY",
+      },
+      body: JSON.stringify({
+        request_token: request_token,
+      }),
+    };
+    const response = await fetch(
+      "https://api.themoviedb.org/3/authentication/session/new",
+      optionsWithToken
+    );
+
+    const data = await response.json();
+    dispatch(setSessionId(data.session_id));
+  } catch (error) {}
+};
+
+export const guestAuth = async (
+  dispatch: Dispatch,
+  navigate: (path: string) => void
+) => {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZDhhZTMxNTM4YTY5NmJiYTJkNGE2ZmNiZmQwMTlhOSIsInN1YiI6IjY0Y2E3Y2JmZGQ4M2ZhMDEzOWRhZTM5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YRbI_c1B40vA3ObEPz_nOejSEz0o5HV7FARlG0u3_EY",
+    },
+  };
+  try {
     const res = await fetch(
       "https://api.themoviedb.org/3/authentication/guest_session/new",
-      optionsWithToken
+      options
     );
 
     if (!res.ok) {
@@ -26,6 +68,66 @@ export const guestAuth = async (
     };
     dispatch(setGuest(userPayload));
     navigate("/");
+
+    return data.guest_session_id;
+  } catch (error) {
+    console.log(error, "error");
+  }
+};
+
+export const authToken = async (
+  session: string,
+  dispatch: Dispatch,
+  navigate: (path: string) => void
+) => {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZDhhZTMxNTM4YTY5NmJiYTJkNGE2ZmNiZmQwMTlhOSIsInN1YiI6IjY0Y2E3Y2JmZGQ4M2ZhMDEzOWRhZTM5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YRbI_c1B40vA3ObEPz_nOejSEz0o5HV7FARlG0u3_EY",
+    },
+  };
+  try {
+    const res = await fetch(
+      `https://api.themoviedb.org/3/authentication/token/new`,
+      options
+    );
+    const data: CreateRequestToken = await res.json();
+
+    dispatch(setRequestToken(data.request_token));
+    //navigate(
+    //  `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=http://localhost:5173`
+    //);
+    navigate("/");
+    //const newUrl = `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=http://localhost:5173`;
+    //window.location.replace(newUrl);
+    return data.request_token;
+  } catch (error) {
+    console.log(error, "error");
+  }
+};
+
+export const createGuestSession = async (request_token: string) => {
+  const optionsWithToken = {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZDhhZTMxNTM4YTY5NmJiYTJkNGE2ZmNiZmQwMTlhOSIsInN1YiI6IjY0Y2E3Y2JmZGQ4M2ZhMDEzOWRhZTM5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YRbI_c1B40vA3ObEPz_nOejSEz0o5HV7FARlG0u3_EY",
+    },
+    body: JSON.stringify({ request_token: request_token }),
+  };
+  try {
+    //const res = await fetch(
+    //  `https://api.themoviedb.org/3/authentication/session/new`,
+    //  optionsWithToken
+    //);
+    //const data = await res.json();
+    //console.log(data, "CREAT GUEST DATA");
+
+    `https://www.themoviedb.org/authenticate/${request_token}?redirect_to=http://localhost:5173/login`;
   } catch (error) {
     console.log(error, "error");
   }

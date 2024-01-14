@@ -7,6 +7,7 @@ import { fetchPopularSeries } from "../../store/slices/popularSeriesSlice";
 import "./collectionSlider.scss";
 import SliderSeries from "../SliderMovies/SliderSeries";
 import { fetchFavoriteList } from "../../store/slices/favoriteSlice";
+import { fetchWatchList } from "../../store/slices/watchListSlice";
 
 const CollectionSlidersMain: React.FC = () => {
   const dispatch = useTypedDispatch();
@@ -22,6 +23,8 @@ const CollectionSlidersMain: React.FC = () => {
     dispatch(fetchPopularSeries(pageSeries));
     dispatch(fetchFavoriteList("movies"));
     dispatch(fetchFavoriteList("tv"));
+    dispatch(fetchWatchList("movies"));
+    dispatch(fetchWatchList("tv"));
   }, []);
 
   return (

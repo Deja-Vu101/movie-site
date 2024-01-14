@@ -85,7 +85,6 @@ const userSlice = createSlice({
       state.id = action.payload.id;
       state.name = action.payload.name;
       state.createDate = action.payload.createDate;
-      state.avatarURL = action.payload.avatarURL;
 
       localStorage.setItem("userState", JSON.stringify(state));
     },
@@ -105,9 +104,16 @@ const userSlice = createSlice({
     },
     setUserAvatar(state, action) {
       state.avatarURL = action.payload;
+
+      localStorage.setItem("userState", JSON.stringify(state));
     },
     setSessionId(state, action) {
       state.session_id = action.payload;
+
+      localStorage.setItem("userState", JSON.stringify(state));
+    },
+    setRequestToken(state, action) {
+      state.request_token = action.payload;
 
       localStorage.setItem("userState", JSON.stringify(state));
     },
@@ -147,7 +153,13 @@ const userSlice = createSlice({
   },
 });
 
-export const { logout, setUser, setGuest, setSessionId, setUserAvatar } =
-  userSlice.actions;
+export const {
+  logout,
+  setUser,
+  setGuest,
+  setSessionId,
+  setUserAvatar,
+  setRequestToken,
+} = userSlice.actions;
 
 export default userSlice.reducer;
