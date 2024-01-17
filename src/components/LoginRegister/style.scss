@@ -1,11 +1,11 @@
-.BG {
+.LoginRegister_BackGround {
   width: 100%;
   height: 100%;
   background-size: cover;
   background-position: center;
   opacity: 0.9;
 }
-.login-container {
+.LoginRegister {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,7 +13,7 @@
   height: 100vh;
 }
 
-.login-title {
+.LoginTitle {
   font-size: 2rem;
   margin-bottom: 1rem;
   margin-top: 2rem;
@@ -23,18 +23,18 @@
   margin-top: 1rem;
 }
 
-.token-link {
-  display: block;
-  margin-top: 1rem;
+.tokenLink {
+  margin-top: 30px;
   text-decoration: none;
   color: #007bff;
+  font-size: 20px;
+
+  cursor: pointer;
 }
 
-.session-button {
-  margin-top: 1rem;
-
-  color: white;
-  font-size: 16px;
+.requestButton {
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .register-link {
@@ -43,7 +43,7 @@
   text-decoration: underline;
 }
 
-.bg-container {
+.LoginRegister_Container {
   position: fixed;
   top: 0;
   left: 0;
@@ -91,16 +91,6 @@
   color: white;
   font-size: 20px;
   padding: 5px 0;
-}
-
-.error-text {
-  display: flex;
-  color: red;
-
-  font-weight: 500;
-  font-size: 18px;
-  justify-content: center;
-  margin-bottom: 10px;
 }
 
 .Guest_Button {

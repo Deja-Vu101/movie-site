@@ -52,6 +52,7 @@ export const fetchRequestToken = createAsyncThunk<
       "https://api.themoviedb.org/3/authentication/token/new",
       options
     );
+
     return res.data;
   } catch (error) {
     console.error(error);

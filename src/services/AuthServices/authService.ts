@@ -132,3 +132,32 @@ export const createGuestSession = async (request_token: string) => {
     console.log(error, "error");
   }
 };
+
+export const fetchSessionID = async (
+  request_token: string,
+  dispatch: Dispatch
+) => {
+  const optionsWithBody = {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZDhhZTMxNTM4YTY5NmJiYTJkNGE2ZmNiZmQwMTlhOSIsInN1YiI6IjY0Y2E3Y2JmZGQ4M2ZhMDEzOWRhZTM5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YRbI_c1B40vA3ObEPz_nOejSEz0o5HV7FARlG0u3_EY",
+    },
+    body: JSON.stringify({
+      request_token: request_token,
+    }),
+  };
+  try {
+    const response = await fetch(
+      "https://api.themoviedb.org/3/authentication/session/new",
+      optionsWithBody
+    );
+
+    const data = await response.json();
+    dispatch(setSessionId(data.session_id));
+  } catch (error) {
+    console.error(error);
+  }
+};

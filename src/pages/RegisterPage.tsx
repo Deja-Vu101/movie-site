@@ -4,53 +4,29 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import Form from "../components/Form";
-import {
-  fetchRequestToken,
-  setSessionId,
-  setUser,
-} from "../store/slices/userSlice";
+import Form from "../components/LoginRegister/Form";
+import { setUser } from "../store/slices/userSlice";
 import { useTypedDispatch } from "../hooks/useTypedDispatch";
 import { useTypedSelector } from "../hooks/useTypedSelector";
+import TitleSite from "../components/Header/TitleSite";
+import { fetchSessionID } from "../services/AuthServices/authService";
 
 const RegisterPage = () => {
-  const { request_token, session_id } = useTypedSelector((state) => state.user);
   const dispatch = useTypedDispatch();
   const navigate = useNavigate();
+  const auth = getAuth();
 
-  const optionsWithBody = {
-    method: "POST",
-    headers: {
-      accept: "application/json",
-      "content-type": "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZDhhZTMxNTM4YTY5NmJiYTJkNGE2ZmNiZmQwMTlhOSIsInN1YiI6IjY0Y2E3Y2JmZGQ4M2ZhMDEzOWRhZTM5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YRbI_c1B40vA3ObEPz_nOejSEz0o5HV7FARlG0u3_EY",
-    },
-    body: JSON.stringify({
-      request_token: request_token,
-    }),
-  };
+  const { request_token } = useTypedSelector((state) => state.user);
 
-  const handlerRegister = async (
+  const registerUser = async (
     email: string,
     password: string,
-    name: string
+    name?: string
   ) => {
-    const auth = getAuth();
-    const fetchSessionID = async () => {
-      try {
-        const response = await fetch(
-          "https://api.themoviedb.org/3/authentication/session/new",
-          optionsWithBody
-        );
+    if (request_token) {
+      fetchSessionID(request_token, dispatch);
+    }
 
-        const data = await response.json();
-        dispatch(setSessionId(data.session_id));
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchSessionID();
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -71,27 +47,28 @@ const RegisterPage = () => {
         })
       );
       navigate("/");
+      console.log(user, "USER");
     } catch (error) {
       console.error(error);
+      throw error;
     }
   };
-  const handlerSession = () => {
-    dispatch(fetchRequestToken());
-  };
+
   return (
-    <>
-      <h1>Register</h1>
-      <Form title="sign up" handleClick={handlerRegister} />
-      <a
-        href={`https://www.themoviedb.org/authenticate/${request_token}?redirect_to=http://localhost:5173/register`}
-      >
-        REQUEST TOKEN
-      </a>
-      <div onClick={handlerSession}>Regenarate Sesion</div>
-      <p>
-        already have an account? <Link to={"/login"}>log in</Link>
-      </p>
-    </>
+    <div className="LoginRegister_Container">
+      <div className="LoginRegister_BackGround">
+        <div className="LoginRegister">
+          <TitleSite />
+          <h1 className="LoginTitle">Register</h1>
+
+          <Form title="Sign Up" enterMethod={registerUser} />
+
+          <p>
+            already have an account? <Link to={"/login"}>log in</Link>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
 

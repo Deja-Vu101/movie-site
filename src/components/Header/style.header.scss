@@ -30,11 +30,11 @@
   background-color: RGB(19, 19, 19);
 }
 .header_title {
+  width: 145px;
   font-weight: 600;
   font-size: 27px;
 
   .header_title_word {
-    margin-right: 24px;
     color: #ff0000;
   }
 }
@@ -46,6 +46,7 @@
   line-height: 1.75;
   font-weight: 600;
   text-transform: uppercase;
+  margin-left: 30px;
 
   @media (max-width: 850px) {
     display: none;
