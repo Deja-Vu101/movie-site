@@ -4,11 +4,11 @@ import { Action } from "@reduxjs/toolkit";
 
 interface IOwnProps {
   items: any[];
-  
+
   setPage: () => Action;
 }
 
-const PaginationButton: React.FC<IOwnProps> = ({ items,  setPage }) => {
+const PaginationButton: React.FC<IOwnProps> = ({ items, setPage }) => {
   const dispatch = useTypedDispatch();
 
   const onClickPaginationBtn = () => {
@@ -18,7 +18,7 @@ const PaginationButton: React.FC<IOwnProps> = ({ items,  setPage }) => {
     <div
       className="Pagination_Button"
       style={{ display: items.length === 0 ? "none" : "flex" }}
-		onClick={onClickPaginationBtn}
+      onClick={onClickPaginationBtn}
     >
       Load more
     </div>
