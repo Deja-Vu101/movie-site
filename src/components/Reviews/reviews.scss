@@ -38,13 +38,15 @@
 }
 
 .PostBtn {
+  color: white;
   text-transform: uppercase;
   padding: 8px 22px;
   background-color: red;
   margin-top: 16px;
   font-weight: 500;
   line-height: 1.75;
-  display: inline-flex;
+  display: flex;
+  align-items: center;
   border-radius: 4px;
 
   cursor: pointer;
@@ -55,33 +57,16 @@
     margin-right: 11px;
   }
 }
+.PostBtn:disabled {
+  background-color: rgb(254, 33, 33);
+  color: #b5b5b5; 
+  cursor: not-allowed;
+}
 
 .Reviews_LoadMore {
   margin-left: 10px;
   font-size: 30px;
   cursor: pointer;
-}
-
-.Reviews_Buttons {
-  font-size: 20px;
-  margin-left: 15px;
-}
-.Button_Delete {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 16px;
-  padding: 6px 16px;
-  background-color: red;
-  line-height: 1.75;
-  font-weight: 500;
-  border-radius: 4px;
-
-  cursor: pointer;
-}
-.Button_Delete span {
-  display: flex;
-  font-size: 18px;
 }
 
 .Reviews {
@@ -202,26 +187,30 @@
   text-align: center;
 }
 
-.Button_Delete {
-  position: absolute;
-  top: 10px;
-  right: 5px;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 16px;
-  padding: 8px 16px;
-  background-color: red;
-  line-height: 1.75;
-  font-weight: 500;
-  border-radius: 4px;
-}
 .Button_Delete span {
   display: flex;
-  font-size: 18px;
+  font-size: 17px;
 }
 .Button_Delete_Text {
   @media (max-width: 700px) {
     display: none;
   }
+}
+
+.Button_Delete {
+  position: absolute;
+  top: 10px;
+  right: 5px;
+
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+  padding: 5px 10px;
+  background-color: red;
+  line-height: 1.75;
+  font-weight: 500;
+  border-radius: 4px;
+
+  cursor: pointer;
 }

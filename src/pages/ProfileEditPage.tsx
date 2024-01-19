@@ -13,6 +13,8 @@ const ProfileEditPage = () => {
     setIsModalOpen(false);
     navigate("/profile");
   };
+
+  Modal.setAppElement("#root");
   return (
     <>
       <Header />

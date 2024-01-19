@@ -1,4 +1,4 @@
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Header from "../../../Header/Header";
 import "../movie.scss";
 import { useEffect } from "react";
@@ -143,6 +143,7 @@ const MoviePage = () => {
                     setHandlePost={setHandlePost}
                     handlePost={handlePost}
                     reviewsFirebase={reviewsFirebase}
+                    mediaType="movie"
                   />
                 </div>
 

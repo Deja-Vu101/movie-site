@@ -1,5 +1,5 @@
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useRef } from "react";
 import { updateProfile } from "firebase/auth";
 import { setUserAvatar } from "../../store/slices/userSlice";
@@ -7,11 +7,6 @@ import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { TbEdit } from "react-icons/tb";
 import "../Profile/profile.scss";
-
-interface IOwnProps {
-  closeModal: () => void;
-  setAvatarURL: (url: string) => void;
-}
 
 const AvatarUploader = () => {
   const { avatarURL } = useTypedSelector((state) => state.user);
@@ -23,23 +18,26 @@ const AvatarUploader = () => {
   const handleUpload = async (selectedFile: any) => {
     if (selectedFile) {
       const storageRef = ref(storage, `avatars/${currentUser?.uid}`);
-      await uploadBytes(storageRef, selectedFile);
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          await uploadBytes(storageRef, selectedFile);
 
-      const photoURL = await getDownloadURL(storageRef);
-
-      if (currentUser) {
-        try {
-          await updateProfile(currentUser, {
-            photoURL: photoURL,
-          });
-          console.log("Аватарка оновлена!");
-          dispatch(setUserAvatar(photoURL));
-        } catch (error) {
-          console.error("Помилка при оновленні аватарки:", error);
+          const photoURL = await getDownloadURL(storageRef);
+          console.log(user, "currentUser");
+          console.log(photoURL, "photoURL");
+          try {
+            await updateProfile(user, {
+              photoURL: photoURL,
+            });
+            console.log("Аватарка оновлена!");
+            dispatch(setUserAvatar(photoURL));
+          } catch (error) {
+            console.error("Помилка при оновленні аватарки:", error);
+          }
+        } else {
+          console.log("Користувач не автентифікований.");
         }
-      } else {
-        console.log("Користувач не автентифікований.");
-      }
+      });
     }
   };
 

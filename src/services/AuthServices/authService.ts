@@ -8,6 +8,8 @@ import {
   setRequestToken,
   setSessionId,
 } from "../../store/slices/userSlice";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getDownloadURL, getStorage, listAll, ref } from "@firebase/storage";
 
 export const loginAuthenticationSession = async (
   request_token: string,
@@ -31,7 +33,6 @@ export const loginAuthenticationSession = async (
       "https://api.themoviedb.org/3/authentication/session/new",
       optionsWithToken
     );
-
     const data = await response.json();
     dispatch(setSessionId(data.session_id));
   } catch (error) {}
@@ -54,13 +55,10 @@ export const guestAuth = async (
       "https://api.themoviedb.org/3/authentication/guest_session/new",
       options
     );
-
     if (!res.ok) {
       throw new Error(`HTTP error! Status: ${res.status}`);
     }
-
     const data: IGuestResponse = await res.json();
-
     const userPayload = {
       expires_at: data.expires_at,
       guest_session_id: data.guest_session_id,
@@ -68,7 +66,6 @@ export const guestAuth = async (
     };
     dispatch(setGuest(userPayload));
     navigate("/");
-
     return data.guest_session_id;
   } catch (error) {
     console.log(error, "error");
@@ -94,14 +91,8 @@ export const authToken = async (
       options
     );
     const data: CreateRequestToken = await res.json();
-
     dispatch(setRequestToken(data.request_token));
-    //navigate(
-    //  `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=http://localhost:5173`
-    //);
     navigate("/");
-    //const newUrl = `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=http://localhost:5173`;
-    //window.location.replace(newUrl);
     return data.request_token;
   } catch (error) {
     console.log(error, "error");
@@ -120,13 +111,6 @@ export const createGuestSession = async (request_token: string) => {
     body: JSON.stringify({ request_token: request_token }),
   };
   try {
-    //const res = await fetch(
-    //  `https://api.themoviedb.org/3/authentication/session/new`,
-    //  optionsWithToken
-    //);
-    //const data = await res.json();
-    //console.log(data, "CREAT GUEST DATA");
-
     `https://www.themoviedb.org/authenticate/${request_token}?redirect_to=http://localhost:5173/login`;
   } catch (error) {
     console.log(error, "error");
@@ -154,10 +138,10 @@ export const fetchSessionID = async (
       "https://api.themoviedb.org/3/authentication/session/new",
       optionsWithBody
     );
-
     const data = await response.json();
     dispatch(setSessionId(data.session_id));
   } catch (error) {
     console.error(error);
   }
 };
+

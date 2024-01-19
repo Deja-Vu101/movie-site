@@ -1,12 +1,14 @@
 import { IReviews, IReviewsFirebase } from "../../globalTypes/globalTypes";
-import { BsFillSendFill } from "react-icons/bs";
 import ReviewItem from "./ReviewItem";
 import "./reviews.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { v4 as uuidv4 } from "uuid";
 import { addReviews } from "../../store/slices/reviewsSlice";
+import ReviewsInput from "./ReviewsInput";
+import { getDownloadURL, getStorage, listAll, ref } from "@firebase/storage";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 interface IOwnProps {
   reviews: (IReviewsFirebase | IReviews)[];
@@ -14,12 +16,14 @@ interface IOwnProps {
   handlePost: boolean;
   setHandlePost: (handlePost: boolean) => void;
   reviewsFirebase: IReviewsFirebase[];
+  mediaType: string;
 }
 
 const Reviews: React.FC<IOwnProps> = ({
   reviews,
   movieId,
   reviewsFirebase,
+  mediaType,
 }) => {
   const dispatch = useTypedDispatch();
   const {
@@ -27,28 +31,61 @@ const Reviews: React.FC<IOwnProps> = ({
     name,
     avatarURL,
   } = useTypedSelector((state) => state.user);
+  const auth = getAuth();
 
-  const [textAreaValue, setTextAreaValue] = useState("");
+  const [avatarsUser, setAvatarsUser] = useState<
+    { avatarUrl: string; avatarName: string }[]
+  >([]);
 
-  const postReviews = () => {
+  const postReviews = (textReviews: string) => {
     if (name && idUser !== null && movieId) {
       const uniqueId = uuidv4();
       const newReview: IReviewsFirebase = {
         author: name,
         authorUrl: avatarURL,
-        content: textAreaValue,
+        content: textReviews,
         created_at: Date.now().toString(),
         idReview: uniqueId,
         idUser: idUser,
         idMovie: movieId,
       };
       dispatch(addReviews(newReview));
-      setTextAreaValue("");
     }
   };
   const totalReviews =
     reviews.length +
     reviewsFirebase.filter((i) => i.idMovie === movieId).length;
+
+  useEffect(() => {
+    const fetchAvatars = async () => {
+      const storage = getStorage();
+      const storageRef = ref(storage, `avatars/`);
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          try {
+            const avatarsList = await listAll(storageRef);
+
+            const avatarObjects = await Promise.all(
+              avatarsList.items.map(async (avatarItem) => {
+                const avatarUrl = await getDownloadURL(avatarItem);
+                return {
+                  avatarUrl,
+                  avatarName: avatarItem.name,
+                };
+              })
+            );
+            setAvatarsUser(avatarObjects);
+          } catch (error: any) {
+            console.error("Помилка при отриманні імен файлів:", error.message);
+          }
+        } else {
+          console.log("User is not authenticated");
+        }
+      });
+    };
+    fetchAvatars();
+  }, [auth]);
+
   return (
     <div className="Reviews">
       <div className="Reviews_Container">
@@ -64,6 +101,8 @@ const Reviews: React.FC<IOwnProps> = ({
             idReview={i.idReview}
             idUser={i.idUser}
             movieId={movieId}
+            mediaType={mediaType}
+            avatarsUser={avatarsUser}
           />
         ))}
 
@@ -77,7 +116,8 @@ const Reviews: React.FC<IOwnProps> = ({
               idReview={i.idReview}
               idUser={i.idUser}
               movieId={movieId}
-              avatar={i.authorUrl}
+              mediaType={mediaType}
+              avatarsUser={avatarsUser}
             />
           ) : null
         )}
@@ -94,25 +134,8 @@ const Reviews: React.FC<IOwnProps> = ({
               alt="Avatar revie"
             />
           </div>
-          <div className="Reviews_Input">
-            <div className="Reviews_Body">
-              <div className="Reviews_Name">{name}</div>
-              <div className="ReviewsArea">
-                <textarea
-                  className="Area"
-                  placeholder="Write your review"
-                  value={textAreaValue}
-                  onChange={(e) => setTextAreaValue(e.target.value)}
-                ></textarea>
-              </div>
-              <div className="PostBtn" onClick={postReviews}>
-                <div>
-                  <BsFillSendFill />
-                </div>
-                Post
-              </div>
-            </div>
-          </div>
+
+          <ReviewsInput postReviews={postReviews} name={name} />
         </div>
       </div>
     </div>
