@@ -8,11 +8,16 @@ import { useAuth } from "../../hooks/useAuth";
 export const fetchRating = createAsyncThunk<IRatingResponse>(
   "ratingSlice/fetchRating",
   async function (_, { getState }) {
-    const { session_id } = (getState() as RootState).user;
+    const { session_id, guest_session_id } = (getState() as RootState).user;
+
+    const session_ID =
+      session_id !== null
+        ? `session_id=${session_id}`
+        : `guest_session_id=${guest_session_id}`;
 
     try {
       const res = await axios.get(
-        `https://api.themoviedb.org/3/account/20246322/rated/movies?language=en-US&page=1&session_id=${session_id}&sort_by=created_at.asc`,
+        `https://api.themoviedb.org/3/account/20246322/rated/movies?language=en-US&page=1&${session_ID}&sort_by=created_at.asc`,
         options
       );
       return res.data;
@@ -27,7 +32,12 @@ export const addRating = createAsyncThunk(
     { movieID, newRating }: { movieID: string; newRating: number },
     { getState }
   ) {
-    const { session_id } = (getState() as RootState).user;
+    const { session_id, guest_session_id } = (getState() as RootState).user;
+
+    const session_ID =
+      session_id !== null
+        ? `session_id=${session_id}`
+        : `guest_session_id=${guest_session_id}`;
 
     const options = {
       method: "POST",
@@ -44,7 +54,7 @@ export const addRating = createAsyncThunk(
     };
     try {
       const res = await fetch(
-        `https://api.themoviedb.org/3/movie/${movieID}/rating?session_id=${session_id}`,
+        `https://api.themoviedb.org/3/movie/${movieID}/rating?${session_ID}`,
         options
       );
       const data = await res.json();
@@ -59,7 +69,12 @@ export const addRating = createAsyncThunk(
 export const deleteRating = createAsyncThunk(
   "ratingSlice/deleteRating",
   async function ({ movieID }: { movieID: string }, { getState }) {
-    const { session_id } = (getState() as RootState).user;
+    const { session_id, guest_session_id } = (getState() as RootState).user;
+
+    const session_ID =
+      session_id !== null
+        ? `session_id=${session_id}`
+        : `guest_session_id=${guest_session_id}`;
 
     const options = {
       method: "DELETE",
@@ -75,7 +90,7 @@ export const deleteRating = createAsyncThunk(
     };
     try {
       const res = await fetch(
-        `https://api.themoviedb.org/3/movie/${movieID}/rating?session_id=${session_id}`,
+        `https://api.themoviedb.org/3/movie/${movieID}/rating?${session_ID}`,
         options
       );
       const data = await res.json();

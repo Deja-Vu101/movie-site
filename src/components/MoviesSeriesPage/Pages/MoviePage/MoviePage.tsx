@@ -50,8 +50,8 @@ const MoviePage = () => {
       dispatch(fetchActors({ id: id, mediaType: "movie" }));
       dispatch(fetchVideo({ id: id, mediaType: "movie" }));
       dispatch(fetchPhotos({ id: id, mediaType: "movie" }));
-      dispatch(fetchReviews({ id: id, mediaType: "movie" }));
       dispatch(fetchRating());
+      dispatch(fetchReviews({ id: id, mediaType: "movie" }));
       dispatch(fetchRecommendations({ id: id, mediaType: "movie" }));
     }
   }, [id]);

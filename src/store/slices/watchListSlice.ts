@@ -14,12 +14,18 @@ interface IWatchListState extends IMovieResponse {
 export const fetchWatchList = createAsyncThunk(
   "watchList/fetchWatchList",
   async function (mediaType: string, { getState }) {
-    const { session_id } = (getState() as RootState).user;
+    const { session_id, guest_session_id } = (getState() as RootState).user;
+
+    const session_ID =
+      session_id !== null
+        ? `session_id=${session_id}`
+        : `guest_session_id=${guest_session_id}`;
     try {
       const res = await axios.get(
-        `https://api.themoviedb.org/3/account/20246322/watchlist/${mediaType}?language=en-US&page=1&session_id=${session_id}&sort_by=created_at.asc`,
+        `https://api.themoviedb.org/3/account/20246322/watchlist/${mediaType}?language=en-US&page=1&${session_ID}&sort_by=created_at.asc`,
         options
       );
+
       return res.data;
     } catch (error) {
       console.error(error);
@@ -33,7 +39,12 @@ export const addToWatchlist = createAsyncThunk(
     { id, mediaType }: { id: number; mediaType: string },
     { getState }
   ) => {
-    const { session_id } = (getState() as RootState).user;
+    const { session_id, guest_session_id } = (getState() as RootState).user;
+
+    const session_ID =
+      session_id !== null
+        ? `session_id=${session_id}`
+        : `guest_session_id=${guest_session_id}`;
 
     const options = {
       method: "POST",
@@ -51,7 +62,7 @@ export const addToWatchlist = createAsyncThunk(
     };
 
     const response = await fetch(
-      `https://api.themoviedb.org/3/account/20246322/watchlist?session_id=${session_id}`,
+      `https://api.themoviedb.org/3/account/20246322/watchlist?${session_ID}`,
       options
     );
 
