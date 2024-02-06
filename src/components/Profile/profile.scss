@@ -398,8 +398,12 @@
 
 .ErrorMessage,
 .SuccessMessage {
-  margin-top: 10px;
+  font-size: 17px;
+  text-align: center;
   color: #ff3b30;
+  border: 1px solid red;
+  padding: 6px;
+  margin-bottom: 10px;
 }
 
 .InputWrapper {

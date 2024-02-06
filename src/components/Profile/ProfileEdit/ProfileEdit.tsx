@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   updateProfile,
   updateEmail,
@@ -33,7 +33,7 @@ const ProfileEdit: React.FC<IOwnProps> = ({ closeModal }) => {
   const [displayName, setDisplayName] = useState(name ? name : "");
   const [newEmail, setNewEmail] = useState(email ? email : "");
   const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [repeatedPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -51,7 +51,7 @@ const ProfileEdit: React.FC<IOwnProps> = ({ closeModal }) => {
     if (user) {
       try {
         await updateProfile(user, { displayName });
-        setSuccess("Profile updated successfully!");
+
         const updatedUser = {
           ...initialState,
           name: user.displayName,
@@ -62,6 +62,7 @@ const ProfileEdit: React.FC<IOwnProps> = ({ closeModal }) => {
           token: token,
         };
         dispatch(setUser(updatedUser));
+        setSuccess("Profile updated successfully!");
       } catch (error: any) {
         setError("Failed to update profile: " + error.message);
       }
@@ -98,7 +99,7 @@ const ProfileEdit: React.FC<IOwnProps> = ({ closeModal }) => {
 
         setSuccess("Email updated successfully!");
       } catch (error: any) {
-        setError("Failed to update email: " + error.message);
+        console.log(error, "error");
       }
     }
   };
@@ -107,55 +108,109 @@ const ProfileEdit: React.FC<IOwnProps> = ({ closeModal }) => {
     setError("");
     setSuccess("");
 
-    if (user && user.email) {
-      try {
-        await signOut(auth);
+    onAuthStateChanged(auth, async (user) => {
+      if (user && user.email) {
+        try {
+          await signOut(auth);
 
-        await updateEmail(user, newEmail);
-        const credentials = EmailAuthProvider.credential(
-          user.email,
-          confirmChangesPass
-        );
-        await reauthenticateWithCredential(user, credentials);
+          await updateEmail(user, newEmail);
+          const credentials = EmailAuthProvider.credential(
+            user.email,
+            confirmChangesPass
+          );
+          await reauthenticateWithCredential(user, credentials);
 
-        await updatePassword(user, newPassword);
+          await updatePassword(user, newPassword);
 
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          user.email,
-          newPassword
-        );
+          const userCredential = await signInWithEmailAndPassword(
+            auth,
+            user.email,
+            newPassword
+          );
 
-        const updatedUser = {
-          ...initialState,
-          name: userCredential.user.displayName,
-          email: user.email,
-          id: userCredential.user.uid,
-          createDate: userCredential.user.metadata.creationTime,
-          avatarURL: avatarURL,
-          token: token,
-        };
-        dispatch(setUser(updatedUser));
+          const updatedUser = {
+            ...initialState,
+            name: userCredential.user.displayName,
+            email: user.email,
+            id: userCredential.user.uid,
+            createDate: userCredential.user.metadata.creationTime,
+            avatarURL: avatarURL,
+            token: token,
+          };
+          dispatch(setUser(updatedUser));
 
-        navigate("/profile");
-        setSuccess("Password updated successfully!");
-      } catch (error: any) {
-        setError("Failed to update password: " + error.message);
+          navigate("/profile");
+          setSuccess("Password updated successfully!");
+        } catch (error: any) {
+          //if (error.message === "auth/wrong-password") {
+
+          //}
+          //setError("Failed to update password: Wrong password" + error.message);
+          setError("Failed to update password: Wrong password");
+        }
       }
-    }
+    });
   };
 
-  const saveAllChanges = () => {
-    if (newEmail !== email || newPassword !== "") {
-      if (confirmChanges) {
-        handleUpdateEmail();
-        handleUpdatePassword();
+  const saveAllChanges = async () => {
+    if (email !== newEmail) {
+      handleUpdateEmail();
+      setError("");
+    }
+    if (
+      newPassword !== "" ||
+      error === "Failed to update password: Wrong password"
+    ) {
+      if (newPassword === repeatedPassword) {
+        setConfirmChanges(true);
+        setError("");
+        await new Promise((resolve) => setTimeout(resolve, 0));
+        if (confirmChanges) {
+          handleUpdatePassword();
+          console.log("CHANGE PASSS");
+        }
+        //  setConfirmChanges(true);
+        //  setError("");
+        } else {
+          setError("Passwords do not match");
       }
-      setConfirmChanges(true);
-    } else {
+    }
+    if (displayName !== name) {
       handleUpdateProfile();
     }
   };
+
+  //const saveAllChanges = () => {
+  //  console.log("+++ saveAllChanges +++");
+  //  console.log(newEmail, "newEmail");
+  //  console.log(email, "email");
+  //  console.log(newPassword, "newPassword");
+  //  console.log(repeatedPassword, "repeatedPassword");
+
+  //  if (newEmail !== email || newPassword !== "") {
+  //    if (newPassword === repeatedPassword) {
+  //      if (confirmChanges) {
+  //        handleUpdateEmail();
+  //        handleUpdatePassword();
+  //        console.log("має обновитись");
+  //      }
+  //      setConfirmChanges(true);
+  //      setError("");
+  //    } else {
+  //      setError("Passwords do not match");
+  //    }
+  //  } else {
+  //    handleUpdateProfile();
+  //  }
+  //};
+
+  //const confirmSaveChanges = () => {
+  //  if (confirmChanges) {
+  //    //handleUpdateEmail();
+  //    handleUpdatePassword();
+  //    console.log("має обновитись");
+  //  }
+  //};
 
   useEffect(() => {
     if (user) {
@@ -172,9 +227,8 @@ const ProfileEdit: React.FC<IOwnProps> = ({ closeModal }) => {
       <div className="Edit_Wrapper">
         <AvatarUploader />
         <div className="Edit_Inputs">
-          {error && <p className="ErrorMessage">{error}</p>}
           {success && <p className="SuccessMessage">{success}</p>}
-
+          {error && <p className="ErrorMessage">Error: "{error}"</p>}
           <div className="InputWrapper">
             <label className="InputLabel">Display Name:</label>
             <div className="InputContainer">
@@ -214,7 +268,7 @@ const ProfileEdit: React.FC<IOwnProps> = ({ closeModal }) => {
             <label className="InputLabel">Repeat Password:</label>
             <input
               type="password"
-              value={confirmPassword}
+              value={repeatedPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="InputWrapper_Input"
             />
