@@ -47,19 +47,25 @@
   font-size: 20px;
   text-transform: uppercase;
 }
-
+.SectionMenu {
+  margin-bottom: 20px;
+}
 .TitleSite {
   width: 150px;
   margin: 0 auto;
   margin-bottom: 40px;
 }
 .DropMenu_NavBar {
-  font-size: 20px;
+  font-size: 18px;
 
   margin-top: 30px;
 
   .NavButton span {
-    margin-left: 30px;
+    margin-left: 35px;
+  }
+  .LoginButton {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1) !important;
   }
 
   .NavButton:hover {
@@ -76,5 +82,13 @@
     text-align: center;
     line-height: 1.5;
     margin-bottom: 10px;
+  }
+}
+.SectionProfile {
+  display: none;
+}
+@media (max-width: 339px) {
+  .SectionProfile {
+    display: block;
   }
 }
