@@ -17,7 +17,7 @@ const SliderSeries: React.FC<IOwnProps> = ({ title, items }) => {
     slidesToScroll: 3,
     responsive: [
       {
-        breakpoint: 1450,
+        breakpoint: 1199,
         settings: {
           slidesToShow: 4,
           slidesToScroll: 2,
@@ -28,7 +28,7 @@ const SliderSeries: React.FC<IOwnProps> = ({ title, items }) => {
         },
       },
       {
-        breakpoint: 1120,
+        breakpoint: 899,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 2,
@@ -38,10 +38,19 @@ const SliderSeries: React.FC<IOwnProps> = ({ title, items }) => {
         },
       },
       {
-        breakpoint: 860,
+        breakpoint: 599,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
+          initialSlide: 2,
+          arrows: false,
+        },
+      },
+      {
+        breakpoint: 300,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
           initialSlide: 2,
           arrows: false,
         },

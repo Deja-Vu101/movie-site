@@ -77,7 +77,10 @@
   @media (max-width: 520px) {
     max-width: 119px;
     padding: 5px 10px;
-    gap: 0px;
+    gap: 3px;
+  }
+  @media (max-width: 339px) {
+    display: none;
   }
 }
 

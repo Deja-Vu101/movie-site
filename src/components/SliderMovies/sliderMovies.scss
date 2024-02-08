@@ -1,10 +1,21 @@
+.Slider_Wrapper {
+  max-width: 1350px;
+}
 .SliderItem {
+  width: 100%;
+}
+
+.SliderItem_Container {
   position: relative;
+  width: 100%;
+  height: auto;
 }
 
 .SliderItem_Image {
-  width: inherit;
-  height: inherit;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
 }
 
 .Collection_Title {
@@ -20,17 +31,6 @@
   height: 5px;
   background-color: red;
   margin-bottom: 30px;
-}
-
-.SliderItem_Container {
-  position: relative;
-  width: 270px;
-  height: 430px;
-
-  @media (max-width: 600px) {
-    width: 170px;
-    height: 275px;
-  }
 }
 
 .SliderItem_Hover {
@@ -54,6 +54,7 @@
 
 .SliderItem:hover .SliderItem_Hover {
   opacity: 1;
+  display: block;
 }
 
 .SliderItem_Icon {
