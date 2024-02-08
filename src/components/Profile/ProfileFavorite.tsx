@@ -43,10 +43,11 @@ const ProfileFavorite = () => {
                 key={i.id}
                 poster={i.poster_path}
                 voteAverage={i.vote_average}
-                title={i.title}
-                release={i.release_date}
+                title={i.first_air_date ? i.name : i.title}
+                release={i.first_air_date ? i.first_air_date : i.release_date}
                 overview={i.overview}
                 id={i.id}
+                mediaType={i.first_air_date ? "tv" : "movie"}
               />
             ))
           )}

@@ -28,7 +28,7 @@ import { useAuth } from "../../../../hooks/useAuth";
 
 const MoviePage = () => {
   const dispatch = useTypedDispatch();
-  const { isAuth } = useAuth();
+  const mediaType = "movie";
   const id = useParams().id;
   const { results, loading } = useTypedSelector((state) => state.movie);
 
@@ -47,12 +47,12 @@ const MoviePage = () => {
   useEffect(() => {
     if (id) {
       dispatch(fetchMovie(id));
-      dispatch(fetchActors({ id: id, mediaType: "movie" }));
-      dispatch(fetchVideo({ id: id, mediaType: "movie" }));
-      dispatch(fetchPhotos({ id: id, mediaType: "movie" }));
+      dispatch(fetchActors({ id: id, mediaType: mediaType }));
+      dispatch(fetchVideo({ id: id, mediaType: mediaType }));
+      dispatch(fetchPhotos({ id: id, mediaType: mediaType }));
       dispatch(fetchRating());
-      dispatch(fetchReviews({ id: id, mediaType: "movie" }));
-      dispatch(fetchRecommendations({ id: id, mediaType: "movie" }));
+      dispatch(fetchReviews({ id: id, mediaType: mediaType }));
+      dispatch(fetchRecommendations({ id: id, mediaType: mediaType }));
     }
   }, [id]);
 
@@ -102,14 +102,14 @@ const MoviePage = () => {
                   <div className="Description_Overview">{results.overview}</div>
 
                   <div className="Description_Button">
-                    <FavoriteButton id={results.id} mediaType="movie" />
+                    <FavoriteButton id={results.id} mediaType={mediaType} />
                     {typeof id !== "undefined" && (
-                      <RatingSection movieID={id} />
+                      <RatingSection filmID={id} mediaType={mediaType} />
                     )}
 
                     <WatchNowBtn />
 
-                    <WatchListBtn id={results.id} mediaType="movie" />
+                    <WatchListBtn id={results.id} mediaType={mediaType} />
                   </div>
                   <div className="SliderActors">
                     <SliderActors items={actors.cast} title="Top Billed Cast" />
@@ -143,7 +143,7 @@ const MoviePage = () => {
                     setHandlePost={setHandlePost}
                     handlePost={handlePost}
                     reviewsFirebase={reviewsFirebase}
-                    mediaType="movie"
+                    mediaType={mediaType}
                   />
                 </div>
 

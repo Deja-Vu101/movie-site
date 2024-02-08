@@ -1,45 +1,31 @@
 import { useEffect } from "react";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
-import { fetchWatchList } from "../../store/slices/watchListSlice";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import ProfilePageItem from "./ProfilePageItem";
-import { useLocation } from "react-router-dom";
 import Header from "../Header/Header";
 import ProfileHeader from "./ProfileHeader";
+import ProfilePageItem from "./ProfilePageItem";
+import { fetchRating } from "../../store/slices/ratingSlice";
 
-const ProfileWatchlist = () => {
+const ProfileRatings = () => {
   const dispatch = useTypedDispatch();
-  const location = useLocation();
-
-  const mediaType =
-    location.pathname === "/profile/watchlist/movies" ? "movies" : "tv";
-
-  const {
-    loading: loadingWatchlist,
-    results: resultsWatchlist,
-    removedItem,
-  } = useTypedSelector((state) => state.watchList);
+  const { loading, results } = useTypedSelector((state) => state.rating);
 
   useEffect(() => {
-    dispatch(fetchWatchList(mediaType));
-  }, [mediaType]);
-
-  const resultsWithoutRemoved = resultsWatchlist.filter(
-    (item) => !removedItem.includes(item.id)
-  );
+    dispatch(fetchRating());
+  }, []);
   return (
     <>
       <Header />
       <ProfileHeader />
       <div className="Watchlist_Wrapper">
         <div className="Filter">
-          <div className="Title">My Watchlist</div>
+          <div className="Title">Ratings</div>
         </div>
         <div className="ProfilePage_Items">
-          {loadingWatchlist ? (
+          {loading ? (
             <h2>Loading...</h2>
           ) : (
-            resultsWithoutRemoved.map((i) => (
+            results.map((i) => (
               <ProfilePageItem
                 key={i.id}
                 poster={i.poster_path}
@@ -58,4 +44,4 @@ const ProfileWatchlist = () => {
   );
 };
 
-export default ProfileWatchlist;
+export default ProfileRatings;

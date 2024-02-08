@@ -4,15 +4,15 @@ import { FaMinusCircle } from "react-icons/fa";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import Rating from "@mui/material/Rating";
 import "./rating.scss";
-import { IRating } from "../../globalTypes/globalTypes";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { addRating, deleteRating } from "../../store/slices/ratingSlice";
 
 interface IOwnProps {
-  movieID: string;
+  filmID: string;
+  mediaType: string;
 }
 
-const RatingSection: React.FC<IOwnProps> = ({ movieID }) => {
+const RatingSection: React.FC<IOwnProps> = ({ filmID, mediaType }) => {
   const dispatch = useTypedDispatch();
   const { results } = useTypedSelector((state) => state.rating);
   const [isRating, setIsRating] = useState(false);
@@ -20,7 +20,13 @@ const RatingSection: React.FC<IOwnProps> = ({ movieID }) => {
   const [showRating, setShowRating] = useState(false);
 
   const handleRatingChange = (event: any, newValue: any) => {
-    dispatch(addRating({ movieID: movieID, newRating: newValue * 2 }));
+    dispatch(
+      addRating({
+        filmID: filmID,
+        mediaType,
+        newRating: newValue * 2,
+      })
+    );
     setRatedVideo(newValue * 2);
 
     setIsRating(true);
@@ -33,7 +39,7 @@ const RatingSection: React.FC<IOwnProps> = ({ movieID }) => {
   };
 
   const isRatingFunc = () => {
-    const ratedVideo = results.find((i) => i.id.toString() === movieID);
+    const ratedVideo = results.find((i) => i.id.toString() === filmID);
 
     setIsRating(ratedVideo !== undefined ? true : false);
 
@@ -41,7 +47,7 @@ const RatingSection: React.FC<IOwnProps> = ({ movieID }) => {
   };
 
   const deleteRatingFunc = () => {
-    dispatch(deleteRating({ movieID: movieID }));
+    dispatch(deleteRating({ filmID: filmID, mediaType }));
     setRatedVideo(0.0);
     setIsRating(false);
     setShowRating(false);
@@ -49,11 +55,11 @@ const RatingSection: React.FC<IOwnProps> = ({ movieID }) => {
 
   useEffect(() => {
     isRatingFunc();
-  }, [results, movieID]);
+  }, [results, filmID]);
 
   return (
     <div className="star-rating-container">
-      <span
+      <div
         className="star-icon"
         style={
           isRating
@@ -63,7 +69,7 @@ const RatingSection: React.FC<IOwnProps> = ({ movieID }) => {
         onClick={toggleRating}
       >
         <BsFillStarFill />
-      </span>
+      </div>
       <div className={`rating-table ${showRating ? "visible" : ""}`}>
         {showRating ? (
           <div style={{ display: "flex", alignItems: "center" }}>

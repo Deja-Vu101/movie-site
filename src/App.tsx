@@ -1,6 +1,7 @@
 import MoviePage from "./components/MoviesSeriesPage/Pages/MoviePage/MoviePage";
 import SeriesPage from "./components/MoviesSeriesPage/Pages/SeriesPage/SeriesPage";
 import ProfileFavorite from "./components/Profile/ProfileFavorite";
+import ProfileRatings from "./components/Profile/ProfileRatings";
 import ProfileWatchlist from "./components/Profile/ProfileWatchlist";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -27,6 +28,8 @@ function App() {
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/profile/favorite/movies" element={<ProfileFavorite />} />
       <Route path="/profile/favorite/series" element={<ProfileFavorite />} />
+
+      <Route path="/profile/ratings" element={<ProfileRatings />} />
 
       <Route path="/profile/watchlist/movies" element={<ProfileWatchlist />} />
       <Route path="/profile/watchlist/series" element={<ProfileWatchlist />} />

@@ -29,7 +29,7 @@ import { fetchSeries } from "../../../../store/slices/seriesSlice";
 
 const SeriesPage = () => {
   const dispatch = useTypedDispatch();
-  const { isAuth } = useAuth();
+  const mediaType = "tv";
   const id = useParams().id;
   const { results, loading } = useTypedSelector((state) => state.series);
 
@@ -48,12 +48,12 @@ const SeriesPage = () => {
   useEffect(() => {
     if (id) {
       dispatch(fetchSeries(id));
-      dispatch(fetchActors({ id: id, mediaType: "tv" }));
-      dispatch(fetchVideo({ id: id, mediaType: "tv" }));
-      dispatch(fetchPhotos({ id: id, mediaType: "tv" }));
-      dispatch(fetchReviews({ id: id, mediaType: "tv" }));
+      dispatch(fetchActors({ id: id, mediaType: mediaType }));
+      dispatch(fetchVideo({ id: id, mediaType: mediaType }));
+      dispatch(fetchPhotos({ id: id, mediaType: mediaType }));
+      dispatch(fetchReviews({ id: id, mediaType: mediaType }));
       dispatch(fetchRating());
-      dispatch(fetchRecommendations({ id: id, mediaType: "tv" }));
+      dispatch(fetchRecommendations({ id: id, mediaType: mediaType }));
     }
   }, [id]);
 
@@ -106,7 +106,7 @@ const SeriesPage = () => {
                   <div className="Description_Button">
                     <FavoriteButton id={results.id} mediaType="movie" />
                     {typeof id !== "undefined" && (
-                      <RatingSection movieID={id} />
+                      <RatingSection filmID={id} mediaType={mediaType} />
                     )}
 
                     <WatchNowBtn />

@@ -27,6 +27,7 @@
   }
 }
 .ItemPoster_Img {
+  cursor: pointer;
   width: inherit;
   height: inherit;
 }
@@ -42,6 +43,7 @@
 
 .Item_Title {
   font-size: 23px;
+  cursor: pointer;
 
   @media (max-width: 700px) {
     font-size: 19px;
@@ -81,11 +83,12 @@
   gap: 20px;
   margin-top: 10px;
 
-  .Button {
+  .Item_Button {
     display: flex;
+    align-items: center;
     gap: 5px;
-    font-size: inherit;
   }
+
   @media (max-width: 630px) {
     justify-content: center;
     font-size: 23px;
@@ -105,7 +108,14 @@
     display: none;
   }
 }
+.FavoriteButton {
+  display: flex;
+  align-items: center;
+  width: inherit;
+  gap: 5px;
+}
 .Button_Name {
+  color: white;
   @media (max-width: 440px) {
     display: none;
   }
@@ -232,6 +242,10 @@
   display: flex;
   gap: 20px;
   font-size: 16px;
+
+ li {
+  cursor: pointer;
+ }
 
   @media (max-width: 450px) {
     gap: 10px;

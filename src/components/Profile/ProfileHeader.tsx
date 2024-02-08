@@ -19,7 +19,7 @@ const ProfileHeader = () => {
   const [filterList, setFilterList] = useState("");
 
   const [showFavoritesMenu, setShowFavoritesMenu] = useState(false);
-  const { name, createDate, avatarURL, expires_at } = useTypedSelector(
+  const { name, avatarURL, expires_at } = useTypedSelector(
     (state) => state.user
   );
 
@@ -30,11 +30,12 @@ const ProfileHeader = () => {
   const [showWatchlistMenu, setShowWatchlistMenu] = useState(false);
 
   useEffect(() => {
-    const listTypeMap: { [key: string]: { path: string; type: string } } = {
+    const listTypeMap: { [key: string]: { path: string; type?: string } } = {
       "favorites-movies": { path: "/profile/favorite/movies", type: "movies" },
       "favorites-series": { path: "/profile/favorite/series", type: "tv" },
       "watchlist-movies": { path: "/profile/watchlist/movies", type: "movies" },
       "watchlist-series": { path: "/profile/watchlist/series", type: "tv" },
+      ratings: { path: "/profile/ratings" },
     };
 
     const selectedList = listTypeMap[filterList];
@@ -139,7 +140,7 @@ const ProfileHeader = () => {
               )}
             </li>
             <li>Lists</li>
-            <li>Ratings</li>
+            <li onClick={() => setFilterList("ratings")}>Ratings</li>
             <li
               className="watchlist-item"
               onMouseEnter={() => setShowWatchlistMenu(true)}

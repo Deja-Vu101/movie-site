@@ -7,7 +7,7 @@ import VoteAverage from "../Trending/VoteAverage";
 import "./profile.scss";
 import { GiCancel } from "react-icons/gi";
 import RatingSection from "../Rating/Rating";
-import { useState, useEffect } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 interface IOwnProps {
   poster: string;
@@ -16,6 +16,7 @@ interface IOwnProps {
   release: string;
   overview: string;
   id: number;
+  mediaType: string;
 }
 
 const ProfilePageItem: React.FC<IOwnProps> = ({
@@ -25,13 +26,21 @@ const ProfilePageItem: React.FC<IOwnProps> = ({
   release,
   overview,
   id,
+  mediaType,
 }) => {
   const dispatch = useTypedDispatch();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  console.log(pathname);
 
   const removeItem = (id: number) => {
     dispatch(removeItemWatchlist(id));
   };
 
+  const navigateToPage = () => {
+    navigate(`/${mediaType}/${id}`);
+  };
   return (
     <div className="ProfilePage_Item">
       <div className="ProfilePage_ItemWrapper">
@@ -40,6 +49,7 @@ const ProfilePageItem: React.FC<IOwnProps> = ({
             className="ItemPoster_Img"
             src={imgBaseUrl + poster}
             alt="Poster"
+            onClick={navigateToPage}
           />
         </div>
 
@@ -50,7 +60,9 @@ const ProfilePageItem: React.FC<IOwnProps> = ({
             </div>
 
             <div className="TitleAndRelease">
-              <span className="Item_Title">{title}</span>
+              <span className="Item_Title" onClick={navigateToPage}>
+                {title}
+              </span>
               <div className="Item_Release">
                 <FormatReleaseDate release={release} />
               </div>
@@ -65,26 +77,31 @@ const ProfilePageItem: React.FC<IOwnProps> = ({
           </div>
 
           <div className="Item_Buttons Main_Item_Buttons">
-            <div className="Button">
-              <RatingSection movieID={id.toString()} /> Your rating
+            <div className="Item_Button">
+              <RatingSection filmID={id.toString()} mediaType={mediaType} />{" "}
+              Your rating
             </div>
 
             <FavoriteButton id={id} title="Favorite" mediaType="" />
 
-            <div className="Button" onClick={() => removeItem(id)}>
-              <GiCancel />
-              Remove
+            <div className="Item_Button" onClick={() => removeItem(id)}>
+              {pathname !== "/profile/ratings" && (
+                <>
+                  <GiCancel />
+                  Remove
+                </>
+              )}
             </div>
           </div>
         </div>
       </div>
       <div className="Item_Buttons Adaptive_Item_Buttons">
         <div className="Button">
-          <RatingSection movieID={id.toString()} />{" "}
+          <RatingSection filmID={id.toString()} mediaType={mediaType} />{" "}
           <span className="Button_Name">Your rating</span>
         </div>
 
-        <FavoriteButton id={id} title="Favorite" mediaType="" />
+        <FavoriteButton id={id} title="Favorite" mediaType={mediaType} />
 
         <div className="Button" onClick={() => removeItem(id)}>
           <GiCancel />

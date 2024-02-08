@@ -44,15 +44,14 @@ const FavoriteButton: React.FC<IOwnProps> = ({ id, title, mediaType }) => {
   return (
     <div className="Button" onClick={handlerLike}>
       <div
+        className="FavoriteButton"
         style={{
           color: isFavorite ? "red" : "white",
-          width: "inherit",
         }}
       >
-        <AiFillHeart />{" "}
-        <span className="Button_Name" style={{ color: "white" }}>
-          {title}
-        </span>
+        <AiFillHeart />
+
+        <span className="Button_Name">{title}</span>
       </div>
     </div>
   );
