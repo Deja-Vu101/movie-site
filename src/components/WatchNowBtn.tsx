@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 interface IOwnProps {
   mediaType?: string;
-  id?: string;
+  id?: string | number;
 }
 
 const WatchNowBtn: React.FC<IOwnProps> = ({ id, mediaType }) => {

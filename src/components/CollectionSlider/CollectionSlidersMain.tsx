@@ -8,11 +8,9 @@ import "./collectionSlider.scss";
 import SliderSeries from "../SliderMovies/SliderSeries";
 import { fetchFavoriteList } from "../../store/slices/favoriteSlice";
 import { fetchWatchList } from "../../store/slices/watchListSlice";
-import { useAuth } from "../../hooks/useAuth";
 
 const CollectionSlidersMain: React.FC = () => {
   const dispatch = useTypedDispatch();
-  const { isGuest } = useAuth();
   const { page: pageMovies, results: resultsMovies } = useTypedSelector(
     (state) => state.popularMovies
   );

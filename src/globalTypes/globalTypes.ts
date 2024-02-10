@@ -264,7 +264,7 @@ export interface IRatingResponse {
 
 export interface IResponseRecommendations {
   page: number;
-  results: IRecommendation[];
+  results: IMovieAndSeries[];
   total_pages: number;
   total_results: number;
 }

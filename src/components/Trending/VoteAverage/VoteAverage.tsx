@@ -1,23 +1,18 @@
 import { CircularProgress, CircularProgressLabel } from "@chakra-ui/react";
-import './style.trendingslider.scss';
+import "./style.scss";
 
 interface IOwnProps {
   voteAverage: number;
 }
 const VoteAverage: React.FC<IOwnProps> = ({ voteAverage }) => {
   return (
-    <div
-      className="Vote"
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <div className="Vote">
       <CircularProgress value={(voteAverage / 10) * 100} color={"green"}>
-        <CircularProgressLabel style={{ fontSize: "15px", marginTop: "-4px" }}>
-          {voteAverage.toFixed(1)}
-        </CircularProgressLabel>
+        <div className="CircularProgressLabel">
+          <CircularProgressLabel fontSize={"14px"} marginTop={"-3px"}>
+            {voteAverage.toFixed(1)}
+          </CircularProgressLabel>
+        </div>
       </CircularProgress>
     </div>
   );

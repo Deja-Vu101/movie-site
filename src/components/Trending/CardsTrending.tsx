@@ -20,42 +20,7 @@ const CardsTrending = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1910,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: false,
-          display: "none",
-        },
-      },
-      {
-        breakpoint: 1250,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 900,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+
     afterChange: (currentSlide: number) => {
       setVisibleSlides((prev) => [...prev, currentSlide]);
     },
@@ -78,8 +43,6 @@ const CardsTrending = () => {
           />
         ))}
       </Slider>
-
-      <div className="imgFilter"></div>
     </div>
   );
 };

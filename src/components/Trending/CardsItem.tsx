@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import GenresList from "../Genres/GenresList";
-import VoteAverage from "./VoteAverage";
+import VoteAverage from "./VoteAverage/VoteAverage";
 import WatchNowBtn from "../WatchNowBtn";
 
 interface IOwnProps {
@@ -25,7 +25,14 @@ const CardsItem: React.FC<IOwnProps> = ({
 }) => {
   return (
     <div className="CardsItem">
-      <div className="CardsItem_img" style={{ backgroundImage: `url(${url})` }}>
+      <div className="CardsItem_Container">
+        <img
+          src={url}
+          alt="background image"
+          className="CardsItem_img"
+          loading="lazy"
+        />
+        <div className="imgFilter"></div>
         <div className="CardsItem_CenterContainer">
           <div className="CardsItem_LeftContent">
             <div

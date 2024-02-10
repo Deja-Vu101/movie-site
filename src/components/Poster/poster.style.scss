@@ -29,6 +29,8 @@
   }
 }
 .SliderItem_Icon {
+  cursor: pointer;
+
   @media (max-width: 899px) {
     display: none;
   }
@@ -48,4 +50,14 @@
   padding: 10px;
   font-size: 20px;
   background-color: rgba(0, 0, 0, 0.6);
+}
+.PosterHover_Title{
+  font-weight: 500;
+  margin-top: 10px;
+  cursor: pointer;
+  display: inline-block;
+}
+.PosterHover_Year{
+  font-size: 18px;
+  margin-top: 16px;
 }
