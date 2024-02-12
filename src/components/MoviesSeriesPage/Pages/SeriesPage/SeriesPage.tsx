@@ -6,7 +6,7 @@ import { useTypedDispatch } from "../../../../hooks/useTypedDispatch";
 import { fetchMovie } from "../../../../store/slices/movieSlice";
 import { useTypedSelector } from "../../../../hooks/useTypedSelector";
 import { imgBaseUrl } from "../../../../apiConfigs/tmdb";
-import VoteAverage from "../../../Trending/VoteAverage";
+import VoteAverage from "../../../Trending/VoteAverage/VoteAverage";
 import FavoriteButton from "../../../FavoriteButton/FavoriteButton";
 import WatchNowBtn from "../../../WatchNowBtn";
 import WatchListBtn from "../../../WatchListBtn/WatchListBtn";
@@ -109,7 +109,10 @@ const SeriesPage = () => {
                       <RatingSection filmID={id} mediaType={mediaType} />
                     )}
 
-                    <WatchNowBtn />
+                    <WatchNowBtn
+                      id={results.id}
+                      mediaType={mediaType}
+                    />
 
                     <WatchListBtn id={results.id} mediaType="movie" />
                   </div>
@@ -145,6 +148,7 @@ const SeriesPage = () => {
                     setHandlePost={setHandlePost}
                     handlePost={handlePost}
                     reviewsFirebase={reviewsFirebase}
+                    mediaType={mediaType}
                   />
                 </div>
 
@@ -152,6 +156,7 @@ const SeriesPage = () => {
                   <RecommendationSlider
                     title="You may also like"
                     items={recommendations}
+                    mediaType={mediaType}
                   />
                 </div>
               </div>

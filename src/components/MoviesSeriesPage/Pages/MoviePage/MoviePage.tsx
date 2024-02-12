@@ -6,7 +6,7 @@ import { useTypedDispatch } from "../../../../hooks/useTypedDispatch";
 import { fetchMovie } from "../../../../store/slices/movieSlice";
 import { useTypedSelector } from "../../../../hooks/useTypedSelector";
 import { imgBaseUrl } from "../../../../apiConfigs/tmdb";
-import VoteAverage from "../../../Trending/VoteAverage";
+import VoteAverage from "../../../Trending/VoteAverage/VoteAverage";
 import FavoriteButton from "../../../FavoriteButton/FavoriteButton";
 import WatchNowBtn from "../../../WatchNowBtn";
 import WatchListBtn from "../../../WatchListBtn/WatchListBtn";
@@ -24,7 +24,6 @@ import { fetchRating } from "../../../../store/slices/ratingSlice";
 import RatingSection from "../../../Rating/Rating";
 import { fetchRecommendations } from "../../../../store/slices/recommendationsSlice";
 import RecommendationSlider from "../../../Recommendation/RecommendationSlider";
-import { useAuth } from "../../../../hooks/useAuth";
 
 const MoviePage = () => {
   const dispatch = useTypedDispatch();
@@ -63,7 +62,8 @@ const MoviePage = () => {
       ) : (
         <>
           <Header />
-          <div className="BG">
+
+          <div className="MediaPage">
             <div className="Backdrop_Container">
               <div
                 className="BackDrop"
@@ -71,90 +71,139 @@ const MoviePage = () => {
                   backgroundImage: `url(${imgBaseUrl + results.backdrop_path})`,
                 }}
               ></div>
-              <div className="Continue_BackDrop"></div>
-            </div>
+              <div className="Continue_BackDrop">
+                <div className="MainSection_Wrapper">
+                  <div className="Description">
+                    <div className="Description_Wrapper">
+                      <div className="Description_Image">
+                        <img
+                          src={imgBaseUrl + results.poster_path}
+                          alt="Poster"
+                        />
+                      </div>
+                      <div className="Description_Body">
+                        <div className="Description_Title">
+                          {results.title} {results.release_date?.slice(0, 4)}
+                        </div>
+                        <div className="MovieVoteAndGenres">
+                          {results.vote_average ? (
+                            <VoteAverage voteAverage={results.vote_average} />
+                          ) : null}
 
-            <div className="Description">
-              <div className="Description_Wrapper">
-                <div className="Description_Image">
-                  <img src={imgBaseUrl + results.poster_path} alt="Poster" />
-                </div>
-                <div className="Description_Body">
-                  <div className="Description_Title">
-                    {results.title} {results.release_date?.slice(0, 4)}
-                  </div>
-                  <div className="MovieVoteAndGenres">
-                    {results.vote_average ? (
-                      <VoteAverage voteAverage={results.vote_average} />
-                    ) : null}
+                          <div className="Genre">
+                            <ul className="Genre_List">
+                              {results.genres?.map((genre, index) => (
+                                <li key={index} className="Genre_List_Item">
+                                  {genre.name}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
 
-                    <div className="Genre">
-                      <ul className="Genre_List">
-                        {results.genres?.map((genre, index) => (
-                          <li key={index} className="Genre_List_Item">
-                            {genre.name}
-                          </li>
-                        ))}
-                      </ul>
+                        <div className="Description_Overview">
+                          {results.overview}
+                        </div>
+
+                        <div className="Description_Button">
+                          <FavoriteButton
+                            id={results.id}
+                            mediaType={mediaType}
+                          />
+                          {typeof id !== "undefined" && (
+                            <RatingSection filmID={id} mediaType={mediaType} />
+                          )}
+
+                          <WatchNowBtn />
+
+                          <WatchListBtn id={results.id} mediaType={mediaType} />
+                        </div>
+                        <div className="SliderActors">
+                          <SliderActors
+                            items={actors.cast}
+                            title="Top Billed Cast"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="Description_Overview">{results.overview}</div>
+                  <div className="MainSectionVideo_Wrapper">
+                    <div className="Section">
+                      <div className="Collection_Title">Videos</div>
+                      <div className="Title_Decoration"></div>
+                      <VideosSwiper results={videos} />
+                    </div>
 
-                  <div className="Description_Button">
-                    <FavoriteButton id={results.id} mediaType={mediaType} />
-                    {typeof id !== "undefined" && (
-                      <RatingSection filmID={id} mediaType={mediaType} />
-                    )}
+                    <div className="Section">
+                      <PhotosSwiper photos={backdrops} title="Backdrops" />
+                    </div>
 
-                    <WatchNowBtn />
+                    <div className="Section SectionPoster">
+                      <PhotosSwiper photos={posters} title="Posters" />
+                    </div>
 
-                    <WatchListBtn id={results.id} mediaType={mediaType} />
-                  </div>
-                  <div className="SliderActors">
-                    <SliderActors items={actors.cast} title="Top Billed Cast" />
+                    <div className="Section">
+                      <Reviews
+                        reviews={reviews}
+                        movieId={id}
+                        setHandlePost={setHandlePost}
+                        handlePost={handlePost}
+                        reviewsFirebase={reviewsFirebase}
+                        mediaType={mediaType}
+                      />
+                    </div>
+
+                    <div className="Section">
+                      <RecommendationSlider
+                        title="You may also like"
+                        items={recommendations}
+                        mediaType={mediaType}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="MainSectionVideo">
-            <div className="MainSectionVideo_Container">
-              <div className="MainSectionVideo_Wrapper">
-                <div className="Section">
-                  <div className="Collection_Title">Videos</div>
-                  <div className="Title_Decoration"></div>
-                  <VideosSwiper results={videos} />
-                </div>
+            {/*<div className="MainSectionVideo">
+              <div className="MainSectionVideo_Container">
+                <div className="MainSectionVideo_Wrapper">
+                  <div className="Section">
+                    <div className="Collection_Title">Videos</div>
+                    <div className="Title_Decoration"></div>
+                    <VideosSwiper results={videos} />
+                  </div>
 
-                <div className="Section">
-                  <PhotosSwiper photos={backdrops} title="Backdrops" />
-                </div>
+                  <div className="Section">
+                    <PhotosSwiper photos={backdrops} title="Backdrops" />
+                  </div>
 
-                <div className="Section SectionPoster">
-                  <PhotosSwiper photos={posters} title="Posters" />
-                </div>
+                  <div className="Section SectionPoster">
+                    <PhotosSwiper photos={posters} title="Posters" />
+                  </div>
 
-                <div className="Section">
-                  <Reviews
-                    reviews={reviews}
-                    movieId={id}
-                    setHandlePost={setHandlePost}
-                    handlePost={handlePost}
-                    reviewsFirebase={reviewsFirebase}
-                    mediaType={mediaType}
-                  />
-                </div>
+                  <div className="Section">
+                    <Reviews
+                      reviews={reviews}
+                      movieId={id}
+                      setHandlePost={setHandlePost}
+                      handlePost={handlePost}
+                      reviewsFirebase={reviewsFirebase}
+                      mediaType={mediaType}
+                    />
+                  </div>
 
-                <div className="Section">
-                  <RecommendationSlider
-                    title="You may also like"
-                    items={recommendations}
-                  />
+                  <div className="Section">
+                    <RecommendationSlider
+                      title="You may also like"
+                      items={recommendations}
+                      mediaType={mediaType}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            </div>*/}
           </div>
         </>
       )}

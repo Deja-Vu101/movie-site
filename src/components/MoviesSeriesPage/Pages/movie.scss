@@ -1,7 +1,21 @@
+.MediaPage {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+.MediaPage::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
+  pointer-events: none;
+}
 .Backdrop_Container {
   display: flex;
 }
-
 .BackDrop {
   display: flex;
   width: 100%;
@@ -11,64 +25,42 @@
   background-repeat: no-repeat;
   position: fixed;
 }
-.BackDrop::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
-}
 .Continue_BackDrop {
+  margin-top: calc(30vh + 20vw);
   width: 100%;
+  //height: 3000px;
+  z-index: 5;
   background-color: black;
-  height: 50vh;
-  position: absolute;
-  bottom: 0;
-  z-index: 1;
-  display: flex;
-}
+  box-shadow: 0px -150px 100px rgba(0, 0, 0, 0.8);
 
-.Description {
-  max-width: 1334px;
+  @media screen and (max-width: 930px) {
+    margin-top: calc(50vh + 10vw);
+  }
+}
+.MainSection_Wrapper {
+  max-width: 1374px;
   margin: 0 auto;
-  min-height: 730px;
+  height: 1000px;
+}
+.Description {
   position: relative;
   z-index: 1;
-  margin-top: 360px;
+  margin-top: -310px;
+}
+.Description_Image {
+  max-width: 520px;
 
-  @media (max-width: 1199px) {
-    margin-top: 150px;
-  }
-  @media (max-width: 1000px) {
-    margin-top: 120px;
-  }
-  @media (max-width: 950px) {
-    margin-top: 210px;
+  @media screen and (max-width: 930px) {
+    margin: 0 auto;
   }
 }
 .Description img {
-  width: 520px;
-  height: 730px;
-
-  @media (max-width: 1199px) {
-    width: 454px;
-    height: 635px;
-  }
-
-  @media (max-width: 1000px) {
-    width: 367px;
-    height: 520px;
-  }
-
-  @media (max-width: 950px) {
-    width: 433px;
-    height: 606px;
-  }
-  @media (max-width: 490px) {
-    width: 267px;
-    height: 374px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 730px;
+  @media screen and (max-width: 930px) {
+    max-width: 450px;
+    max-height: 610px;
   }
 }
 
@@ -76,26 +68,30 @@
   display: flex;
   gap: 30px;
   margin: 0 20px 0 20px;
+
   @media (max-width: 1199px) {
     max-width: 1167px;
     justify-content: center;
   }
 
-  @media (max-width: 950px) {
+  @media (max-width: 930px) {
     flex-direction: column;
   }
 }
-.Description_Image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 .Description_Body {
+  display: flex;
+  flex-direction: column;
+  max-width: 780px;
+  min-width: 530px;
+
   @media (max-width: 1199px) {
     width: 550px;
   }
-  @media (max-width: 950px) {
+  @media (max-width: 930px) {
     width: 100%;
+    max-width: none;
+    min-width: 0;
   }
 }
 .Description_Title {
@@ -150,9 +146,13 @@
   margin-top: 40px;
   align-items: center;
   gap: 25px;
+  flex-wrap: wrap;
 
   @media (max-width: 600px) {
     justify-content: center;
+  }
+  @media screen and (max-width: 344px) {
+    flex-wrap: wrap-reverse;
   }
 }
 .btn_WatchNow {
@@ -166,35 +166,31 @@
   background-color: #ff0000;
   min-width: 64px;
   border-radius: 4px;
+  text-wrap: nowrap;
+
+  @media screen and (max-width: 344px) {
+    order: 2;
+  }
 }
 .MainSectionVideo {
   position: relative;
-  //height: 1000px;
   z-index: 8;
   background-color: black;
   padding-top: 10px;
 }
 
-.BG {
-  z-index: 7;
-  position: relative;
-}
-
 .SliderActors {
   margin-top: 40px;
-  width: 780px;
-  @media (max-width: 1199px) {
-    width: 550px;
-  }
-  @media (max-width: 950px) {
-    width: 100%;
+  width: 100%;
+
+  @media screen and (max-height: 400) {
+    height: 100%;
+    max-height: 325px;
   }
 }
 
 .MainSectionVideo {
   padding-top: 32px;
-  // background-color: orange;
-  // height: 735px;
 }
 
 .MainSectionVideo_Container {
@@ -209,7 +205,7 @@
   margin-top: 80px;
 }
 .Image {
-  width: 1000px; /* Заданий фіксований розмір */
+  width: 1000px;
   height: 750px;
   display: flex;
   justify-content: center;
@@ -230,8 +226,3 @@
   height: auto;
   object-fit: fill;
 }
-
-//.SectionPoster {
-//  height: 500px;
-//  width: 1334px;
-//}

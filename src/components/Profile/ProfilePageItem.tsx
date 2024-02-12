@@ -3,7 +3,7 @@ import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { removeItemWatchlist } from "../../store/slices/watchListSlice";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import FormatReleaseDate from "../FormatReleaseDate";
-import VoteAverage from "../Trending/VoteAverage";
+import VoteAverage from "../Trending/VoteAverage/VoteAverage";
 import "./profile.scss";
 import { GiCancel } from "react-icons/gi";
 import RatingSection from "../Rating/Rating";
