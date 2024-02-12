@@ -8,11 +8,14 @@ interface IOwnProps {
 
 const WatchNowBtn: React.FC<IOwnProps> = ({ id, mediaType }) => {
   const navigate = useNavigate();
+
+  const navigateToMediaPage = () => {
+    if (id && mediaType) {
+      navigate(`/${mediaType}/${id}`);
+    }
+  };
   return (
-    <div
-      className="btn_WatchNow"
-      onClick={() => navigate(`/${mediaType}/${id}`)}
-    >
+    <div className="btn_WatchNow" onClick={navigateToMediaPage}>
       <span
         style={{
           display: "flex",

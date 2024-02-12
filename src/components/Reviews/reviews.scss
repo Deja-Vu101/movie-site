@@ -59,7 +59,7 @@
 }
 .PostBtn:disabled {
   background-color: rgb(254, 33, 33);
-  color: #b5b5b5; 
+  color: #b5b5b5;
   cursor: not-allowed;
 }
 
@@ -129,7 +129,10 @@
   max-width: 100%;
   display: flex;
 }
-
+.Reviews_Text {
+  overflow: hidden;
+  width: 100%;
+}
 .Content {
   width: 100%;
 }

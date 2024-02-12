@@ -1,53 +1,66 @@
-#app {
-	height: 100%;
- }
- html,
- body {
-	position: relative;
-	height: 100%;
- }
- 
- body {
-	background: #eee;
-	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-	font-size: 14px;
-	color: #000;
-	margin: 0;
-	padding: 0;
- }
- 
- .swiper {
-	width: 100%;
-	height: 100%;
- }
- 
- .swiper-slide {
-	text-align: center;
-	font-size: 18px;
-	background: #fff;
- 
-	/* Center slide text vertically */
-	display: flex;
-	justify-content: center;
-	align-items: center;
- }
- 
- .swiper-slide img {
-	display: block;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
- }
- 
- .swiper-slide {
-	width: 60%;
- }
- 
- .swiper-slide:nth-child(2n) {
-	width: 40%;
- }
- 
- .swiper-slide:nth-child(3n) {
-	width: 20%;
- }
+.swiper-slide {
+  width: 90%;
 
+  @media screen and (max-width: 450px) {
+    width: 100%;
+  }
+}
+
+.PhotosSwiper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.PhotosSwiper .mySwiper {
+  width: 100%;
+  height: 100%;
+}
+
+.Image {
+  width: 100%;
+  height: 100%;
+}
+
+.Image_Content {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.SectionPoster {
+  width: 100%;
+  height: 100%;
+}
+.swiper-button-prev button {
+  position: absolute;
+  top: 0;
+  left: 5px;
+  transform: translateY(10%);
+  background: none;
+  color: red;
+  font-size: 40px;
+  z-index: 999;
+  height: 90%;
+}
+.swiper-button-next button {
+  position: absolute;
+  top: 0;
+  right: 5px;
+  transform: translateY(10%);
+  background: none;
+  color: red;
+  font-size: 40px;
+  z-index: 999;
+  height: 90%;
+}
+
+.SwiperButtons button{
+  @media screen and (max-width: 700px) {
+	transform: translateY(20%);
+    font-size: 30px;
+  }
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
+}

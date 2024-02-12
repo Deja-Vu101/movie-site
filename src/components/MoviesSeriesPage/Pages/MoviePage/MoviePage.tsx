@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import Header from "../../../Header/Header";
 import "../movie.scss";
-import { useEffect } from "react";
+import { HtmlHTMLAttributes, useEffect } from "react";
 import { useTypedDispatch } from "../../../../hooks/useTypedDispatch";
 import { fetchMovie } from "../../../../store/slices/movieSlice";
 import { useTypedSelector } from "../../../../hooks/useTypedSelector";
@@ -54,6 +54,15 @@ const MoviePage = () => {
       dispatch(fetchRecommendations({ id: id, mediaType: mediaType }));
     }
   }, [id]);
+
+  const handleClick = (event: any) => {
+    event.stopPropagation();
+    const sectionId = event.currentTarget.getAttribute("href").substring(1);
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <div>
@@ -114,7 +123,13 @@ const MoviePage = () => {
                             <RatingSection filmID={id} mediaType={mediaType} />
                           )}
 
-                          <WatchNowBtn />
+                          <a
+                            href="#video"
+                            className="MediaPage_WatchNowBtn"
+                            onClick={handleClick}
+                          >
+                            <WatchNowBtn />
+                          </a>
 
                           <WatchListBtn id={results.id} mediaType={mediaType} />
                         </div>
@@ -130,7 +145,9 @@ const MoviePage = () => {
 
                   <div className="MainSectionVideo_Wrapper">
                     <div className="Section">
-                      <div className="Collection_Title">Videos</div>
+                      <div id="video" className="Collection_Title">
+                        Video
+                      </div>
                       <div className="Title_Decoration"></div>
                       <VideosSwiper results={videos} />
                     </div>
@@ -165,45 +182,6 @@ const MoviePage = () => {
                 </div>
               </div>
             </div>
-
-            {/*<div className="MainSectionVideo">
-              <div className="MainSectionVideo_Container">
-                <div className="MainSectionVideo_Wrapper">
-                  <div className="Section">
-                    <div className="Collection_Title">Videos</div>
-                    <div className="Title_Decoration"></div>
-                    <VideosSwiper results={videos} />
-                  </div>
-
-                  <div className="Section">
-                    <PhotosSwiper photos={backdrops} title="Backdrops" />
-                  </div>
-
-                  <div className="Section SectionPoster">
-                    <PhotosSwiper photos={posters} title="Posters" />
-                  </div>
-
-                  <div className="Section">
-                    <Reviews
-                      reviews={reviews}
-                      movieId={id}
-                      setHandlePost={setHandlePost}
-                      handlePost={handlePost}
-                      reviewsFirebase={reviewsFirebase}
-                      mediaType={mediaType}
-                    />
-                  </div>
-
-                  <div className="Section">
-                    <RecommendationSlider
-                      title="You may also like"
-                      items={recommendations}
-                      mediaType={mediaType}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>*/}
           </div>
         </>
       )}

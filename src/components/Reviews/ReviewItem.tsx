@@ -67,7 +67,10 @@ const ReviewItem: React.FC<IOwnProps> = ({
         <div className="Reviews_Flex">
           <div className="Reviews_Content">
             {content?.length > 260 ? (
-              <span onClick={() => setIsHidden(!isHidden)}>
+              <span
+                className="Reviews_Text"
+                onClick={() => setIsHidden(!isHidden)}
+              >
                 {isHidden ? content?.slice(0, 260) + "..." : content}
                 <span className="Reviews_LoadMore">
                   {isHidden ? <MdExpandMore /> : <MdExpandLess />}

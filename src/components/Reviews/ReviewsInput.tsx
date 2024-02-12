@@ -16,7 +16,7 @@ const ReviewsInput: React.FC<IOwnProps> = ({ name, postReviews }) => {
   return (
     <div className="Reviews_Input">
       <div className="Reviews_Body">
-        <div className="Reviews_Name">{name}</div>
+        <div className="Reviews_Name">{name ? name : 'Guest'}</div>
         <div className="ReviewsArea">
           <textarea
             className="Area"
