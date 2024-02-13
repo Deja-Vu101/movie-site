@@ -76,7 +76,7 @@ const Reviews: React.FC<IOwnProps> = ({
             );
             setAvatarsUser(avatarObjects);
           } catch (error: any) {
-            console.error("Помилка при отриманні імен файлів:", error.message);
+            console.error("Error getting file names:", error.message);
           }
         } else {
           console.log("User is not authenticated");

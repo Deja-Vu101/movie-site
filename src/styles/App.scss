@@ -15,3 +15,9 @@
   cursor: pointer;
   background-color: rgba(255, 0, 0, 0.1);
 }
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

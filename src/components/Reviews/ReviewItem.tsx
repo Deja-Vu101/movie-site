@@ -71,7 +71,8 @@ const ReviewItem: React.FC<IOwnProps> = ({
                 className="Reviews_Text"
                 onClick={() => setIsHidden(!isHidden)}
               >
-                {isHidden ? content?.slice(0, 260) + "..." : content}
+                {isHidden ? content?.slice(0, 200) + "..." : content}
+
                 <span className="Reviews_LoadMore">
                   {isHidden ? <MdExpandMore /> : <MdExpandLess />}
                 </span>
@@ -79,6 +80,7 @@ const ReviewItem: React.FC<IOwnProps> = ({
             ) : (
               <span className="Content">{content}</span>
             )}
+
             {idUser === id ? (
               <div className="Reviews_Buttons">
                 <div className="Button_Delete" onClick={onClickDeleteReviews}>

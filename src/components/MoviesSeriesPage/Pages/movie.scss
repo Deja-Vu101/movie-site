@@ -147,11 +147,17 @@
   gap: 25px;
   flex-wrap: wrap;
 
+  .MediaPage_WatchNowBtn {
+    @media screen and (max-width: 344px) {
+      order: 2;
+    }
+  }
+
   @media (max-width: 600px) {
     justify-content: center;
   }
   @media screen and (max-width: 344px) {
-    flex-wrap: wrap-reverse;
+    flex-wrap: wrap;
   }
 }
 .btn_WatchNow {
@@ -166,10 +172,6 @@
   min-width: 64px;
   border-radius: 4px;
   text-wrap: nowrap;
-
-  @media screen and (max-width: 344px) {
-    order: 2;
-  }
 }
 .MainSectionVideo {
   position: relative;
@@ -228,4 +230,30 @@
 
 .MediaPage_WatchNowBtn:hover {
   color: white;
+}
+
+.animated-section {
+  scale: 0.8;
+  opacity: 0;
+  animation: fade-in linear forwards;
+  animation-timeline: view();
+  animation-range: 200px 500px;
+
+  @media (max-width: 930px) {
+    animation-range: 100px 500px;
+  }
+}
+@media screen and (min-width: 931px) {
+  .Description_Button + section {
+    scale: 1;
+    opacity: 1;
+    animation: none;
+  }
+}
+
+@keyframes fade-in {
+  to {
+    scale: 1;
+    opacity: 1;
+  }
 }

@@ -58,6 +58,7 @@ const PhotosSwiper: React.FC<IOwnProps> = ({ photos, title }) => {
         }
         modules={[Navigation]}
         className="mySwiper"
+        lazyPreloadPrevNext={1}
       >
         {photos.map((i) => (
           <SwiperSlide key={i.file_path}>

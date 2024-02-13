@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import Header from "../../../Header/Header";
 import "../movie.scss";
-import { HtmlHTMLAttributes, useEffect } from "react";
+import { useEffect } from "react";
 import { useTypedDispatch } from "../../../../hooks/useTypedDispatch";
 import { fetchMovie } from "../../../../store/slices/movieSlice";
 import { useTypedSelector } from "../../../../hooks/useTypedSelector";
@@ -42,6 +42,7 @@ const MoviePage = () => {
   );
 
   const [handlePost, setHandlePost] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -55,18 +56,18 @@ const MoviePage = () => {
     }
   }, [id]);
 
-  const handleClick = (event: any) => {
-    event.stopPropagation();
-    const sectionId = event.currentTarget.getAttribute("href").substring(1);
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
+  useEffect(() => {
+    if (!loading) {
+      setShowLoader(true);
+      setTimeout(() => {
+        setShowLoader(false);
+      }, 1000);
     }
-  };
+  }, [loading]);
 
   return (
     <div>
-      {loading ? (
+      {showLoader ? (
         <GlobalLoader />
       ) : (
         <>
@@ -123,61 +124,70 @@ const MoviePage = () => {
                             <RatingSection filmID={id} mediaType={mediaType} />
                           )}
 
-                          <a
-                            href="#video"
-                            className="MediaPage_WatchNowBtn"
-                            onClick={handleClick}
-                          >
+                          <a href="#video" className="MediaPage_WatchNowBtn">
                             <WatchNowBtn />
                           </a>
 
                           <WatchListBtn id={results.id} mediaType={mediaType} />
                         </div>
-                        <div className="SliderActors">
-                          <SliderActors
-                            items={actors.cast}
-                            title="Top Billed Cast"
-                          />
-                        </div>
+                        <section className="animated-section">
+                          <div className="SliderActors">
+                            <SliderActors
+                              items={actors.cast}
+                              title="Top Billed Cast"
+                            />
+                          </div>
+                        </section>
                       </div>
                     </div>
                   </div>
 
                   <div className="MainSectionVideo_Wrapper">
-                    <div className="Section">
-                      <div id="video" className="Collection_Title">
-                        Video
+                    <section className="animated-section">
+                      <div className="Section">
+                        <div id="video" className="Collection_Title">
+                          Video
+                        </div>
+                        <div className="Title_Decoration"></div>
+
+                        <VideosSwiper results={videos} />
                       </div>
-                      <div className="Title_Decoration"></div>
-                      <VideosSwiper results={videos} />
-                    </div>
+                    </section>
 
-                    <div className="Section">
-                      <PhotosSwiper photos={backdrops} title="Backdrops" />
-                    </div>
+                    <section className="animated-section">
+                      <div className="Section">
+                        <PhotosSwiper photos={backdrops} title="Backdrops" />
+                      </div>
+                    </section>
 
-                    <div className="Section SectionPoster">
-                      <PhotosSwiper photos={posters} title="Posters" />
-                    </div>
+                    <section className="animated-section">
+                      <div className="Section SectionPoster">
+                        <PhotosSwiper photos={posters} title="Posters" />
+                      </div>
+                    </section>
 
-                    <div className="Section">
-                      <Reviews
-                        reviews={reviews}
-                        movieId={id}
-                        setHandlePost={setHandlePost}
-                        handlePost={handlePost}
-                        reviewsFirebase={reviewsFirebase}
-                        mediaType={mediaType}
-                      />
-                    </div>
+                    <section className="animated-section">
+                      <div className="Section">
+                        <Reviews
+                          reviews={reviews}
+                          movieId={id}
+                          setHandlePost={setHandlePost}
+                          handlePost={handlePost}
+                          reviewsFirebase={reviewsFirebase}
+                          mediaType={mediaType}
+                        />
+                      </div>
+                    </section>
 
-                    <div className="Section">
-                      <RecommendationSlider
-                        title="You may also like"
-                        items={recommendations}
-                        mediaType={mediaType}
-                      />
-                    </div>
+                    <section className="animated-section">
+                      <div className="Section">
+                        <RecommendationSlider
+                          title="You may also like"
+                          items={recommendations}
+                          mediaType={mediaType}
+                        />
+                      </div>
+                    </section>
                   </div>
                 </div>
               </div>
