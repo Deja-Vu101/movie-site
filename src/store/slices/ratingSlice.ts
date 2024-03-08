@@ -32,7 +32,6 @@ export const fetchRating = createAsyncThunk<
     const seriesData = seriesRes.data.results;
 
     const ratingResults: IMovieAndSeries[] = [...moviesData, ...seriesData];
-    console.log(ratingResults, "ratingResults");
 
     return ratingResults;
   } catch (error) {

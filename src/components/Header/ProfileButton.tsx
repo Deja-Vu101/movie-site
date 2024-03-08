@@ -1,12 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { NavLink } from "react-router-dom";
-import { useTypedDispatch } from "../../hooks/useTypedDispatch";
-import { logout } from "../../store/slices/userSlice";
+import HeaderDropDownMenu from "./HeaderDropDownMenu";
 
 const ProfileButton = () => {
-  const dispatch = useTypedDispatch();
   const { name, isGuest } = useAuth();
   const [visibleHeaderMenu, setVisibleHeaderMenu] = useState(true);
   const headerProfileRef = useRef<HTMLDivElement | null>(null);
@@ -39,31 +36,7 @@ const ProfileButton = () => {
       </div>
       <div>{isGuest ? "Guest" : name}</div>
       {visibleHeaderMenu && (
-        <div className="DropdownMenu" style={{ width: dropdownWidth }}>
-          <ul className="DropdownMenu_List">
-            <NavLink className={"List_Item"} to={"/profile"}>
-              View profile
-            </NavLink>
-
-            <NavLink className={"List_Item"} to={"/profile/favorite/movies"}>
-              Favorite
-            </NavLink>
-
-            <NavLink className={"List_Item"} to={"/profile/watchlist/movies"}>
-              Watchlist
-            </NavLink>
-
-            {!isGuest && (
-              <NavLink className={"List_Item"} to={"/profile/edit"}>
-                Edit profile
-              </NavLink>
-            )}
-
-            <li onClick={() => dispatch(logout())}>
-              <span>{isGuest ? "Login" : "Logout"}</span>
-            </li>
-          </ul>
-        </div>
+        <HeaderDropDownMenu dropdownWidth={dropdownWidth} />
       )}
     </div>
   );

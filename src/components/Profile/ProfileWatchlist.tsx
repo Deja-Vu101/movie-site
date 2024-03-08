@@ -6,6 +6,7 @@ import ProfilePageItem from "./ProfilePageItem";
 import { useLocation } from "react-router-dom";
 import Header from "../Header/Header";
 import ProfileHeader from "./ProfileHeader";
+import Loader from "../Loaders/Loader/Loader";
 
 const ProfileWatchlist = () => {
   const dispatch = useTypedDispatch();
@@ -37,7 +38,7 @@ const ProfileWatchlist = () => {
         </div>
         <div className="ProfilePage_Items">
           {loadingWatchlist ? (
-            <h2>Loading...</h2>
+            <Loader />
           ) : (
             resultsWithoutRemoved.map((i) => (
               <ProfilePageItem

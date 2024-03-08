@@ -105,6 +105,7 @@ const ProfilePageItem: React.FC<IOwnProps> = ({
 
         <div className="Button" onClick={() => removeItem(id)}>
           <GiCancel />
+
           <span className="Button_Name">Remove</span>
         </div>
       </div>

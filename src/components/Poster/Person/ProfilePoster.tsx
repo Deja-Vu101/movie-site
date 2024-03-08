@@ -1,6 +1,6 @@
 import { imgBaseUrl } from "../../../apiConfigs/tmdb";
 import "../poster.style.scss";
-import PosterNotFound from "../../../assets/img/notfound.jpg";
+import PosterNotFound from "../../../assets/img/404MosterNotFound.jpg";
 
 interface IOwnProps {
   id: number;

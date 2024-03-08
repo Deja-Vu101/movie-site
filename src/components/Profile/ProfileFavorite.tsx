@@ -6,6 +6,7 @@ import { fetchFavoriteList } from "../../store/slices/favoriteSlice";
 import Header from "../Header/Header";
 import { useLocation } from "react-router-dom";
 import ProfileHeader from "./ProfileHeader";
+import Loader from "../Loaders/Loader/Loader";
 
 const ProfileFavorite = () => {
   const dispatch = useTypedDispatch();
@@ -36,7 +37,7 @@ const ProfileFavorite = () => {
         </div>
         <div className="ProfilePage_Items">
           {loading ? (
-            <h2>Loading...</h2>
+            <Loader />
           ) : (
             resultsWithoutRemoved.map((i) => (
               <ProfilePageItem

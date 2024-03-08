@@ -43,7 +43,9 @@ const WatchListBtn: React.FC<IOwnProps> = ({ id, mediaType }) => {
       onClick={() => saveToPlaylist(id)}
       style={{ color: isSave ? "rgb(146, 0, 146)" : "white" }}
     >
-      <BsFillBookmarksFill />
+      <div className="WatchListButton">
+        <BsFillBookmarksFill />
+      </div>
     </div>
   );
 };

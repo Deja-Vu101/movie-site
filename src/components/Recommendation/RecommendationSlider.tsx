@@ -64,7 +64,7 @@ const RecommendationSlider: React.FC<IOwnProps> = ({
   };
 
   return (
-    <div style={{ paddingBottom: "50px" }}>
+    <div style={{ paddingBottom: "140px" }}>
       <div className="Collection_Title">{title}</div>
       <div className="Title_Decoration"></div>
       <Slider {...settings}>

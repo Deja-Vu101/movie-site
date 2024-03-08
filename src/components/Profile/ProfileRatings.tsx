@@ -5,6 +5,7 @@ import Header from "../Header/Header";
 import ProfileHeader from "./ProfileHeader";
 import ProfilePageItem from "./ProfilePageItem";
 import { fetchRating } from "../../store/slices/ratingSlice";
+import Loader from "../Loaders/Loader/Loader";
 
 const ProfileRatings = () => {
   const dispatch = useTypedDispatch();
@@ -23,7 +24,7 @@ const ProfileRatings = () => {
         </div>
         <div className="ProfilePage_Items">
           {loading ? (
-            <h2>Loading...</h2>
+            <Loader />
           ) : (
             results.map((i) => (
               <ProfilePageItem

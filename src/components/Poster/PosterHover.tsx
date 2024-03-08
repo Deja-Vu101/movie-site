@@ -1,7 +1,6 @@
 import { HiMiniPlay } from "react-icons/hi2";
 import VoteAverage from "../Trending/VoteAverage/VoteAverage";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
-import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { useNavigate } from "react-router-dom";
 import WatchListBtn from "../WatchListBtn/WatchListBtn";
 
@@ -20,13 +19,12 @@ const PosterHover: React.FC<IOwnProps> = ({
   id,
   year,
 }) => {
-  const dispatch = useTypedDispatch();
-
   const navigate = useNavigate();
 
   const navigateToMediaPage = () => {
     navigate(`/${mediaType}/${id}`);
   };
+
   return (
     <div className="SliderItem_Hover">
       <div className="SliderItem_Icon" onClick={navigateToMediaPage}>
@@ -39,7 +37,7 @@ const PosterHover: React.FC<IOwnProps> = ({
         </div>
         <div className="Description_PosterWrapper">
           <div className="PosterHover_Year">{year}</div>
-          <div className="PosterHover_Title" onClick={navigateToMediaPage}>
+          <div className="PosterHover_Title truncate" onClick={navigateToMediaPage}>
             {ItemName}
           </div>
           <div className="Poster_Button">

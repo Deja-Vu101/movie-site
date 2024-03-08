@@ -46,7 +46,7 @@ const CardsItem: React.FC<IOwnProps> = ({
               <VoteAverage voteAverage={voteAverage} />
               <GenresList genres={genres} mediaType={mediaType} />
             </div>
-            <div className={`Overview ${isVisible ? "animated" : ""}`}>
+            <div className={`Overview  ${isVisible ? "animated" : ""}`}>
               {overview.length > 200
                 ? overview.slice(0, 200) + "..."
                 : overview}

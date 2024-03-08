@@ -1,6 +1,7 @@
 .Slider_Wrapper {
   max-width: 1350px;
 }
+
 .SliderItem {
   width: 100%;
 }
@@ -13,11 +14,14 @@
 
 .SliderItem_Image {
   display: block;
-  width: 100%;
   max-width: 100%;
   height: auto;
 }
 
+.SliderItem_Image {
+  width: 100%;
+  height: auto;
+}
 .Collection_Title {
   font-size: 24px;
   text-transform: uppercase;
@@ -95,7 +99,7 @@
   display: flex;
   flex-direction: column;
 }
-.Description_VoteAverage{
+.Description_VoteAverage {
   width: 70px;
 }
 .Description_PosterWrapper {

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import "./style.header.scss";
 import TitleSite from "./TitleSite";

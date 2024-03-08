@@ -1,7 +1,10 @@
 @import "./nullStyle.css";
 
-body{
-	font-family: 'Roboto', sans-serif;
-	background-color: rgba(0, 0, 0, 1);
-	color: white;
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: rgba(0, 0, 0, 1);
+  color: white;
+}
+html {
+  scroll-behavior: smooth;
 }
