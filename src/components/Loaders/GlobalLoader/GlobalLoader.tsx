@@ -5,14 +5,11 @@ import "./globalLoader.scss";
 
 const GlobalLoader: React.FC = () => {
   return (
-    <div
-      className="GlobalLoader"
-      style={{ display: "flex", flexDirection: "column" }}
-    >
+    <div className="GlobalLoader">
       <div className="GlobalLoader_Header">
         <Header />
       </div>
-      <div style={{ marginTop: "60px" }}>
+      <div className="LinearProgressLoader_Wrapper">
         <LinearProgress
           color="error"
           style={{ background: "#ff0000", height: "5px" }}

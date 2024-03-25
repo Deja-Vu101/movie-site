@@ -64,23 +64,27 @@ const RecommendationSlider: React.FC<IOwnProps> = ({
   };
 
   return (
-    <div style={{ paddingBottom: "140px" }}>
-      <div className="Collection_Title">{title}</div>
-      <div className="Title_Decoration"></div>
-      <Slider {...settings}>
-        {items.map((i) => (
-          <SliderItem
-            key={i.id}
-            id={i.id}
-            poster={i.poster_path}
-            voteAverage={i.vote_average}
-            year={i.first_air_date ? i.first_air_date : i.release_date}
-            ItemName={i.first_air_date ? i.name : i.title}
-            mediaType={mediaType}
-          />
-        ))}
-      </Slider>
-    </div>
+    <>
+      {items.length !== 0 && (
+        <div style={{ paddingBottom: "140px" }}>
+          <div className="Collection_Title">{title}</div>
+          <div className="Title_Decoration"></div>
+          <Slider {...settings}>
+            {items.map((i) => (
+              <SliderItem
+                key={i.id}
+                id={i.id}
+                poster={i.poster_path}
+                voteAverage={i.vote_average}
+                year={i.first_air_date ? i.first_air_date : i.release_date}
+                ItemName={i.first_air_date ? i.name : i.title}
+                mediaType={mediaType}
+              />
+            ))}
+          </Slider>
+        </div>
+      )}
+    </>
   );
 };
 

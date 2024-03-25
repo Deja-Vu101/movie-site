@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { IVideos } from "../../globalTypes/globalTypes";
 import "./style.scss";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
 
 interface IOwnProps {
@@ -18,8 +18,6 @@ const VideosSlider: React.FC<IOwnProps> = ({ results }) => {
     setPlayingVideo(videoKey);
   };
   const swiperVideo = useSwiper();
-
-  console.log(results);
 
   return (
     <div className="VideoSwiper">

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import GenresList from "../Genres/GenresList";
 import VoteAverage from "./VoteAverage/VoteAverage";
 import WatchNowBtn from "../WatchNowBtn";

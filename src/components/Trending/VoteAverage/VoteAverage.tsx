@@ -1,5 +1,4 @@
 import { CircularProgress, CircularProgressLabel } from "@chakra-ui/react";
-import "./style.scss";
 
 interface IOwnProps {
   voteAverage: number;

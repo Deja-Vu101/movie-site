@@ -37,7 +37,10 @@ const PosterHover: React.FC<IOwnProps> = ({
         </div>
         <div className="Description_PosterWrapper">
           <div className="PosterHover_Year">{year}</div>
-          <div className="PosterHover_Title truncate" onClick={navigateToMediaPage}>
+          <div
+            className="PosterHover_Title truncate"
+            onClick={navigateToMediaPage}
+          >
             {ItemName}
           </div>
           <div className="Poster_Button">

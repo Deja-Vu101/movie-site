@@ -92,7 +92,6 @@ export const deleteReviews = createAsyncThunk(
         await updateDoc(docRef, { results: newData });
 
         return newData;
-        //console.log(newData);
       }
     } catch (error: any) {
       console.error(error);

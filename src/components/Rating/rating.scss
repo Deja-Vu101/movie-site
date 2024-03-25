@@ -21,4 +21,18 @@
       display: block;
     }
   }
+
+  .RatingWrapper {
+    display: flex;
+    align-items: center;
+  }
+  .DeleteRating {
+    color: red;
+    font-size: 19px;
+    margin: 0 5px;
+  }
+
+  .DeleteRating:hover {
+    cursor: pointer;
+  }
 }

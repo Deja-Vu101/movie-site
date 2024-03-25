@@ -4,45 +4,31 @@ import React from "react";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import {
   addToFavoritelist,
-  removeItemFavorite,
-  removeItemBlacklist,
   fetchFavoriteList,
+  deleteFavoriteItem,
 } from "../../store/slices/favoriteSlice";
+import { AppDispatch } from "../../store";
 
 interface IOwnProps {
   id: number;
   title?: string;
-  mediaType: string;
+  mediaType: "movie" | "tv";
 }
 const FavoriteButton: React.FC<IOwnProps> = ({ id, title, mediaType }) => {
   const dispatch = useTypedDispatch();
-  const { results, removedItem } = useTypedSelector(
-    (state) => state.favoriteList
-  );
+  const { results } = useTypedSelector((state) => state.favoriteList);
 
-  const isFavorite =
-    results.some((item) => item.id === id) && !removedItem.includes(id);
+  const isFavorite = results.some((item) => item.id === id);
 
-  const handlerLike = () => {
+  const handlerLike = async (dispatch: AppDispatch) => {
     isFavorite
-      ? dispatch(removeItemFavorite(id))
-      : dispatch(addToFavoritelist({ id, mediaType: mediaType }))
-          .then((resultAction) => {
-            if (addToFavoritelist.fulfilled.match(resultAction)) {
-              dispatch(removeItemBlacklist(id));
-            }
-          })
-          .then(() =>
-            dispatch(
-              fetchFavoriteList(
-                mediaType === "movie" ? mediaType + "s" : mediaType
-              )
-            )
-          );
+      ? await dispatch(deleteFavoriteItem({ id: id, mediaType: mediaType }))
+      : await dispatch(addToFavoritelist({ id: id, mediaType: mediaType }));
+    dispatch(fetchFavoriteList());
   };
 
   return (
-    <div className="Button" onClick={handlerLike}>
+    <div className="Button" onClick={() => handlerLike(dispatch)}>
       <div
         className="FavoriteButton"
         style={{

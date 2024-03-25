@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsFillStarFill } from "react-icons/bs";
 import { FaMinusCircle } from "react-icons/fa";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -72,15 +72,8 @@ const RatingSection: React.FC<IOwnProps> = ({ filmID, mediaType }) => {
       </div>
       <div className={`rating-table ${showRating ? "visible" : ""}`}>
         {showRating ? (
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <span
-              style={{
-                color: "red",
-                fontSize: "19px",
-                marginLeft: "5px",
-                marginRight: "5px",
-              }}
-            >
+          <div className="RatingWrapper">
+            <span className="DeleteRating">
               <span onClick={deleteRatingFunc}>
                 <FaMinusCircle />
               </span>

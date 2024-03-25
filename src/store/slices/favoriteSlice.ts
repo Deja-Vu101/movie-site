@@ -1,6 +1,10 @@
 import { options } from "../../apiConfigs/tmdb";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IMovie, IMovieResponse } from "../../components/MainSection/types";
+import {
+  IMovie,
+  IMovieAndSeries,
+  IMovieResponse,
+} from "../../components/MainSection/types";
 import axios from "axios";
 import { RootState } from "..";
 
@@ -8,10 +12,12 @@ interface IFavoriteListState extends IMovieResponse {
   loading: boolean;
   error: null | string;
   removedItem: any;
+  typedFavoriteResults: IMovieAndSeries[];
+  typedFavoriteLoading: boolean;
 }
 export const fetchFavoriteList = createAsyncThunk(
   "favoriteList/fetchFavouriteList",
-  async function (mediaType: string, { getState }) {
+  async function (_, { getState }) {
     const { session_id, guest_session_id } = (getState() as RootState).user;
 
     const session_ID =
@@ -19,12 +25,18 @@ export const fetchFavoriteList = createAsyncThunk(
         ? `session_id=${session_id}`
         : `guest_session_id=${guest_session_id}`;
     try {
-      const res = await axios.get(
-        `https://api.themoviedb.org/3/account/20246322/favorite/${mediaType}?language=en-US&page=1&${session_ID}&sort_by=created_at.asc`,
-        options
-      );
+      const [movies, tv] = await Promise.all([
+        axios.get(
+          `https://api.themoviedb.org/3/account/20246322/favorite/movies?language=en-US&page=1&${session_ID}&sort_by=created_at.asc`,
+          options
+        ),
+        axios.get(
+          `https://api.themoviedb.org/3/account/20246322/favorite/tv?language=en-US&page=1&${session_ID}&sort_by=created_at.asc`,
+          options
+        ),
+      ]);
 
-      return res.data;
+      return [...movies.data.results, ...tv.data.results];
     } catch (error) {
       console.error(error);
     }
@@ -63,13 +75,67 @@ export const addToFavoritelist = createAsyncThunk(
       `https://api.themoviedb.org/3/account/20246322/favorite?${session_ID}`,
       options
     );
-
-    const data = await res.json();
-
-    return data;
   }
 );
 
+export const deleteFavoriteItem = createAsyncThunk(
+  "favouriteList/addToFavouritelist",
+  async (
+    { id, mediaType }: { id: number; mediaType: string },
+    { getState }
+  ) => {
+    const { session_id, guest_session_id } = (getState() as RootState).user;
+
+    const session_ID =
+      session_id !== null
+        ? `session_id=${session_id}`
+        : `guest_session_id=${guest_session_id}`;
+
+    const options = {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "content-type": "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZDhhZTMxNTM4YTY5NmJiYTJkNGE2ZmNiZmQwMTlhOSIsInN1YiI6IjY0Y2E3Y2JmZGQ4M2ZhMDEzOWRhZTM5ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YRbI_c1B40vA3ObEPz_nOejSEz0o5HV7FARlG0u3_EY",
+      },
+      body: JSON.stringify({
+        media_type: mediaType,
+        media_id: id,
+        favorite: false,
+      }),
+    };
+
+    await fetch(
+      `https://api.themoviedb.org/3/account/20246322/favorite?${session_ID}`,
+      options
+    );
+  }
+);
+export const fetchForTypeFavorite = createAsyncThunk<
+  IMovieResponse,
+  "movies" | "tv"
+>(
+  "favoriteList/fetchForTypeFavorite",
+  async function (mediaType, { getState }) {
+    const { session_id, guest_session_id } = (getState() as RootState).user;
+
+    const session_ID =
+      session_id !== null
+        ? `session_id=${session_id}`
+        : `guest_session_id=${guest_session_id}`;
+    try {
+      const res = await axios.get(
+        `https://api.themoviedb.org/3/account/20246322/favorite/${mediaType}?language=en-US&page=1&${session_ID}&sort_by=created_at.asc`,
+        options
+      );
+
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
 const storedFavoriteState = localStorage.getItem("favoriteState");
 const initialState: IFavoriteListState = storedFavoriteState
   ? JSON.parse(storedFavoriteState)
@@ -81,32 +147,14 @@ const initialState: IFavoriteListState = storedFavoriteState
       loading: false,
       error: null,
       removedItem: [],
+      typedFavoriteResults: [],
+      typedFavoriteLoading: false,
     };
 
 const favoriteList = createSlice({
   name: "favoriteList",
   initialState,
-  reducers: {
-    removeItemFavorite(state, action) {
-      const itemId = action.payload;
-      state.results = state.results.filter(
-        (item: IMovie) => item.id !== itemId
-      );
-      state.removedItem = [...state.removedItem, itemId];
-
-      localStorage.setItem("favoriteState", JSON.stringify(state));
-    },
-    removeItemBlacklist(state, action) {
-      const itemId = action.payload;
-      const itemIndex = state.removedItem.indexOf(itemId);
-
-      if (itemIndex !== -1) {
-        state.removedItem.splice(itemIndex, 1);
-
-        localStorage.setItem("favoriteState", JSON.stringify(state));
-      }
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchFavoriteList.pending, (state) => {
@@ -114,19 +162,23 @@ const favoriteList = createSlice({
       })
       .addCase(fetchFavoriteList.fulfilled, (state, action) => {
         state.loading = false;
-
-        state.page = action.payload.page;
-        state.results = action.payload.results;
-        state.total_pages = action.payload.total_pages;
-        state.total_results = action.payload.total_results;
-
-        localStorage.setItem("favoriteState", JSON.stringify(state));
+        state.results = action.payload ?? [];
       })
       .addCase(fetchFavoriteList.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(fetchForTypeFavorite.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchForTypeFavorite.fulfilled, (state, action) => {
+        state.loading = false;
+        state.typedFavoriteResults = action.payload.results;
+      })
+      .addCase(fetchForTypeFavorite.rejected, (state) => {
         state.loading = false;
       });
   },
 });
 
-export const { removeItemBlacklist, removeItemFavorite } = favoriteList.actions;
+export const {} = favoriteList.actions;
 export default favoriteList.reducer;

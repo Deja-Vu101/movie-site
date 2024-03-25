@@ -7,6 +7,7 @@ import ProfileHeader from "../components/Profile/ProfileHeader";
 import { useAuth } from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import ProfileRatings from "../components/Profile/ProfileRatings";
 
 const ProfilePage = () => {
   const { isAuth, isGuest } = useAuth();
@@ -22,6 +23,7 @@ const ProfilePage = () => {
       <div className="ProfilePage_Wrapper">
         {filterList === "watchlist" ? <ProfileWatchlist /> : null}
         {filterList === "favorite" ? <ProfileFavorite /> : null}
+        {filterList === "ratings" ? <ProfileRatings /> : null}
 
         <Outlet />
       </div>

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import ProfilePageItem from "./ProfilePageItem";
-import { fetchFavoriteList } from "../../store/slices/favoriteSlice";
+import { fetchForTypeFavorite } from "../../store/slices/favoriteSlice";
 import Header from "../Header/Header";
 import { useLocation } from "react-router-dom";
 import ProfileHeader from "./ProfileHeader";
@@ -15,17 +15,14 @@ const ProfileFavorite = () => {
   const mediaType =
     location.pathname === "/profile/favorite/movies" ? "movies" : "tv";
 
-  const { loading, results, removedItem } = useTypedSelector(
+  const { loading, typedFavoriteResults } = useTypedSelector(
     (state) => state.favoriteList
   );
 
   useEffect(() => {
-    dispatch(fetchFavoriteList(mediaType));
-  }, []);
+    dispatch(fetchForTypeFavorite(mediaType));
+  }, [mediaType]);
 
-  const resultsWithoutRemoved = results.filter(
-    (item) => !removedItem.includes(item.id)
-  );
   return (
     <>
       <Header />
@@ -39,7 +36,7 @@ const ProfileFavorite = () => {
           {loading ? (
             <Loader />
           ) : (
-            resultsWithoutRemoved.map((i) => (
+            typedFavoriteResults.map((i) => (
               <ProfilePageItem
                 key={i.id}
                 poster={i.poster_path}

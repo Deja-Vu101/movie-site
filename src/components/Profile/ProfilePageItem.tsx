@@ -7,7 +7,7 @@ import VoteAverage from "../Trending/VoteAverage/VoteAverage";
 import "./profile.scss";
 import { GiCancel } from "react-icons/gi";
 import RatingSection from "../Rating/Rating";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface IOwnProps {
   poster: string;
@@ -16,7 +16,7 @@ interface IOwnProps {
   release: string;
   overview: string;
   id: number;
-  mediaType: string;
+  mediaType: "movie" | "tv";
 }
 
 const ProfilePageItem: React.FC<IOwnProps> = ({
@@ -31,8 +31,6 @@ const ProfilePageItem: React.FC<IOwnProps> = ({
   const dispatch = useTypedDispatch();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
-  console.log(pathname);
 
   const removeItem = (id: number) => {
     dispatch(removeItemWatchlist(id));
@@ -82,7 +80,7 @@ const ProfilePageItem: React.FC<IOwnProps> = ({
               Your rating
             </div>
 
-            <FavoriteButton id={id} title="Favorite" mediaType="" />
+            <FavoriteButton id={id} title="Favorite" mediaType={mediaType} />
 
             <div className="Item_Button" onClick={() => removeItem(id)}>
               {pathname !== "/profile/ratings" && (

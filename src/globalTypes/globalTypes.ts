@@ -1,4 +1,4 @@
-import { IMovieAndSeries, ISeries } from "../components/MainSection/types";
+import { IMovieAndSeries } from "../components/MainSection/types";
 
 export interface CreateRequestToken {
   success: boolean;

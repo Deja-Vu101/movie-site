@@ -14,6 +14,9 @@ const ProfileRatings = () => {
   useEffect(() => {
     dispatch(fetchRating());
   }, []);
+
+  console.log(results, 'Result Rating');
+  
   return (
     <>
       <Header />

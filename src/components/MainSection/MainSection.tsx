@@ -1,4 +1,4 @@
-import  './mainSection.scss';
+import "./mainSection.scss";
 
 interface IOwnProps {
   children: React.ReactNode;

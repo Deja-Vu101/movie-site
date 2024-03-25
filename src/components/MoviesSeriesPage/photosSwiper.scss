@@ -55,9 +55,9 @@
   height: 90%;
 }
 
-.SwiperButtons button{
+.SwiperButtons button {
   @media screen and (max-width: 700px) {
-	transform: translateY(20%);
+    transform: translateY(20%);
     font-size: 30px;
   }
   @media screen and (max-width: 500px) {

@@ -4,12 +4,12 @@ import "./profile-statistics.scss";
 const ProfileStatistics = () => {
   return (
     <div className="Profile_Statistics">
-      <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
+      <div>
         <VoteAverageProfile />
         Average <br /> Movie Score
       </div>
 
-      <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
+      <div>
         <VoteAverageProfile voteAverage={0} />
         Average <br /> TV Score
       </div>

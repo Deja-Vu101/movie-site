@@ -142,10 +142,6 @@ const ProfileEdit: React.FC<IOwnProps> = ({ closeModal }) => {
           navigate("/profile");
           setSuccess("Password updated successfully!");
         } catch (error: any) {
-          //if (error.message === "auth/wrong-password") {
-
-          //}
-          //setError("Failed to update password: Wrong password" + error.message);
           setError("Failed to update password: Wrong password");
         }
       }
@@ -169,48 +165,14 @@ const ProfileEdit: React.FC<IOwnProps> = ({ closeModal }) => {
           handleUpdatePassword();
           console.log("CHANGE PASSS");
         }
-        //  setConfirmChanges(true);
-        //  setError("");
-        } else {
-          setError("Passwords do not match");
+      } else {
+        setError("Passwords do not match");
       }
     }
     if (displayName !== name) {
       handleUpdateProfile();
     }
   };
-
-  //const saveAllChanges = () => {
-  //  console.log("+++ saveAllChanges +++");
-  //  console.log(newEmail, "newEmail");
-  //  console.log(email, "email");
-  //  console.log(newPassword, "newPassword");
-  //  console.log(repeatedPassword, "repeatedPassword");
-
-  //  if (newEmail !== email || newPassword !== "") {
-  //    if (newPassword === repeatedPassword) {
-  //      if (confirmChanges) {
-  //        handleUpdateEmail();
-  //        handleUpdatePassword();
-  //        console.log("має обновитись");
-  //      }
-  //      setConfirmChanges(true);
-  //      setError("");
-  //    } else {
-  //      setError("Passwords do not match");
-  //    }
-  //  } else {
-  //    handleUpdateProfile();
-  //  }
-  //};
-
-  //const confirmSaveChanges = () => {
-  //  if (confirmChanges) {
-  //    //handleUpdateEmail();
-  //    handleUpdatePassword();
-  //    console.log("має обновитись");
-  //  }
-  //};
 
   useEffect(() => {
     if (user) {

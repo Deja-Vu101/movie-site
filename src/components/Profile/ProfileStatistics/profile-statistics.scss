@@ -13,4 +13,21 @@
     flex-direction: column;
     gap: 5px;
   }
+
+  div {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+}
+
+.Vote {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ProgresLabel_Number {
+  margin: 0 auto;
+  font-size: 16px;
 }

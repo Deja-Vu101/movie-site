@@ -29,13 +29,13 @@ const AvatarUploader = () => {
             await updateProfile(user, {
               photoURL: photoURL,
             });
-            console.log("Аватарка оновлена!");
+            console.log("The avatar has been updated!");
             dispatch(setUserAvatar(photoURL));
           } catch (error) {
-            console.error("Помилка при оновленні аватарки:", error);
+            console.error("Error updating avatar:", error);
           }
         } else {
-          console.log("Користувач не автентифікований.");
+          console.log("The user is not authenticated.");
         }
       });
     }
@@ -49,12 +49,6 @@ const AvatarUploader = () => {
     }
   };
 
-  const handleFileChange = (e: any) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      handleUpload(selectedFile);
-    }
-  };
   return (
     <div>
       <div className="Avatar_Wrapper">
@@ -80,8 +74,6 @@ const AvatarUploader = () => {
           onChange={(e: any) => handleUpload(e.target.files[0])}
         />
       </div>
-
-      {/*<button onClick={handleUpload}>Upload</button>*/}
     </div>
   );
 };

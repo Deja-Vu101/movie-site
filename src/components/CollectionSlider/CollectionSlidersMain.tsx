@@ -21,8 +21,7 @@ const CollectionSlidersMain: React.FC = () => {
   useEffect(() => {
     dispatch(fetchPopularMovie(pageMovies));
     dispatch(fetchPopularSeries(pageSeries));
-    dispatch(fetchFavoriteList("movies"));
-    dispatch(fetchFavoriteList("tv"));
+    dispatch(fetchFavoriteList());
     dispatch(fetchWatchList("movies"));
     dispatch(fetchWatchList("tv"));
   }, []);

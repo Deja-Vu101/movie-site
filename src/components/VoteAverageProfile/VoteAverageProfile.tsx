@@ -20,24 +20,19 @@ const VoteAverageProfile: React.FC<IOwnProps> = ({ voteAverage }) => {
   const averageValue = calculateAverage(valuesArray);
 
   return (
-    <div
-      className="Vote"
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <div className="Vote">
       <CircularProgress
         value={voteAverage === 0 ? (0 / 10) * 100 : (averageValue / 10) * 100}
         color={"green"}
       >
-        <CircularProgressLabel style={{ fontSize: "16px", marginTop: "-4px" }}>
-          {voteAverage === 0
-            ? voteAverage
-            : averageValue === 0.0
-            ? 0
-            : averageValue.toFixed(1)}
+        <CircularProgressLabel>
+          <span className="ProgresLabel_Number">
+            {voteAverage === 0
+              ? voteAverage
+              : averageValue === 0.0
+              ? 0
+              : averageValue.toFixed(1)}
+          </span>
         </CircularProgressLabel>
       </CircularProgress>
     </div>

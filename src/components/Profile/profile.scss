@@ -101,7 +101,6 @@
     gap: 35px;
     font-size: 30px;
   }
-
 }
 .Main_Item_Buttons {
   @media (max-width: 630px) {
@@ -228,9 +227,6 @@
   font-size: 40px;
   font-weight: 450;
   gap: 10px;
-
-  .Profile_MemberSince {
-  }
 
   .Name {
     @media (max-width: 520px) {
@@ -498,6 +494,6 @@
   right: 20px;
   cursor: pointer;
 }
-.RemoveButton{
+.RemoveButton {
   cursor: pointer;
 }
